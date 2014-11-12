@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head><title>It's ALIVE!!!</title></h:head>
+    <h:body>
+        <h:form>
+            <table>
+<!--                <tr>
+                    <td><h:outputLabel for="id" value="Id : " /></td>
+                    <td><p:inputText id="id" value="#{userMB.id}">
+                            <f:converter converterId="javax.faces.Integer"/>
+                            <p:ajax event="blur" update="idMsg" />
+                        </p:inputText>
+                        <p:message id="idMsg" for="id" display="icon"/>
+                    </td>
+                </tr>-->
+                <tr>
+                    <td><h:outputLabel for="firstname" value="First name : " /></td>
+                    <td><p:inputText id="firstname" value="#{userMB.firstname}">
+                            <f:validateLength minimum="5" />
+                            <p:ajax event="blur" update="firstnameMsg" />
+                        </p:inputText>
+                        <p:message id="firstnameMsg" for="firstname" display="icon"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h:outputLabel for="lastname" value="Last name : " /></td>
+                    <td><p:inputText id="lastname" value="#{userMB.lastname}">
+                            <f:validateLength minimum="5" />
+                            <p:ajax event="blur" update="lastnameMsg" />
+                        </p:inputText>
+                        <p:message id="lastnameMsg" for="lastname" display="icon"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h:outputLabel for="username" value="Username : " /></td>
+                    <td><p:inputText id="username" value="#{userMB.username}">
+                            <f:validateLength minimum="5" />
+                            <p:ajax event="blur" update="usernameMsg" />
+                        </p:inputText>
+                        <p:message id="usernameMsg" for="username" display="icon"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p:commandButton id="add" value="Add" action="#{userMB.add()}" ajax="false"/></td>
+                    <td><p:commandButton id="reset" value="Reset" action="#{userMB.reset()}" ajax="false"/></td>
+                </tr>
+            </table>
+        </h:form>
+<!--        <p>
+            #{userController.userInformation.toString()}
+        </p>-->
+    </h:body>
+</html>
+
