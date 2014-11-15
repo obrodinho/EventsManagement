@@ -20,16 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 @Scope("request")
+@RequestMapping("/User")
 public class UserController {
 
     @Autowired
     private UserService uService;
-
-    public User getUserInformation() {
-
-        return uService.getUserDetails();
-
-    }
 
     public void setuService(final UserService uService) {
 
@@ -37,16 +32,8 @@ public class UserController {
 
     }
 
-    @RequestMapping("/add")
-    public String addUser() {
-        String page = "add";
-        return page;
-    }
-
-    @RequestMapping("/greeting")
-    public String greeting(@RequestParam(value = "name", required = false, defaultValue = "World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "greeting";
+    public UserService getuService() {
+        return uService;
     }
 
 }

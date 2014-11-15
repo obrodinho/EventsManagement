@@ -1,5 +1,6 @@
 org/consultjr/mvc/managedController/UserManagedBean.class
 org/consultjr/mvc/service/UserService.class
+org/consultjr/mvc/controller/IndexController.class
 org/consultjr/mvc/controller/UserController.class
 org/consultjr/mvc/controller/HelloWorldController.class
 org/consultjr/mvc/dao/UserDAO.class

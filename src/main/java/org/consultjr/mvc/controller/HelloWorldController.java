@@ -15,12 +15,18 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author rgcs
  */
 @Controller
+@RequestMapping("/Hello")
 public class HelloWorldController {
 
-    @RequestMapping("/hello")
+    @RequestMapping("")
+    public String index() {
+        return "Hello/index";
+    }
+
+    @RequestMapping("/sayHello")
     public String hello(@RequestParam(value = "name", required = false, defaultValue = "World") String name, Model model) {
         model.addAttribute("name", name);
-        return "index";
+        return "Hello/say-hello";
     }
 
 }
