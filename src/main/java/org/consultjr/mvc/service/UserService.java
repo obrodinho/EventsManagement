@@ -12,26 +12,21 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * User Service
  *
- * @author uday
- * @since 19 Nov 2013
- * @version 1.0.0
- *
- *
+ * @author rgcs
  */
-@Service("UserService")
-@Transactional(readOnly = true)
+@Service
+@Transactional
 public class UserService {
 
     // UserDAO is injected...
     @Autowired
-    UserDAO userDAO;
+    private UserDAO userDAO;
 
     /**
      * Add User
      *
      * @param user User
      */
-    @Transactional(readOnly = false)
     public void addUser(User user) {
         getUserDAO().addUser(user);
     }
@@ -41,7 +36,6 @@ public class UserService {
      *
      * @param user User
      */
-    @Transactional(readOnly = false)
     public void deleteUser(User user) {
         getUserDAO().deleteUser(user);
     }
@@ -51,7 +45,6 @@ public class UserService {
      *
      * @param user User
      */
-    @Transactional(readOnly = false)
     public void updateUser(User user) {
         getUserDAO().updateUser(user);
     }
@@ -107,8 +100,4 @@ public class UserService {
         return u;
     }
     
-    @Autowired
-    public String greeting(String name){
-    return name;
-    }
 }

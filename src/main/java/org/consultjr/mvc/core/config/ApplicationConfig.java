@@ -6,13 +6,17 @@
 package org.consultjr.mvc.core.config;
 
 import java.util.Properties;
+import javax.annotation.Resource;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -26,12 +30,15 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
  * @author rgcs
  */
 @Configuration //Marks this class as configuration
+@EnableTransactionManagement
 //Specifies which package to scan
-@ComponentScan("org.consultjr.mvc.controller")
+@ComponentScan("org.consultjr.mvc")
 //Enables Spring's annotations
 @EnableWebMvc
 public class ApplicationConfig extends WebMvcConfigurerAdapter {
 
+    @Resource
+    private Environment env;
     private Properties properties = new Properties();
     private Properties hibernateProperties = new Properties();
     /*
@@ -65,7 +72,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
         hibernateProperties.setProperty("hibernate.show_sql", "true");
         hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
-        hibernateProperties.setProperty("hibernate.current_session_context_class", "thread");
+        hibernateProperties.setProperty("hibernate.current_session_context_class", "org.springframework.orm.hibernate4.SpringSessionContext");
     }
 
     @Bean
@@ -80,7 +87,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
     public DriverManagerDataSource setupDatasource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setDriverClassName(properties.getProperty("jdbc.driverClassName"));
         dataSource.setUrl(properties.getProperty("jdbc.url"));
         dataSource.setUsername(properties.getProperty("jdbc.username"));
         dataSource.setPassword(properties.getProperty("jdbc.password"));
@@ -93,9 +100,17 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(setupDatasource());
         sessionFactory.setAnnotatedPackages("org.consultjr.mvc.model");
+        sessionFactory.setPackagesToScan("org.consultjr.mvc.model");
         sessionFactory.setHibernateProperties(hibernateProperties);
         sessionFactory.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
         return sessionFactory;
+    }
+
+    @Bean
+    public HibernateTransactionManager transactionManager() {
+        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+        transactionManager.setSessionFactory(setupSessionFactory().getObject());
+        return transactionManager;
     }
 
     @Bean

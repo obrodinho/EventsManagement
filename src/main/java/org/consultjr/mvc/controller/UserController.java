@@ -5,14 +5,17 @@
  */
 package org.consultjr.mvc.controller;
 
+import java.util.List;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -24,16 +27,61 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
 
     @Autowired
-    private UserService uService;
+    private UserService userService;
 
-    public void setuService(final UserService uService) {
-
-        this.uService = uService;
-
+    @RequestMapping("") // Index Method: => /PROJECT/User
+    public ModelAndView index() {
+        return this.allUsers();
     }
 
-    public UserService getuService() {
-        return uService;
+    @RequestMapping(value = "/add", method = RequestMethod.GET) // GET: /PROJECT/User/add
+    public ModelAndView add() {
+        ModelAndView modelAndView = new ModelAndView("User/_form");
+        modelAndView.addObject("user", new User());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST) // Save Method: POST /PROJECT/User/add
+    public ModelAndView addUser(@ModelAttribute User user) {
+        ModelAndView modelAndView = new ModelAndView("User/_form");
+        userService.addUser(user);
+        String message = "User was succesfully added";
+        modelAndView.addObject("message", message);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public ModelAndView update(@PathVariable Integer id) {
+        ModelAndView modelAndView = new ModelAndView("User/_form");
+        User user = userService.getUserById(id);
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public ModelAndView updateUser(@ModelAttribute User user, @PathVariable Integer id) {
+        ModelAndView modelAndView = new ModelAndView("User/_list");
+        userService.updateUser(user);
+        String message = "User was successfully edited.";
+        modelAndView.addObject("message", message);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteUser(@PathVariable Integer id) {
+        ModelAndView modelAndView = new ModelAndView("User/_list");
+        userService.deleteUser(userService.getUserById(id));
+        String message = "User was successfully deleted.";
+        modelAndView.addObject("message", message);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/all")
+    public ModelAndView allUsers() {
+        ModelAndView modelAndView = new ModelAndView("User/_list");
+        List<User> users = userService.getUsers();
+        modelAndView.addObject("users", users);
+        return modelAndView;
     }
 
 }

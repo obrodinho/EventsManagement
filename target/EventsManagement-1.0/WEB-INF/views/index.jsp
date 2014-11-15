@@ -9,9 +9,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Events Management - JSP version</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Testing Basic Operations</h1>
+        <h2>User</h2>
+        <ol>
+            <li><a href="${pageContext.request.contextPath}/User/all">List</a></li> 
+            <li><a href="${pageContext.request.contextPath}/User/add">Create</a></li>
+        </ol>
     </body>
 </html>

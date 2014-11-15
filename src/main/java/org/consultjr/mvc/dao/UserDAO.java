@@ -5,8 +5,10 @@
  */
 package org.consultjr.mvc.dao;
 
+import java.util.Iterator;
 import java.util.List;
 import org.consultjr.mvc.model.User;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -28,12 +30,20 @@ public class UserDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public UserDAO() {
-        Configuration configuration = new Configuration().addAnnotatedClass(User.class).configure();
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
-        StandardServiceRegistryBuilder toBuild = builder.applySettings(configuration.getProperties());
-
-        sessionFactory = configuration.buildSessionFactory(toBuild.build());
+//    public UserDAO() {
+//        Configuration configuration = new Configuration().addAnnotatedClass(User.class).configure();
+//        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
+//        StandardServiceRegistryBuilder toBuild = builder.applySettings(configuration.getProperties());
+//
+//        sessionFactory = configuration.buildSessionFactory(toBuild.build());
+//    }
+    /**
+     * Get Hibernate Current Session
+     *
+     * @return
+     */
+    private Session getCurrentSession() {
+        return sessionFactory.getCurrentSession();
     }
 
     /**
@@ -62,10 +72,8 @@ public class UserDAO {
      */
     @Transactional
     public void addUser(User user) {
-        Transaction tx = getSessionFactory().getCurrentSession().beginTransaction();
         getSessionFactory().getCurrentSession().save(user);
-        getSessionFactory().getCurrentSession().flush();
-        tx.commit();
+
     }
 
     /**
@@ -75,10 +83,8 @@ public class UserDAO {
      */
     @Transactional
     public void deleteUser(User user) {
-        Transaction tx = getSessionFactory().getCurrentSession().beginTransaction();
         getSessionFactory().getCurrentSession().delete(user);
-        getSessionFactory().getCurrentSession().flush();
-        tx.commit();
+
     }
 
     /**
@@ -88,10 +94,7 @@ public class UserDAO {
      */
     @Transactional
     public void updateUser(User user) {
-        Transaction tx = getSessionFactory().getCurrentSession().beginTransaction();
-        getSessionFactory().getCurrentSession().update(user);
-        getSessionFactory().getCurrentSession().flush();
-        tx.commit();
+        getSessionFactory().getCurrentSession().update(user);        
     }
 
     /**
@@ -102,12 +105,9 @@ public class UserDAO {
      */
     @Transactional
     public User getUserById(int id) {
-        Transaction tx = getSessionFactory().getCurrentSession().beginTransaction();
         List list = getSessionFactory().getCurrentSession()
                 .createQuery("from User  where id=?")
                 .setParameter(0, id).list();
-        getSessionFactory().getCurrentSession().flush();
-        tx.commit();
         return (User) list.get(0);
     }
 
@@ -118,10 +118,13 @@ public class UserDAO {
      */
     @Transactional
     public List<User> getUsers() {
-        Transaction tx = getSessionFactory().getCurrentSession().beginTransaction();
-        List list = getSessionFactory().getCurrentSession().createQuery("from  User").list();
-        getSessionFactory().getCurrentSession().flush();
-        tx.commit();
+        List list = getCurrentSession().createQuery("from User").list();
+        System.out.print(list.size());
+        for (Iterator u = list.iterator(); u.hasNext();) {
+            System.out.println(u);                    
+            
+            Object next = u.next();
+        }
         return list;
     }
 
