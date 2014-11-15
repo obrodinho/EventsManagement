@@ -1,5 +1,8 @@
+/home/rgcs/public_html/org.consultjr.EventsManagement/src/main/java/org/consultjr/mvc/controller/HelloWorldController.java
 /home/rgcs/public_html/org.consultjr.EventsManagement/src/main/java/org/consultjr/mvc/dao/UserDAO.java
-/home/rgcs/public_html/org.consultjr.EventsManagement/src/main/java/org/consultjr/mvc/service/UserService.java
 /home/rgcs/public_html/org.consultjr.EventsManagement/src/main/java/org/consultjr/mvc/controller/UserController.java
+/home/rgcs/public_html/org.consultjr.EventsManagement/src/main/java/org/consultjr/mvc/service/UserService.java
+/home/rgcs/public_html/org.consultjr.EventsManagement/src/main/java/org/consultjr/spring/config/ApplicationConfig.java
 /home/rgcs/public_html/org.consultjr.EventsManagement/src/main/java/org/consultjr/mvc/managedController/UserManagedBean.java
 /home/rgcs/public_html/org.consultjr.EventsManagement/src/main/java/org/consultjr/mvc/model/User.java
+/home/rgcs/public_html/org.consultjr.EventsManagement/src/main/java/org/consultjr/spring/config/ApplicationInitializer.java

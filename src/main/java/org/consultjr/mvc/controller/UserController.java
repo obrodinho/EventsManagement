@@ -10,6 +10,9 @@ import org.consultjr.mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -20,7 +23,6 @@ import org.springframework.stereotype.Controller;
 public class UserController {
 
     @Autowired
-
     private UserService uService;
 
     public User getUserInformation() {
@@ -33,6 +35,18 @@ public class UserController {
 
         this.uService = uService;
 
+    }
+
+    @RequestMapping("/add")
+    public String addUser() {
+        String page = "add";
+        return page;
+    }
+
+    @RequestMapping("/greeting")
+    public String greeting(@RequestParam(value = "name", required = false, defaultValue = "World") String name, Model model) {
+        model.addAttribute("name", name);
+        return "greeting";
     }
 
 }

@@ -106,4 +106,9 @@ public class UserService {
 
         return u;
     }
+    
+    @Autowired
+    public String greeting(String name){
+    return name;
+    }
 }
