@@ -4,6 +4,7 @@
     Author     : rgcs
 --%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri='http://java.sun.com/jstl/core' prefix='c' %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,24 +14,27 @@
     </head>
     <body>
         <h1>Create and Update users on this page</h1>
-        <form:form method="POST" commandName="user" action="${pageContext.request.contextPath}/User/add">
+        <div>
+            ${message}
+        </div>
+        <form:form method="POST" commandName="user" action="${pageContext.request.contextPath}/User/${empty userID ? action : action.concat('/').concat(userID)}">
+            <input type="hidden" value="${userID}" >
             <table>
                 <tbody>
                     <tr>
-                        <td>Name:</td>
+                        <td>First name:</td>
                         <td><form:input path="firstname" /></td>
                     </tr>
                     <tr>
-                        <td>Type:</td>
+                        <td>Last name:</td>
                         <td><form:input path="lastname" /></td>
                     </tr>
                     <tr>
-                        <td>Type:</td>
+                        <td>Username:</td>
                         <td><form:input path="username" /></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="Add" /></td>
-                        <td></td>
+                        <td><input type="submit" value="${empty userID ? "Add" : "Save"}" /></td>
                     </tr>
                 </tbody>
             </table>

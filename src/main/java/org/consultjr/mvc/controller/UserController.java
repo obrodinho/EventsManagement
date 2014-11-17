@@ -37,7 +37,11 @@ public class UserController {
     @RequestMapping(value = "/add", method = RequestMethod.GET) // GET: /PROJECT/User/add
     public ModelAndView add() {
         ModelAndView modelAndView = new ModelAndView("User/_form");
+        User user = new User();
         modelAndView.addObject("user", new User());
+        modelAndView.addObject("action", "add");
+        modelAndView.addObject("userID", user.getId());
+        //modelAndView.addObject("userID", "");
         return modelAndView;
     }
 
@@ -55,12 +59,14 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("User/_form");
         User user = userService.getUserById(id);
         modelAndView.addObject("user", user);
+        modelAndView.addObject("action", "edit");
+        modelAndView.addObject("userID", user.getId());
         return modelAndView;
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView updateUser(@ModelAttribute User user, @PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("User/_list");
+        ModelAndView modelAndView = new ModelAndView("User/_form");
         userService.updateUser(user);
         String message = "User was successfully edited.";
         modelAndView.addObject("message", message);

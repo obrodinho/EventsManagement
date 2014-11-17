@@ -9,38 +9,40 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta charset="UTF-8">
+        <title>All Users!!! :)</title>
     </head>
     <body>
         <h1>All Users!!! :)</h1>
-
-        <table class="table table-striped" border="1px" cellpadding="0" cellspacing="0" >
+        <div>
+            ${message}
+        </div>
+        <table class="table table-striped" border="1px" cellpadding="15" cellspacing="0" >
             <thead>
                 <tr>
-                    <th width="10%">id</th>
-                    <th width="15%">First name</th>
-                    <th width="10%">Last name</th>
-                    <th width="10%">Username</th>
-                    <th width="10%">Operations</th>
+                    <th width="">id</th>
+                    <th width="">First name</th>
+                    <th width="">Last name</th>
+                    <th width="">Username</th>
+                    <th width="">Operations</th>
                 </tr>
             </thead>
             <tbody>
-            <c:forEach var="user" items="${users}">
-                <tr>
-                    <td>${user.id}</td>
-                    <td>${user.firstname}</td>
-                    <td>${user.lastname}</td>
-                    <td>${user.username}</td>
-                    <td>
-                        <a href="${pageContext.request.contextPath}/User/edit/${user.id}">Edit</a><br/>
-                        <a href="${pageContext.request.contextPath}/User/delete/${user.id}">Delete</a><br/>
-                    </td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
+                <c:forEach var="user" items="${users}">
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.firstname}</td>
+                        <td>${user.lastname}</td>
+                        <td>${user.username}</td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/User/edit/${user.id}">Edit</a> | 
+                            <a href="${pageContext.request.contextPath}/User/delete/${user.id}">Delete</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
 
-    <p><a href="${pageContext.request.contextPath}">Home page</a></p>
-</body>
+        <p><a href="${pageContext.request.contextPath}">Home page</a></p>
+    </body>
 </html>
