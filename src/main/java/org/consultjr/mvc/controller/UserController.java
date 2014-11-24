@@ -40,7 +40,7 @@ public class UserController {
         User user = new User();
         modelAndView.addObject("user", new User());
         modelAndView.addObject("action", "add");
-        modelAndView.addObject("userID", user.getId());
+        modelAndView.addObject("userID", null);
         //modelAndView.addObject("userID", "");
         return modelAndView;
     }
@@ -76,7 +76,10 @@ public class UserController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteUser(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView("User/_list");
+        //TODO checar se houve deleção do usuário!
         userService.deleteUser(userService.getUserById(id));
+        List<User> users = userService.getUsers();
+        modelAndView.addObject("users", users);
         String message = "User was successfully deleted.";
         modelAndView.addObject("message", message);
         return modelAndView;

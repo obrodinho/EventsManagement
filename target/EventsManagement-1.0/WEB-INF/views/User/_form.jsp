@@ -18,7 +18,7 @@
             ${message}
         </div>
         <form:form method="POST" commandName="user" action="${pageContext.request.contextPath}/User/${empty userID ? action : action.concat('/').concat(userID)}">
-            <input type="hidden" value="${userID}" >
+            <input type="hidden" name="userID" value="${userID}" >
             <table>
                 <tbody>
                     <tr>
