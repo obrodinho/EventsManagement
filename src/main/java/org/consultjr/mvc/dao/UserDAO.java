@@ -30,13 +30,6 @@ public class UserDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-//    public UserDAO() {
-//        Configuration configuration = new Configuration().addAnnotatedClass(User.class).configure();
-//        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
-//        StandardServiceRegistryBuilder toBuild = builder.applySettings(configuration.getProperties());
-//
-//        sessionFactory = configuration.buildSessionFactory(toBuild.build());
-//    }
     /**
      * Get Hibernate Current Session
      *

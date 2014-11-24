@@ -1,8 +1,0 @@
-org/consultjr/mvc/managedController/UserManagedBean.class
-org/consultjr/mvc/service/UserService.class
-org/consultjr/mvc/controller/UserController.class
-org/consultjr/mvc/controller/HelloWorldController.class
-org/consultjr/mvc/dao/UserDAO.class
-org/consultjr/mvc/core/config/ApplicationConfig.class
-org/consultjr/mvc/model/User.class
-org/consultjr/mvc/core/config/ApplicationInitializer.class
