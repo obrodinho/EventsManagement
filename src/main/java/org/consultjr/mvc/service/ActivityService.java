@@ -53,21 +53,4 @@ public class ActivityService {
     public void setActivityDAO(ActivityDAO activityDAO) {
         this.activityDAO = activityDAO;
     }
-
-    public Activity getActivityDetails() {
-        Activity a = new Activity();
-        
-        Event event = new Event();
-        event.setEvent_id(1);
-        
-        a.setId(1);
-        a.setEvent(event);
-//        a.setEvent_id(1);
-        a.setDescription("TESTE DESCRIPTION");
-        a.setType(1);
-        a.setWorkload(123);
-        a.setStart(new Date());
-
-        return a;
-    }
 }

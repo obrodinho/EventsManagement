@@ -35,7 +35,7 @@ public class Activity implements Serializable {
     private int id;
     
 //    @ManyToOne(fetch = FetchType.EAGER)
-    @ManyToOne
+    @ManyToOne(targetEntity = Event.class)
     @JoinColumn(name="event_id")
 //    @JoinColumn(name="event_id", insertable=true, updatable=true)
 //    @Fetch(FetchMode.JOIN)

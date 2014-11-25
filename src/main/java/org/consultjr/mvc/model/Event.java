@@ -1,14 +1,18 @@
 package org.consultjr.mvc.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -21,13 +25,43 @@ import javax.persistence.Table;
 public class Event implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "event_id")
-    private int event_id;
+    private int id;
+
+    @Column
+    private String title;
+
+    @Column
+    private String description;
+
+    @Column
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date start;
+
+    @Column
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date end;
+
     
-    @OneToMany(mappedBy="event", targetEntity = Activity.class)
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn
+    private User owner;
+
+    @Column
+    private boolean deleted;
+
+    @Column
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date created;
+
+    @Column
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date updated;
+
+    @OneToMany(mappedBy = "event", targetEntity = Activity.class)
 //    @OneToMany(mappedBy="event", fetch = FetchType.LAZY)
 //    @Cascade(CascadeType.ALL)
     private List<Event> activities;
@@ -35,12 +69,12 @@ public class Event implements Serializable {
     public Event() {
     }
 
-    public int getEvent_id() {
-        return event_id;
+    public int getId() {
+        return id;
     }
 
-    public void setEvent_id(int event_id) {
-        this.event_id = event_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public List<Event> getActivities() {
@@ -54,7 +88,7 @@ public class Event implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (event_id != 0 ? this.hashCode() : 0);
+        hash += (id != 0 ? this.hashCode() : 0);
         return hash;
     }
 
@@ -64,7 +98,7 @@ public class Event implements Serializable {
             return false;
         }
         Event other = (Event) object;
-        if ((this.event_id == 0 && other.event_id > 0) || ((this.event_id > 0) && (this.event_id != other.event_id))) {
+        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
             return false;
         }
         return true;
@@ -72,7 +106,71 @@ public class Event implements Serializable {
 
     @Override
     public String toString() {
-        return "org.consultjr.mvc.model.Event[ id=" + event_id + " ]";
+        return "org.consultjr.mvc.model.Event[ id=" + id + " ]";
     }
-    
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
 }
