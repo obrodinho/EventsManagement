@@ -63,7 +63,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
         properties.setProperty("jdbc.driverClassName", "com.mysql.jdbc.Driver");
         properties.setProperty("jdbc.url", "jdbc:mysql://localhost:3306/events_management");
         properties.setProperty("jdbc.username", "root");
-        properties.setProperty("jdbc.password", "mysql");
+        properties.setProperty("jdbc.password", "marinho");
 
         hibernateProperties.setProperty("hibernate.connection.driver_class", properties.getProperty("jdbc.driverClassName"));
         hibernateProperties.setProperty("hibernate.connection.url", properties.getProperty("jdbc.url"));
