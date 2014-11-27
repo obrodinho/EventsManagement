@@ -5,14 +5,17 @@
  */
 package org.consultjr.mvc.core.config;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
@@ -60,19 +63,23 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
      */
 
     public ApplicationConfig() {
-        properties.setProperty("jdbc.driverClassName", "com.mysql.jdbc.Driver");
-        properties.setProperty("jdbc.url", "jdbc:mysql://localhost:3306/events_management");
-        properties.setProperty("jdbc.username", "root");
-        properties.setProperty("jdbc.password", "marinho");
+        this.loadProperties("jdbc.properties");
+    }
 
-        hibernateProperties.setProperty("hibernate.connection.driver_class", properties.getProperty("jdbc.driverClassName"));
-        hibernateProperties.setProperty("hibernate.connection.url", properties.getProperty("jdbc.url"));
-        hibernateProperties.setProperty("hibernate.connection.username", properties.getProperty("jdbc.username"));
-        hibernateProperties.setProperty("hibernate.connection.password", properties.getProperty("jdbc.password"));
-        hibernateProperties.setProperty("hibernate.show_sql", "true");
-        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
-        hibernateProperties.setProperty("hibernate.current_session_context_class", "org.springframework.orm.hibernate4.SpringSessionContext");
+    private void loadProperties(String filename) {
+        InputStream fileStream = getClass().getClassLoader().getResourceAsStream(filename);
+
+        try {
+            properties.load(fileStream);
+            fileStream.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ApplicationConfig.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (null == fileStream) {
+            System.err.println("property file '" + filename + "' not found in the classpath");
+        }
+
     }
 
     @Bean
@@ -101,8 +108,8 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
         sessionFactory.setDataSource(setupDatasource());
         sessionFactory.setAnnotatedPackages("org.consultjr.mvc.model");
         sessionFactory.setPackagesToScan("org.consultjr.mvc.model");
-        sessionFactory.setHibernateProperties(hibernateProperties);
-        sessionFactory.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
+        sessionFactory.setHibernateProperties(properties);
+        //sessionFactory.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
         return sessionFactory;
     }
 
