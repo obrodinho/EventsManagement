@@ -10,28 +10,31 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>All Activities!!! :)</title>
+        <title>All Classes!!! :)</title>
     </head>
     <body>
-        <h1>All Activities!!! :)</h1>
+        <h1>All Classes!!! :)</h1>
         <div>
             ${message}
         </div>
         <table class="table table-striped" border="1px" cellpadding="15" cellspacing="0" >
             <thead>
                 <tr>
-                    <th width="">id</th>
+                    <th width="">Id</th>
+                    <th width="">Title</th>
+                    <th width="200">Description</th>
                     <th width="">Operations</th>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="activity" items="${activities}">
+                <c:forEach var="classes" items="${classes}">
                     <tr>
-                        <td>${activity.id}</td>
-
+                        <td>${classes.id}</td>
+                        <td>${classes.title}</td>
+                        <td>${classes.description}</td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/Activity/edit/${activity.id}">Edit</a> | 
-                            <a href="${pageContext.request.contextPath}/Activity/delete/${activity.id}">Delete</a>
+                            <a href="${pageContext.request.contextPath}/Classes/edit/${classes.id}">Edit</a> | 
+                            <a href="${pageContext.request.contextPath}/Classes/delete/${classes.id}">Delete</a>
                         </td>
                     </tr>
                 </c:forEach>

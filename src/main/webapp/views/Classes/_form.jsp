@@ -13,20 +13,25 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Create and Update activitys on this page</h1>
+        <h1>Create and Update classes on this page</h1>
         <div>
             ${message}
         </div>
-        <form:form method="POST" commandName="activity" action="${pageContext.request.contextPath}/Activity/${empty activityID ? action : action.concat('/').concat(activityID)}">
-            <input type="hidden" name="activityID" value="${activityID}" >
+        <form:form method="POST" commandName="classes" action="${pageContext.request.contextPath}/Classes/${empty classesID ? action.concat('/').concat(activityID) : action.concat('/').concat(classesID)}">
+            <input type="hidden" name="classesID" value="${classesID}" >
+            <pre>${classes}</pre>
             <table>
                 <tbody>
                     <tr>
-                        <td>COLUMN</td>
-<!--                        <td><//form:input path="ObjectAttribute" /></td>-->
+                        <td>Title:</td>
+                        <td><form:input path="title" /></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="${empty activityID ? "Add" : "Save"}" /></td>
+                        <td>Description:</td>
+                        <td><form:input path="description" /></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="${empty classesID ? "Add" : "Save"}" /></td>
                     </tr>
                 </tbody>
             </table>

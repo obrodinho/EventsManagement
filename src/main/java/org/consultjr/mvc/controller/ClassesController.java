@@ -9,6 +9,7 @@ import java.util.List;
 import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.service.ClassesService;
+import org.consultjr.mvc.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,8 @@ public class ClassesController {
 
     @Autowired
     private ClassesService classesService;
+    @Autowired
+    private ActivityService activityService;
 
     public void setClassesService(final ClassesService classesService) {
         this.classesService = classesService;
@@ -40,31 +43,37 @@ public class ClassesController {
         return this.allClasses();
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET) // GET: /PROJECT/Classes/add
-    public ModelAndView add() {
+    @RequestMapping(value = "/add/{id}", method = RequestMethod.GET) // GET: /PROJECT/Classes/add
+    public ModelAndView add(@PathVariable int id) {
         ModelAndView modelAndView = new ModelAndView("Classes/_form");
-        Classes classes = new Classes();
-        modelAndView.addObject("classes", new Classes());
+        Classes classes = new Classes();       
+        
+        modelAndView.addObject("classes", classes);
         modelAndView.addObject("action", "add");
-        modelAndView.addObject("ClassesID", null);
-        //modelAndView.addObject("activityID", "");
+        modelAndView.addObject("classesID", null);
+        modelAndView.addObject("activityID", id);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST) // Save Method: POST /PROJECT/Classes/add
-    public ModelAndView addClasses(@ModelAttribute Classes classes) {
+    @RequestMapping(value = "/add/{id}", method = RequestMethod.POST) // Save Method: POST /PROJECT/Classes/add
+    public ModelAndView addClasses(@ModelAttribute Classes classes, @PathVariable int id) {
         ModelAndView modelAndView = new ModelAndView("Classes/_form");
         
-        // create all strategies for assigning the event. 
-        // The activity controller must be used only by managing a Event
-        Activity defaultActivity = new Activity();
-        defaultActivity.setId(1);        
+        Activity defaultActivity = activityService.getActivityById(id);
         classes.setActivity(defaultActivity);
         
+        //Activity defaultActivity = new Activity();
+        //Activity defaultActivity = activityService.getActivityById(id);
+        //classes.setActivity(defaultActivity);
+        //defaultActivity.setId(1);        
+        //classes.setActivity(defaultActivity);
+        // create all strategies for assigning the event. 
+        // The activity controller must be used only by managing a Event
         classesService.addClasses(classes);
         String message = "Class was succesfully added";
         modelAndView.addObject("message", message);
         return modelAndView;
+   
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
