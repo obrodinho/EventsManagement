@@ -58,11 +58,6 @@ public class UserService {
         return getUserDAO().getUserById(id);
     }
 
-    public User getUserByUsername(String username){
-        return getUserDAO().getUserByUsername(username);
-    }
-    
-    
     /**
      * Get User List
      *

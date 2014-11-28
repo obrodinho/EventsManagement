@@ -24,7 +24,6 @@
                     <th width="">First name</th>
                     <th width="">Last name</th>
                     <th width="">Username</th>
-                    <th width="">Password</th>
                     <th width="">Operations</th>
                 </tr>
             </thead>
@@ -35,7 +34,6 @@
                         <td>${user.firstname}</td>
                         <td>${user.lastname}</td>
                         <td>${user.username}</td>
-                        <td>${user.password}</td>
                         <td>
                             <a href="${pageContext.request.contextPath}/User/edit/${user.id}">Edit</a> | 
                             <a href="${pageContext.request.contextPath}/User/delete/${user.id}">Delete</a>
