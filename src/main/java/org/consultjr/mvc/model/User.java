@@ -70,6 +70,9 @@ public class User implements Serializable {
      */
     @Column()
     private Date created;
+    
+    @Column()
+    private String password;
 
     @Override
     public boolean equals(Object object) {
@@ -119,6 +122,14 @@ public class User implements Serializable {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }
