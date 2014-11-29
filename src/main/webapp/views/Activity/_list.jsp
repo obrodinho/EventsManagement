@@ -20,7 +20,13 @@
         <table class="table table-striped" border="1px" cellpadding="15" cellspacing="0" >
             <thead>
                 <tr>
-                    <th width="">id</th>
+                    <th width="">Id</th>
+                    <th width="">Title</th>
+                    <th width="200">Description</th>
+                    <th width="">Type</th>
+                    <th width="">Workload</th>
+                    <th width="">Start</th>
+                    <th width="">End</th>
                     <th width="">Operations</th>
                 </tr>
             </thead>
@@ -28,7 +34,12 @@
                 <c:forEach var="activity" items="${activities}">
                     <tr>
                         <td>${activity.id}</td>
-
+                        <td>${activity.title}</td>
+                        <td>${activity.description}</td>
+                        <td>${activity.type}</td>
+                        <td>${activity.workload}</td>
+                        <td>${activity.start}</td>
+                        <td>${activity.end}</td>
                         <td>
                             <a href="${pageContext.request.contextPath}/Activity/edit/${activity.id}">Edit</a> | 
                             <a href="${pageContext.request.contextPath}/Activity/delete/${activity.id}">Delete</a>

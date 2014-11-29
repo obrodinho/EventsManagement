@@ -5,6 +5,7 @@
  */
 package org.consultjr.mvc.controller;
 
+import java.util.Date;
 import java.util.List;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.service.UserService;
@@ -37,11 +38,9 @@ public class UserController {
     @RequestMapping(value = "/add", method = RequestMethod.GET) // GET: /PROJECT/User/add
     public ModelAndView add() {
         ModelAndView modelAndView = new ModelAndView("User/_form");
-        User user = new User();
         modelAndView.addObject("user", new User());
         modelAndView.addObject("action", "add");
         modelAndView.addObject("userID", null);
-        //modelAndView.addObject("userID", "");
         return modelAndView;
     }
 
@@ -67,7 +66,7 @@ public class UserController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView updateUser(@ModelAttribute User user, @PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView("User/_form");
-        userService.updateUser(user);
+        userService.updateUser(user, id);
         String message = "User was successfully edited.";
         modelAndView.addObject("message", message);
         return modelAndView;

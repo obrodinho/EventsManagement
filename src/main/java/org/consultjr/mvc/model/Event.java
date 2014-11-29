@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 
 /**
  *
@@ -38,11 +37,9 @@ public class Event implements Serializable {
     private String description;
 
     @Column
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date start;
 
     @Column
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date end;
 
     
@@ -54,11 +51,9 @@ public class Event implements Serializable {
     private boolean deleted;
 
     @Column
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date created;
 
     @Column
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
 
     @OneToMany(mappedBy = "event", targetEntity = Activity.class)
