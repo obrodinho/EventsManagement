@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 /target/
+=======
+/target/
+/src/main/resources/jdbc.properties
+>>>>>>> e1d949950e7a3de3aa020287bcc215945cbc1e71
