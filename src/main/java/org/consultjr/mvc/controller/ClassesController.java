@@ -42,6 +42,8 @@ public class ClassesController {
     public ModelAndView index() {
         return this.allClasses();
     }
+    
+    
 
     @RequestMapping(value = "/add/{id}", method = RequestMethod.GET) // GET: /PROJECT/Classes/add
     public ModelAndView add(@PathVariable int id) {

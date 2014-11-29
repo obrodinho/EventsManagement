@@ -13,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Create and Update activitys on this page</h1>
+        <h1>Create and Update activities on this page</h1>
         <div>
             ${message}
         </div>

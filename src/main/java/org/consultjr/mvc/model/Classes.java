@@ -94,6 +94,9 @@ public class Classes implements Serializable {
     @Column()
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date updated;
+    
+    @Column()
+    private boolean show;
 
     @Override
     public boolean equals(Object object) {

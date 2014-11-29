@@ -60,6 +60,7 @@ public class ActivityController {
         activityService.addActivity(activity);
         String message = "Activity was succesfully added";
         modelAndView.addObject("message", message);
+        
         return modelAndView;
     }
 
@@ -96,7 +97,7 @@ public class ActivityController {
 
     @RequestMapping(value = "/all")
     public ModelAndView allActivities() {
-        ModelAndView modelAndView = new ModelAndView("Activity/_list");
+        ModelAndView modelAndView = new ModelAndView("");
         List<Activity> activities = activityService.getActivities();
         modelAndView.addObject("activities", activities);
         return modelAndView;
