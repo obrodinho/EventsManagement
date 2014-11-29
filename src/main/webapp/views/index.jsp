@@ -18,5 +18,16 @@
             <li><a href="${pageContext.request.contextPath}/User/all">List</a></li> 
             <li><a href="${pageContext.request.contextPath}/User/add">Create</a></li>
         </ol>
+        
+        <h2>Classes</h2>
+        <ol>
+            <li><a href="${pageContext.request.contextPath}/Classes/all">List</a></li> 
+            <li><a href="${pageContext.request.contextPath}/Classes/add">Create</a></li>
+        </ol>
+        <h2>Activity</h2>
+        <ol>
+            <li><a href="${pageContext.request.contextPath}/Activity/all">List</a></li> 
+            <li><a href="${pageContext.request.contextPath}/Activity/add">Create</a></li>
+        </ol>
     </body>
 </html>
