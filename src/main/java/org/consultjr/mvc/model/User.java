@@ -70,6 +70,12 @@ public class User implements Serializable {
      */
     @Column()
     private Date created;
+    
+    /**
+     *
+     */
+    @Column()
+    private Date updated;
 
     @Override
     public boolean equals(Object object) {
@@ -119,6 +125,14 @@ public class User implements Serializable {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 
 }

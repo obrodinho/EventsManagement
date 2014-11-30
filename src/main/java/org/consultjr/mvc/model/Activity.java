@@ -4,18 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import javax.persistence.Transient;
 
 /**
  *
@@ -34,22 +29,11 @@ public class Activity implements Serializable {
     @Column(name = "activity_id")
     private int id;
     
-//    @ManyToOne(fetch = FetchType.EAGER)
     @ManyToOne(targetEntity = Event.class)
     @JoinColumn(name="event_id")
-//    @JoinColumn(name="event_id", insertable=true, updatable=true)
-//    @Fetch(FetchMode.JOIN)
-//    @Cascade(CascadeType.SAVE_UPDATE)
-    private Event event = new Event();
-    
-    
-//    @ManyToOne
-//    @JoinColumn(name ="event_id")
-//    private int event_id;
+    private Event event;
 
     public Activity() {
-        //this.start = new Date();
-        this.created = new Date();
     }
 
     public int getId() {
@@ -67,14 +51,6 @@ public class Activity implements Serializable {
     public void setEvent(Event event) {
         this.event = event;
     }
-    
-//    public int getEvent_id() {
-//        return event_id;
-//    }
-//
-//    public void setEvent_id(int event_id) {
-//        this.event_id = event_id;
-//    }   
 
     @Override
     public int hashCode() {
@@ -95,20 +71,22 @@ public class Activity implements Serializable {
     @Column()
     private Integer workload;
 
-    //@Column()
-    //@Temporal(javax.persistence.TemporalType.DATE)
-    //private Date start;
+    @Column()
+    private Date start;
+    
+    @Transient
+    private String dateStart;
 
-    //@Column()
-    //@Temporal(javax.persistence.TemporalType.DATE)
-    //private Date end;
+    @Column() 
+    private Date end;
+    
+    @Transient
+    private String dateEnd;
 
     @Column()
-    @Temporal(javax.persistence.TemporalType.DATE)
     private Date created;
 
     @Column()
-    @Temporal(javax.persistence.TemporalType.DATE)
     private Date updated;
 
     @Override
@@ -160,7 +138,7 @@ public class Activity implements Serializable {
         this.workload = workload;
     }
 
-    /*public Date getStart() {
+    public Date getStart() {
         return start;
     }
 
@@ -174,10 +152,26 @@ public class Activity implements Serializable {
 
     public void setEnd(Date end) {
         this.end = end;
-    }*/
+    }
 
     public Date getUpdated() {
         return updated;
+    }
+
+    public String getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(String dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public String getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(String dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
     public void setUpdated(Date updated) {

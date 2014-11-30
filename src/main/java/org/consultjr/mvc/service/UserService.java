@@ -1,5 +1,6 @@
 package org.consultjr.mvc.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.consultjr.mvc.dao.UserDAO;
@@ -27,6 +28,7 @@ public class UserService {
      *
      * @param user User
      */
+    @Transactional(readOnly = false)
     public void addUser(User user) {
         getUserDAO().addUser(user);
     }
@@ -36,23 +38,33 @@ public class UserService {
      *
      * @param user User
      */
+    @Transactional(readOnly = false)
     public void deleteUser(User user) {
         getUserDAO().deleteUser(user);
     }
 
     /**
-     * Update User
      *
-     * @param user User
+     * @param userView
+     * @param id
      */
-    public void updateUser(User user) {
-        getUserDAO().updateUser(user);
+    @Transactional(readOnly = false)
+    public void updateUser(User userView, int id) {
+        User userBD = getUserById(id);
+        
+        userBD.setFirstname(userView.getFirstname());
+        userBD.setLastname(userView.getLastname());
+        userBD.setUsername(userView.getUsername());
+        userBD.setUpdated(new Date());
+        
+        getUserDAO().updateUser(userBD);
     }
 
     /**
      * Get User
      *
      * @param id int User Id
+     * @return 
      */
     public User getUserById(int id) {
         return getUserDAO().getUserById(id);

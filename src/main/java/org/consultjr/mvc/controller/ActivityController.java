@@ -1,8 +1,8 @@
 package org.consultjr.mvc.controller;
 
 import java.util.List;
+import org.consultjr.mvc.core.system.AppUtils;
 import org.consultjr.mvc.model.Activity;
-import org.consultjr.mvc.model.Event;
 import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.service.ActivityService;
 import org.consultjr.mvc.service.ClassesService;
@@ -29,12 +29,12 @@ public class ActivityController {
     @Autowired
     private ActivityService activityService;
     @Autowired
-    ClassesService classesService;
+    private ClassesService classesService;
 
     public void setActivityService(final ActivityService activityService) {
         this.activityService = activityService;
     }
-    
+
     @RequestMapping("") // Index Method: => /PROJECT/Activity
     public ModelAndView index() {
         return this.allActivities();
@@ -43,35 +43,24 @@ public class ActivityController {
     @RequestMapping(value = "/add", method = RequestMethod.GET) // GET: /PROJECT/Activity/add
     public ModelAndView add() {
         ModelAndView modelAndView = new ModelAndView("Activity/_form");
-        Activity activity = new Activity();
-        modelAndView.addObject("activity", activity);
+        modelAndView.addObject("activity", new Activity());
         modelAndView.addObject("action", "add");
         modelAndView.addObject("activityID", null);
-        //modelAndView.addObject("activityID", "");
         return modelAndView;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST) // Save Method: POST /PROJECT/Activity/add
     public ModelAndView addActivity(@ModelAttribute Activity activity) {
         ModelAndView modelAndView = new ModelAndView("Activity/_form");
-        
-        // create all strategies for assigning the event. 
-        // The activity controller must be used only by managing a Event
-        Event defaultEvent = new Event();
-        defaultEvent.setId(1);        
-        activity.setEvent(defaultEvent);
+        activityService.addActivity(activity);
         
         Classes standardClasses = new Classes();
         standardClasses.setActivity (activity);
         standardClasses.setStandard(true);
-        
-        activityService.addActivity(activity);
         classesService.addClasses(standardClasses);
-        
         
         String message = "Activity was succesfully added";
         modelAndView.addObject("message", message);
-        
         return modelAndView;
     }
 
@@ -79,6 +68,10 @@ public class ActivityController {
     public ModelAndView update(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView("Activity/_form");
         Activity activity = activityService.getActivityById(id);
+
+        activity.setDateStart(AppUtils.FormatDate(activity.getStart()));
+        activity.setDateEnd(AppUtils.FormatDate(activity.getEnd()));
+
         modelAndView.addObject("activity", activity);
         modelAndView.addObject("action", "edit");
         modelAndView.addObject("activityID", activity.getId());
@@ -88,7 +81,7 @@ public class ActivityController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView updateActivity(@ModelAttribute Activity activity, @PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView("Activity/_form");
-        activityService.updateActivity(activity);
+        activityService.updateActivity(activity, id);
         String message = "Activity was successfully edited.";
         modelAndView.addObject("message", message);
         return modelAndView;
