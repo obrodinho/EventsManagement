@@ -75,5 +75,4 @@ public class ClassesDAO {
         List list = getSessionFactory().getCurrentSession().createQuery("from Classes").list();
         return list;
     }
-
 }

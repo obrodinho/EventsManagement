@@ -64,6 +64,13 @@ public class User implements Serializable {
      */
     @Column(unique = true)
     private String username;
+    
+    /**
+     *
+     */
+    @Column()
+    private String password;
+
 
     /**
      *
@@ -133,6 +140,24 @@ public class User implements Serializable {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public Type getType() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

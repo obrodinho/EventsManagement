@@ -111,5 +111,9 @@ public class UserService {
 
         return u;
     }
+
+    public User getUserByUsername(String username) {
+        return this.userDAO.getUserByUsername(username);
+    }
     
 }

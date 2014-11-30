@@ -121,4 +121,13 @@ public class UserDAO {
         return list;
     }
 
+    public User getUserByUsername(String username) {
+        List list = getSessionFactory().getCurrentSession()
+            .createQuery("from User  where username=?")
+            .setParameter(0, username).list();
+        if(list.isEmpty()){
+            return null;
+        }
+        return (User) list.get(0);
+    }
 }
