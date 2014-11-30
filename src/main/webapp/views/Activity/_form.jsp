@@ -16,14 +16,27 @@
         <h1>Create and Update activities on this page</h1>
         <div>
             ${message}
+            
         </div>
         <form:form method="POST" commandName="activity" action="${pageContext.request.contextPath}/Activity/${empty activityID ? action : action.concat('/').concat(activityID)}">
             <input type="hidden" name="activityID" value="${activityID}" >
             <table>
                 <tbody>
+                     <tr>
+                        <td>Title:</td>
+                        <td><form:input path="title" /></td>
+                    </tr>
                     <tr>
-                        <td>COLUMN</td>
-<!--                        <td><//form:input path="ObjectAttribute" /></td>-->
+                        <td>Description:</td>
+                        <td><form:input path="description" /></td>
+                    </tr>
+                    <tr>
+                        <td>Type:</td>
+                        <td><form:input path="type" /></td>
+                    </tr>
+                    <tr>
+                        <td>Workload:</td>
+                        <td><form:input path="workload" /></td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="${empty activityID ? "Add" : "Save"}" /></td>

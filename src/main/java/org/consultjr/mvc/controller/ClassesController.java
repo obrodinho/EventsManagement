@@ -49,10 +49,10 @@ public class ClassesController {
     public ModelAndView add(@PathVariable int id) {
         ModelAndView modelAndView = new ModelAndView("Classes/_form");
         Classes classes = new Classes();       
-        
+        classes.setStandard(false);
         modelAndView.addObject("classes", classes);
         modelAndView.addObject("action", "add");
-        modelAndView.addObject("classesID", null);
+        modelAndView.addObject("userID", null);
         modelAndView.addObject("activityID", id);
         return modelAndView;
     }

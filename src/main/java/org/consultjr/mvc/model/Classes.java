@@ -66,6 +66,7 @@ public class Classes implements Serializable {
         this.activity = activity;
     }
     
+    
 //    public int getEvent_id() {
 //        return event_id;
 //    }
@@ -96,7 +97,7 @@ public class Classes implements Serializable {
     private Date updated;
     
     @Column()
-    private boolean show;
+    private boolean standard;
 
     @Override
     public boolean equals(Object object) {
@@ -145,6 +146,14 @@ public class Classes implements Serializable {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+    
+    public boolean getStandard() {
+        return standard;
+    }
+
+    public void setStandard(boolean standard) {
+        this.standard = standard;
     }
 
 }

@@ -40,14 +40,15 @@ public class Activity implements Serializable {
 //    @JoinColumn(name="event_id", insertable=true, updatable=true)
 //    @Fetch(FetchMode.JOIN)
 //    @Cascade(CascadeType.SAVE_UPDATE)
-    private Event event;
+    private Event event = new Event();
+    
     
 //    @ManyToOne
 //    @JoinColumn(name ="event_id")
 //    private int event_id;
 
     public Activity() {
-        this.start = new Date();
+        //this.start = new Date();
         this.created = new Date();
     }
 
@@ -94,13 +95,13 @@ public class Activity implements Serializable {
     @Column()
     private Integer workload;
 
-    @Column()
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date start;
+    //@Column()
+    //@Temporal(javax.persistence.TemporalType.DATE)
+    //private Date start;
 
-    @Column()
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date end;
+    //@Column()
+    //@Temporal(javax.persistence.TemporalType.DATE)
+    //private Date end;
 
     @Column()
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -159,7 +160,7 @@ public class Activity implements Serializable {
         this.workload = workload;
     }
 
-    public Date getStart() {
+    /*public Date getStart() {
         return start;
     }
 
@@ -173,7 +174,7 @@ public class Activity implements Serializable {
 
     public void setEnd(Date end) {
         this.end = end;
-    }
+    }*/
 
     public Date getUpdated() {
         return updated;

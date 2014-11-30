@@ -3,7 +3,9 @@ package org.consultjr.mvc.controller;
 import java.util.List;
 import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.Event;
+import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.service.ActivityService;
+import org.consultjr.mvc.service.ClassesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ public class ActivityController {
 
     @Autowired
     private ActivityService activityService;
+    @Autowired
+    ClassesService classesService;
 
     public void setActivityService(final ActivityService activityService) {
         this.activityService = activityService;
@@ -40,7 +44,7 @@ public class ActivityController {
     public ModelAndView add() {
         ModelAndView modelAndView = new ModelAndView("Activity/_form");
         Activity activity = new Activity();
-        modelAndView.addObject("activity", new Activity());
+        modelAndView.addObject("activity", activity);
         modelAndView.addObject("action", "add");
         modelAndView.addObject("activityID", null);
         //modelAndView.addObject("activityID", "");
@@ -57,7 +61,14 @@ public class ActivityController {
         defaultEvent.setId(1);        
         activity.setEvent(defaultEvent);
         
+        Classes standardClasses = new Classes();
+        standardClasses.setActivity (activity);
+        standardClasses.setStandard(true);
+        
         activityService.addActivity(activity);
+        classesService.addClasses(standardClasses);
+        
+        
         String message = "Activity was succesfully added";
         modelAndView.addObject("message", message);
         
@@ -97,7 +108,7 @@ public class ActivityController {
 
     @RequestMapping(value = "/all")
     public ModelAndView allActivities() {
-        ModelAndView modelAndView = new ModelAndView("");
+        ModelAndView modelAndView = new ModelAndView("Activity/_list");
         List<Activity> activities = activityService.getActivities();
         modelAndView.addObject("activities", activities);
         return modelAndView;
