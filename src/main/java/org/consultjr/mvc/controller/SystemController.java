@@ -32,7 +32,9 @@ public class SystemController extends AppController {
     @RequestMapping("admin")
     public ModelAndView admin() {
         ModelAndView sysView = new ModelAndView("System/admin");
-        //sysView.addObject('configs', systemConfigService.)
+        sysView.addObject("configs", systemConfigService.getConfigs());
         return sysView;
     }
+    
+    
 }
