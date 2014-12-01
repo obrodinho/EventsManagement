@@ -1,2 +1,2 @@
-/target/
-/src/main/resources/jdbc.properties
+target/
+src/main/resources/jdbc.properties
