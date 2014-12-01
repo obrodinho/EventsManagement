@@ -29,12 +29,11 @@ public class RequestAnalyser {
     }
 
     public boolean checkPermission(User user, HttpServletRequest request){
-        return true;
-    /*    String uri = request.getRequestURI();
+        String uri = request.getRequestURI();
         if(user.getType() == CLIENT){
             for(Object s : clientPages){
                 String str = (String) s;
-                if(uri.endsWith(str)){
+                if(uri.contains((CharSequence) s)){
                     return true;
                 }
             }
@@ -42,7 +41,7 @@ public class RequestAnalyser {
         } else if(user.getType() == SPONSOR){
             for(Object s : sponsorPages){
                 String str = (String) s;
-                if(uri.endsWith(str)){
+                if(uri.contains((CharSequence) s)){
                     return true;
                 }
             }
@@ -50,7 +49,7 @@ public class RequestAnalyser {
         } else if(user.getType() == ADMIN){
             return true;
         }
-        return false;*/
+        return false;
     }
 
     private List readPages(String clientconfig) {
