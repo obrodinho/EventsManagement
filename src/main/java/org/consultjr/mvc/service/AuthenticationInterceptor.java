@@ -15,7 +15,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * @author Murilo
  */
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
-    private RequestAnalyser rqAnalyser;
+    private RequestAnalyser rqAnalyser = new RequestAnalyser();
     @Override
     public boolean preHandle(HttpServletRequest request,HttpServletResponse response,Object controller) throws Exception {
         String uri = request.getRequestURI();
@@ -31,8 +31,11 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
                 return false;
             }
         } else {
+            if(uri.endsWith("/") || uri.endsWith("loginForm") || uri.endsWith("doLogin")){
+                return true;   
+            }
             //se nao ta logado volta pra tela de login
-            response.sendRedirect("/loginForm");
+            response.sendRedirect("/org.consultjr.eventsmanagement/loginForm");
             return false;
         }
         

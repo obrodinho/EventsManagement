@@ -38,10 +38,10 @@ public class LoginController {
     
     @RequestMapping(value = "/doLogin") // Save Method: POST /PROJECT/User/add
     public ModelAndView doLogin(@ModelAttribute Login login,HttpSession session) {
-        ModelAndView modelAndView = new ModelAndView("login");
+        ModelAndView modelAndView = new ModelAndView("login-form");
         User user = userService.getUserByUsername(login.getUsername());
         if(user == null){
-            String message = "User"+login.getUsername()+ "doesn`t exists";
+            String message = "User "+login.getUsername()+ " doesn`t exists";
             modelAndView.addObject("message", message);
             return modelAndView;
         } else {
