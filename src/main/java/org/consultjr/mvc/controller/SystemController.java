@@ -21,8 +21,17 @@ import org.springframework.web.servlet.ModelAndView;
 @Scope("request")
 @RequestMapping("System")
 public class SystemController extends AppController {
+    
     @Autowired
     private SystemConfigService systemConfigService;
+    
+    public SystemConfigService getSystemConfigService() {
+        return systemConfigService;
+    }
+
+    public void setSystemConfigService(SystemConfigService systemConfigService) {
+        this.systemConfigService = systemConfigService;
+    }
     
     @Override
     public ModelAndView index() {

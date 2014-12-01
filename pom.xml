@@ -53,28 +53,6 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>4.3.1.Final</version>
         </dependency>
-        <!-- primefaces -->
-<!--        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>5.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.primefaces.extensions</groupId>
-            <artifactId>all-themes</artifactId>
-            <version>1.0.8</version>
-        </dependency>-->
-        <!-- faces -->
-<!--        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>2.1.3_01</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-            <version>2.1.3_01</version>
-        </dependency>--> 
         <!-- mysql and other databases -->
         <dependency>
             <groupId>mysql</groupId>
@@ -238,7 +216,6 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-javaconfig</artifactId>
             <version>1.0.0.CI-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>javax</groupId>

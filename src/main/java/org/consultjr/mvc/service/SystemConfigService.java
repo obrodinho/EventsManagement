@@ -22,24 +22,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class SystemConfigService {
 
     @Autowired
-    private SystemConfigDAO SystemDAO;
+    private SystemConfigDAO systemConfigDAO;
 
-    public SystemConfigDAO getSystemDAO() {
-        return SystemDAO;
+    public SystemConfigDAO getSystemConfigDAO() {
+        return systemConfigDAO;
     }
 
-    public void setSystemDAO(SystemConfigDAO SystemDAO) {
-        this.SystemDAO = SystemDAO;
+    public void setSystemConfigDAO(SystemConfigDAO systemConfigDAO) {
+        this.systemConfigDAO = systemConfigDAO;
     }
 
     @Transactional(readOnly = false)
     public void addConfig(SystemConfig sys) {
-        getSystemDAO().addConfig(sys);
+        getSystemConfigDAO().addConfig(sys);
     }
 
     @Transactional(readOnly = false)
     public void deleteConfig(SystemConfig sys) {
-        getSystemDAO().deleteConfig(sys);
+        getSystemConfigDAO().deleteConfig(sys);
     }
 
     @Transactional(readOnly = false)
@@ -50,22 +50,22 @@ public class SystemConfigService {
         config.setValue(sys.getValue());
         config.setUpdated(new Date());
 
-        getSystemDAO().updateConfig(config);
+        getSystemConfigDAO().updateConfig(config);
     }
 
     @Transactional(readOnly = false)
     public SystemConfig getConfigById(int configID) {
-        return getSystemDAO().getConfigById(configID);
+        return getSystemConfigDAO().getConfigById(configID);
     }
 
     @Transactional(readOnly = false)
     public SystemConfig getConfigByKey(String configKey) {
-        return getSystemDAO().getConfigByKey(configKey);
+        return getSystemConfigDAO().getConfigByKey(configKey);
     }
 
     @Transactional(readOnly = false)
     public List<SystemConfig> getConfigs() {
-        return getSystemDAO().getConfigs();
+        return getSystemConfigDAO().getConfigs();
     }
 
     @Transactional

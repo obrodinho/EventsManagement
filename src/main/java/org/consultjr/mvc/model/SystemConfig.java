@@ -26,9 +26,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Rafael
  */
 public class SystemConfig implements Serializable {
-    
-    @Autowired
-    private SystemConfigService systemService;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -97,14 +94,4 @@ public class SystemConfig implements Serializable {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
-
-    public SystemConfigService getSystemService() {
-        return systemService;
-    }
-
-    public void setSystemService(SystemConfigService systemService) {
-        this.systemService = systemService;
-    }  
-    
-
 }
