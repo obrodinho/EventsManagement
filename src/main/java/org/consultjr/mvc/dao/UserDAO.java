@@ -7,13 +7,8 @@ package org.consultjr.mvc.dao;
 
 import java.util.Iterator;
 import java.util.List;
+import org.consultjr.mvc.core.base.AppDAO;
 import org.consultjr.mvc.model.User;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,41 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author rgcs
  */
 @Repository
-public class UserDAO {
-
-    private Configuration configuration;
-    private StandardServiceRegistryBuilder builder;
-    private StandardServiceRegistryBuilder toBuild;
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    /**
-     * Get Hibernate Current Session
-     *
-     * @return
-     */
-    private Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
-    }
-
-    /**
-     * Get Hibernate Session Factory
-     *
-     * @return SessionFactory - Hibernate Session Factory
-     */
-    public SessionFactory getSessionFactory() {
-        //sessionFactory = (sessionFactory == null ? configuration.buildSessionFactory(builder.build()) : null);
-        return sessionFactory;
-    }
-
-    /**
-     * Set Hibernate Session Factory
-     *
-     * @param sessionFactory SessionFactory - Hibernate Session Factory
-     */
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+public class UserDAO extends AppDAO {
 
     /**
      * Add user
@@ -111,13 +72,9 @@ public class UserDAO {
      */
     @Transactional
     public List<User> getUsers() {
-        List list = getCurrentSession().createQuery("from User").list();
+        List list = getSessionFactory().getCurrentSession().createQuery("from User").list();
         System.out.print(list.size());
-        for (Iterator u = list.iterator(); u.hasNext();) {
-            System.out.println(u);                    
-            
-            Object next = u.next();
-        }
+        
         return list;
     }
 
