@@ -31,15 +31,12 @@ public class Classes implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "classes_id")
+    @Column(name = "class_id")
     private int id;
     
-//    @ManyToOne(fetch = FetchType.EAGER)
+    @Id
     @ManyToOne(targetEntity = Activity.class)
     @JoinColumn(name="activity_id")
-//    @JoinColumn(name="event_id", insertable=true, updatable=true)
-//    @Fetch(FetchMode.JOIN)
-//    @Cascade(CascadeType.SAVE_UPDATE)
     private Activity activity;
     
 //    @ManyToOne
