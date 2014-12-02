@@ -43,7 +43,8 @@
                         <td>
                             <a href="${pageContext.request.contextPath}/Activity/edit/${activity.id}">Edit</a> | 
                             <a href="${pageContext.request.contextPath}/Activity/delete/${activity.id}">Delete</a> |
-                            <a href="${pageContext.request.contextPath}/Classes/add/${activity.id}">Add Class</a>
+                            <a href="${pageContext.request.contextPath}/Classes/add/${activity.id}">Add Class</a> |
+                            <a href="${pageContext.request.contextPath}/Classes/all/${activity.id}">List Classes</a>
                         </td>
                     </tr>
                 </c:forEach>

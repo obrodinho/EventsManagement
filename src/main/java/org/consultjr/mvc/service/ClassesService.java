@@ -50,6 +50,10 @@ public class ClassesService {
     public List<Classes> getClasses() {
         return getClassesDAO().getClasses();
     }
+    
+    public List<Classes> getClassesByActivity(int activityId) {
+        return getClassesDAO().getClassesByActivity(activityId);
+    }
 
     public ClassesDAO getClassesDAO() {
         return classesDAO == null ? new ClassesDAO() : classesDAO;

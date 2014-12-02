@@ -75,5 +75,13 @@ public class ClassesDAO {
         List list = getSessionFactory().getCurrentSession().createQuery("from Classes").list();
         return list;
     }
+    
+    @Transactional
+    public List<Classes> getClassesByActivity(int activityId) {
+        List list = getSessionFactory().getCurrentSession()
+                .createQuery("from Classes where activity_id=?")
+                .setParameter(0, activityId).list();
+        return list;
+    }
 
 }

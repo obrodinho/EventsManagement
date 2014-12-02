@@ -35,18 +35,6 @@
                         <td><form:input path="type" /></td>
                     </tr>
                     <tr>
-                        <td>Title:</td>
-                        <td><form:input path="title" /></td>
-                    </tr>
-                    <tr>
-                        <td>Description:</td>
-                        <td><form:input path="description" /></td>
-                    </tr>
-                    <tr>
-                        <td>Type:</td>
-                        <td><form:input path="type" /></td>
-                    </tr>
-                    <tr>
                         <td>Workload:</td>
                         <td><form:input path="workload" /></td>
                     </tr>

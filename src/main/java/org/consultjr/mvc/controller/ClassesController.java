@@ -116,5 +116,13 @@ public class ClassesController {
         modelAndView.addObject("classes", manyClasses);
         return modelAndView;
     }
+    
+    @RequestMapping(value = "/all/{id}")
+    public ModelAndView allClasses(@PathVariable int id) {
+        ModelAndView modelAndView = new ModelAndView("Classes/_list");
+        List<Classes> manyClasses = classesService.getClassesByActivity(id);
+        modelAndView.addObject("classes", manyClasses);
+        return modelAndView;
+    }
 
 }
