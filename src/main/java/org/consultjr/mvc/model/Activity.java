@@ -29,6 +29,7 @@ public class Activity implements Serializable {
     @Column(name = "activity_id")
     private int id;
     
+    @Id
     @ManyToOne(targetEntity = Event.class)
     @JoinColumn(name="event_id")
     private Event event;
