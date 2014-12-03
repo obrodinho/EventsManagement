@@ -128,7 +128,7 @@ public class UserController extends AppController implements CRUDable{
         
         List<User> users = userService.getUsers();        
         modelAndView.addObject("users", users);
-        modelAndView.addObject("message", "Congratulations! The system [barely] works");
+        modelAndView.addObject("message", "Congratulations! The system works");
         return modelAndView;
     }
     
