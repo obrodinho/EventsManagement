@@ -6,18 +6,12 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Events Management - Administração do Sistema</title>
-    </head>
-    <body>
-        <h1>ADMIN</h1>
-        <h2>
-            8|
-        </h2>
-        <h2>Lista de configurações existentes</h2>
+<%@include file="../../templates/header.jspf" %>
+
+<div class="page-header">
+    <h2>Admin</h2>
+</div>
+        <h2>Existent Configs</h2>
         <table>
             <thead>
             <th>ID</th>
@@ -34,5 +28,5 @@
                 </c:forEach>
             </tbody>
         </table>
-    </body>
-</html>
+<%@include file="../../templates/footer.jspf" %>
+

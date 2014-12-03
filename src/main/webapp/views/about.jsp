@@ -5,16 +5,13 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Events Management - Sobre</title>
-    </head>
-    <body>
-        <h1>Sobre o projeto</h1>
+<%@include file="../templates/header.jspf" %>
+
+<div class="page-header">
+    <h2>About</h2>
+</div>
         <p>
-            Nada a declarar.
+            @TODO: Create document
         </p>
-    </body>
-</html>
+<%@include file="../templates/footer.jspf" %>
+

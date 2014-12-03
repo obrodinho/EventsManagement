@@ -5,30 +5,27 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Events Management - JSP version</title>
-    </head>
-    <body>
-        <h1>Testing Basic Operations</h1>
-        <h2>User</h2>
-        <ol>
-            <li><a href="${pageContext.request.contextPath}/User/all">List</a></li> 
-            <li><a href="${pageContext.request.contextPath}/User/add">Create</a></li>
-            <li><a href="${pageContext.request.contextPath}/loginForm">Login</a></li>
-            <li><a href="${pageContext.request.contextPath}/menu">Menu</a></li>
-        </ol>
-        
-        <h2>Classes</h2>
-        <ol>
-            <li><a href="${pageContext.request.contextPath}/Classes/all">List</a></li> 
-        </ol>
-        <h2>Activity</h2>
-        <ol>
-            <li><a href="${pageContext.request.contextPath}/Activity/all">List</a></li> 
-            <li><a href="${pageContext.request.contextPath}/Activity/add">Create</a></li>
-        </ol>
-    </body>
-</html>
+<%@include file="../templates/header.jspf" %>
+<div class="page-header">
+    <h2>Project Base Actions</h2>
+</div>    
+<div>
+    <h2>User</h2>
+    <ol>
+        <li><a href="${pageContext.request.contextPath}/User/all">List</a></li> 
+        <li><a href="${pageContext.request.contextPath}/User/add">Create</a></li>
+        <li><a href="${pageContext.request.contextPath}/loginForm">Login</a></li>
+        <li><a href="${pageContext.request.contextPath}/menu">Menu</a></li>
+    </ol>
+
+    <h2>Classes</h2>
+    <ol>
+        <li><a href="${pageContext.request.contextPath}/Classes/all">List</a></li> 
+    </ol>
+    <h2>Activity</h2>
+    <ol>
+        <li><a href="${pageContext.request.contextPath}/Activity/all">List</a></li> 
+        <li><a href="${pageContext.request.contextPath}/Activity/add">Create</a></li>
+    </ol>
+</div>
+<%@include file="../templates/footer.jspf" %>

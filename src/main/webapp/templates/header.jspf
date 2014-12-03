@@ -1,0 +1,32 @@
+<%@ page pageEncoding="UTF-8" %>
+<%
+String resourcesPath = pageContext.getRequest().getServletContext().getContextPath() + "/resources/";
+%>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>${empty title ? "org.consultjr.EventsManagement": title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Loading Bootstrap -->
+        <link href="${pageContext.request.contextPath}/resources/dist/css/vendor/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Loading Flat UI Pro -->
+        <link href="${pageContext.request.contextPath}/resources/dist/css/flat-ui-pro.css" rel="stylesheet">
+
+
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="${pageContext.request.contextPath}/resources/js/vendor/html5shiv.js"></script>
+          <script src="${pageContext.request.contextPath}/resources/js/vendor/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <%@include file="nav.jspf" %>
+        <div class="container">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+                

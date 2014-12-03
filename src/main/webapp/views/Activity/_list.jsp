@@ -6,18 +6,14 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>All Activities!!! :)</title>
-    </head>
-    <body>
-        <h1>All Activities!!! :)</h1>
+<%@include file="../../templates/header.jspf" %>
+<div class="page-header">
+    <h2>Activities</h2>
+</div>
         <div>
             ${message}
         </div>
-        <table class="table table-striped" border="1px" cellpadding="15" cellspacing="0" >
+        <table class="table table-bordered table-condensed table-hover">
             <thead>
                 <tr>
                     <th width="">Id</th>
@@ -51,6 +47,6 @@
             </tbody>
         </table>
 
-        <p><a href="${pageContext.request.contextPath}">Home page</a></p>
-    </body>
-</html>
+        
+<%@include file="../../templates/footer.jspf" %>
+

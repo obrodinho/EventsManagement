@@ -1,0 +1,21 @@
+<%
+    // already defined in header!
+    //String resourcesPath = pageContext.getRequest().getServletContext().getContextPath() + "/WEB-INF/resources/";
+%>
+<footer class="footer">
+    <div class="row">
+        <p><a href="${pageContext.request.contextPath}">Project Home Page</a></p>
+    </div>
+</footer>
+<%@ page pageEncoding="UTF-8" %>
+
+</div><!-- end .col-lg/md/xs-10 -->
+</div><!-- end .container -->
+<!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+<script src="${pageContext.request.contextPath}/resources/dist/js/vendor/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dist/js/vendor/video.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="${pageContext.request.contextPath}/resources/dist/js/flat-ui-pro.js"></script>
+
+</body>
+</html>

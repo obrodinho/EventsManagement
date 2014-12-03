@@ -5,13 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-         <p>Bem vindo, ${usuarioLogado.username}</p>
-    </body>
-</html>
+<%@include file="../templates/header.jspf" %>
+<div class="page-header">
+    <h2>Welcome!</h2>
+</div>
+<p>Bem vindo, ${usuarioLogado.username}</p>
+<%@include file="../templates/footer.jspf" %> 
+

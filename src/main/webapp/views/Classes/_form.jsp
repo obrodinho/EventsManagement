@@ -6,15 +6,10 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri='http://java.sun.com/jstl/core' prefix='c' %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Create and Update classes on this page</h1>
-        <div>
+<%@include file="../../templates/header.jspf" %>
+<div class="page-header">
+    <h2>Class</h2>
+</div>        <div>
             ${message}
         </div>
         <form:form method="POST" commandName="classes" action="${pageContext.request.contextPath}/Classes/${empty classesID ? action.concat('/').concat(activityID) : action.concat('/').concat(classesID)}">
@@ -37,6 +32,6 @@
             </table>
         </form:form>
 
-        <p><a href="${pageContext.request.contextPath}">Home page</a></p>
-    </body>
-</html>
+        
+<%@include file="../../templates/footer.jspf" %>
+

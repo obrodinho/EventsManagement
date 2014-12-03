@@ -7,35 +7,28 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri='http://java.sun.com/jstl/core' prefix='c' %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Create and Update users on this page</h1>
-        <div>
-            ${message}
-        </div>
+<%@include file="../templates/header.jspf" %>
+<div class="page-header">
+    <h2>Please, Login!</h2>
+</div>
+<div class="row">
+    <div>
+        ${message}
+    </div>
+</div>
+<div class="row">
+    <div class="well col-md-4 col-md-offset-4">
         <form:form method="POST" commandName="login" action="${pageContext.request.contextPath}/doLogin">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Username:</td>
-                        <td><form:input path="username" /></td>
-                    </tr>
-                    <tr>
-                        <td>Password:</td>
-                        <td><form:password path="password" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" value="Entrar" /></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="form-group">              
+                <label>Username:</label>
+                <form:input path="username" id="username" class="form-control" />
+            </div>
+            <div class="form-group">              
+                <label>Password:</label>
+                <form:input path="password" id="password" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-default btn-embossed btn-large btn-primary"><span class="fui-check-circle"></span> Login</button>
         </form:form>
-
-        <p><a href="${pageContext.request.contextPath}">Home page</a></p>
-    </body>
-</html>
+    </div>
+</div>
+<%@include file="../templates/footer.jspf" %>

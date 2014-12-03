@@ -1,0 +1,33 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<nav class="navbar navbar-inverse navbar-embossed navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}">EventsManagement</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+        <!-- aqui um mecanismo de geração de menu, iria interpretar a requisão, o usuário, e carregar seus menus. --> 
+        <!--
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#fakelink">Actions1</a></li>
+            <li><a href="#fakelink">Action1</a></li>
+        </ul>
+        -->
+        <!-- aqui, carregaríamos o form de login caso o user não esteja logado. Ou informaríamos seu usuário, caso contrário -->
+        <!--
+        <form class="navbar-form navbar-right" action="#" role="login">
+            <div class="form-group">
+                <div class="input-group">
+                    <input class="form-control" id="username" name="username" type="text" placeholder="Username">
+                    <input class="form-control" id="password" name="password" type="text" placeholder="Password">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn"><span class="fui-check"></span> Login</button>
+                    </span>
+                </div>
+            </div>
+        </form>
+        -->
+    </div><!-- /.navbar-collapse -->
+</nav><!-- /navbar -->

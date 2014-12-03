@@ -6,14 +6,11 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri='http://java.sun.com/jstl/core' prefix='c' %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Create and Update users on this page</h1>
+<%@include file="../../templates/header.jspf" %>
+
+        <div class="page-header">
+    <h2>User</h2>
+</div>
         <div>
             ${message}
         </div>
@@ -44,6 +41,4 @@
             </table>
         </form:form>
 
-        <p><a href="${pageContext.request.contextPath}">Home page</a></p>
-    </body>
-</html>
+<%@include file="../../templates/footer.jspf" %>
