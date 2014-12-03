@@ -7,11 +7,13 @@ package org.consultjr.mvc.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,14 +25,11 @@ import javax.persistence.Table;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private int id;
-
-    public User() {
-        this.created = new Date();
-    }
 
     public int getId() {
         return id;
@@ -64,25 +63,30 @@ public class User implements Serializable {
      */
     @Column(unique = true)
     private String username;
-    
+
     /**
      *
      */
     @Column()
     private String password;
 
-
     /**
      *
      */
     @Column()
     private Date created;
-    
+
     /**
      *
      */
     @Column()
     private Date updated;
+
+    @OneToMany(mappedBy = "user", targetEntity = UserSystemProfile.class)
+    private List<UserSystemProfile> profiles;
+
+    @Column()
+    private Type type;
 
     @Override
     public boolean equals(Object object) {
@@ -143,7 +147,7 @@ public class User implements Serializable {
     }
 
     public Type getType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return type;
     }
 
     /**
@@ -158,6 +162,26 @@ public class User implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public User() {
+        this.created = new Date();
+    }
+
+    public User(String firstname, String lastname, String username, String password) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.password = password;
+        this.created = new Date();
+
     }
 
 }
