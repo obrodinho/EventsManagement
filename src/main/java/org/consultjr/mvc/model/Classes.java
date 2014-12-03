@@ -33,8 +33,7 @@ public class Classes implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "class_id")
     private int id;
-    
-    @Id
+        
     @ManyToOne(targetEntity = Activity.class)
     @JoinColumn(name="activity_id")
     private Activity activity;
