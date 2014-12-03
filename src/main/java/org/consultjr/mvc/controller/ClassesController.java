@@ -52,7 +52,7 @@ public class ClassesController {
         classes.setStandard(false);
         modelAndView.addObject("classes", classes);
         modelAndView.addObject("action", "add");
-        modelAndView.addObject("userID", null);
+        modelAndView.addObject("classesID", null);
         modelAndView.addObject("activityID", id);
         return modelAndView;
     }
