@@ -7,9 +7,8 @@ package org.consultjr.mvc.service;
 
 import java.util.Date;
 import java.util.List;
+import org.consultjr.mvc.core.components.AppUtils;
 import org.consultjr.mvc.dao.ClassesDAO;
-import org.consultjr.mvc.dao.ClassesDAO;
-import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.model.Classes;
 
 
@@ -30,6 +29,7 @@ public class ClassesService {
 
     @Transactional(readOnly = false)
     public void addClasses(Classes classes) {
+        classes.setCreated(new Date());
         getClassesDAO().addClasses(classes);
     }
 
@@ -40,6 +40,7 @@ public class ClassesService {
 
     @Transactional(readOnly = false)
     public void updateClasses(Classes classes) {
+        classes.setUpdated(new Date());
         getClassesDAO().updateClasses(classes);
     }
 

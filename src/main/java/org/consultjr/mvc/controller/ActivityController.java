@@ -57,6 +57,7 @@ public class ActivityController {
         Classes standardClasses = new Classes();
         standardClasses.setActivity (activity);
         standardClasses.setStandard(true);
+        standardClasses.setDescription("Turma Padrão");
         classesService.addClasses(standardClasses);
         
         String message = "Activity was succesfully added";

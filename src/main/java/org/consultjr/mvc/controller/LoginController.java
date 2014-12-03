@@ -10,6 +10,7 @@ import org.consultjr.mvc.model.Login;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;

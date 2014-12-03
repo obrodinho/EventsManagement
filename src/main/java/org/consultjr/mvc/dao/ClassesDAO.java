@@ -53,8 +53,8 @@ public class ClassesDAO {
     }
 
     @Transactional
-    public void deleteClasses(Classes user) {
-        getSessionFactory().getCurrentSession().delete(user);
+    public void deleteClasses(Classes classes) {
+        getSessionFactory().getCurrentSession().delete(classes);
     }
 
     @Transactional

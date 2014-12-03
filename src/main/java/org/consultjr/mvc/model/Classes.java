@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
@@ -34,7 +35,7 @@ public class Classes implements Serializable {
     @Column(name = "classes_id")
     private int id;
     
-//    @ManyToOne(fetch = FetchType.EAGER)
+//  @ManyToOne(fetch = FetchType.EAGER)
     @ManyToOne(targetEntity = Activity.class)
     @JoinColumn(name="activity_id")
 //    @JoinColumn(name="event_id", insertable=true, updatable=true)
@@ -89,11 +90,9 @@ public class Classes implements Serializable {
     private String description;
 
     @Column()
-    @Temporal(javax.persistence.TemporalType.DATE)
     private Date created;
 
     @Column()
-    @Temporal(javax.persistence.TemporalType.DATE)
     private Date updated;
     
     @Column()
