@@ -26,8 +26,8 @@ public class RequestAnalyser {
     private Properties sponsorProperties;
 
     public RequestAnalyser() {
-       clientProperties = this.loadProperties("client.config");
-       sponsorProperties = this.loadProperties("sponsor.config");
+       clientProperties = this.loadProperties("client.properties");
+       sponsorProperties = this.loadProperties("sponsor.properties");
     }
 
     public boolean checkPermission(User user, HttpServletRequest request){
