@@ -16,27 +16,27 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  */
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     private RequestAnalyser rqAnalyser;
-    @Override
-    public boolean preHandle(HttpServletRequest request,HttpServletResponse response,Object controller) throws Exception {
-        String uri = request.getRequestURI();
-        User user = (User) request.getSession().getAttribute("usuarioLogado");
-        //Se Usuario esta logado
-        if(user != null) {
-            //Verifica se ele tem permissao para acessar a pagina
-            if(rqAnalyser.checkPermission(user, request)){
-                return true;
-            } else {
-                //se nao tiver manda de volta pra tela inicial dele
-                response.sendRedirect("/menu");
-                return false;
-            }
-        } else {
-            //se nao ta logado volta pra tela de login
-            response.sendRedirect("/loginForm");
-            return false;
-        }
-        
-        
-    }
+//    @Override
+//    public boolean preHandle(HttpServletRequest request,HttpServletResponse response,Object controller) throws Exception {
+//        String uri = request.getRequestURI();
+//        User user = (User) request.getSession().getAttribute("usuarioLogado");
+//        Se Usuario esta logado
+//        if(user != null) {
+//            Verifica se ele tem permissao para acessar a pagina
+//            if(rqAnalyser.checkPermission(user, request)){
+//                return true;
+//            } else {
+//                se nao tiver manda de volta pra tela inicial dele
+//                response.sendRedirect("/menu");
+//                return false;
+//            }
+//        } else {
+//            se nao ta logado volta pra tela de login
+//            response.sendRedirect("/loginForm");
+//            return false;
+//        }
+//        
+//        
+//    }
     
 }
