@@ -83,6 +83,9 @@ public class User implements Serializable {
      */
     @Column()
     private Date updated;
+    
+    @Column()
+    private Type type;
 
     @Override
     public boolean equals(Object object) {
@@ -143,7 +146,7 @@ public class User implements Serializable {
     }
 
     public Type getType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return type;
     }
 
     /**
@@ -158,6 +161,13 @@ public class User implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(Type type) {
+        this.type = type;
     }
 
 }
