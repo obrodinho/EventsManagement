@@ -5,8 +5,9 @@
  */
 package org.consultjr.mvc.controller;
 
-import java.util.Date;
 import java.util.List;
+import org.consultjr.mvc.core.base.AppController;
+import org.consultjr.mvc.core.base.CRUDable;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @Scope("request")
 @RequestMapping("/User")
-public class UserController {
+public class UserController extends AppController implements CRUDable{
 
     @Autowired
     private UserService userService;
 
     @RequestMapping("") // Index Method: => /PROJECT/User
+    @Override
     public ModelAndView index() {
         return this.allUsers();
     }

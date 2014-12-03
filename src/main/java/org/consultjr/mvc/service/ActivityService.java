@@ -2,7 +2,7 @@ package org.consultjr.mvc.service;
 
 import java.util.Date;
 import java.util.List;
-import org.consultjr.mvc.core.system.AppUtils;
+import org.consultjr.mvc.core.components.AppUtils;
 import org.consultjr.mvc.dao.ActivityDAO;
 import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.Event;

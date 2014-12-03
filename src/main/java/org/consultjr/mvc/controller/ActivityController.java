@@ -1,7 +1,7 @@
 package org.consultjr.mvc.controller;
 
 import java.util.List;
-import org.consultjr.mvc.core.system.AppUtils;
+import org.consultjr.mvc.core.components.AppUtils;
 import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.service.ActivityService;
