@@ -42,7 +42,6 @@ public class Event implements Serializable {
     @Column
     private Date end;
 
-    
     @ManyToOne(targetEntity = User.class)
     @JoinColumn
     private User owner;
@@ -62,6 +61,23 @@ public class Event implements Serializable {
     private List<Event> activities;
 
     public Event() {
+        this.created = new Date();
+    }
+
+    public Event(String title, String description) {
+        this.title = title;
+        this.description = description;
+
+        this.created = new Date();
+    }
+
+    public Event(String title, String description, Date start, Date end) {
+        this.title = title;
+        this.description = description;
+        this.start = start;
+        this.end = end;
+        
+        this.created = new Date();
     }
 
     public int getId() {
