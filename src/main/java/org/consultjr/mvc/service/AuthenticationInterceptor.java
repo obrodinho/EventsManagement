@@ -15,7 +15,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * @author Murilo
  */
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
-    private RequestAnalyser rqAnalyser;
+    private RequestAnalyser rqAnalyser = new RequestAnalyser();
     @Override
     public boolean preHandle(HttpServletRequest request,HttpServletResponse response,Object controller) throws Exception {
         String uri = request.getRequestURI();
@@ -28,7 +28,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
                 return true;
             } else {
                 //se nao tiver manda de volta pra tela inicial dele
-                response.sendRedirect("/menu");
+                response.sendRedirect("/org.consultjr.eventsmanagement/menu");
                 return false;
             }*/
         } else {
