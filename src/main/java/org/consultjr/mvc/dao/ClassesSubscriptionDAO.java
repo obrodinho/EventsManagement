@@ -48,22 +48,22 @@ public class ClassesSubscriptionDAO {
     @Transactional
     public ClassesSubscription getClassesSubscription(int classesId, int userId) {
         List list = getSessionFactory().getCurrentSession()
-                .createQuery("from ClassesSubscription where classes_id=? and user_id=?")
+                .createQuery("from classes_subscription where classes_id=? and user_id=?")
                 .setParameter(0, classesId)
                 .setParameter(1, userId).list();
         return (ClassesSubscription) list.get(0);
     }
 
     @Transactional
-    public List<Classes> getClassesSubscription() {
-        List list = getSessionFactory().getCurrentSession().createQuery("from ClassesSubscription").list();
+    public List<ClassesSubscription> getClassesSubscription() {
+        List list = getSessionFactory().getCurrentSession().createQuery("from classes_subscription").list();
         return list;
     }
     
     @Transactional
     public List<ClassesSubscription> getClassesSubscriptionByUser(int userId) {
         List list = getSessionFactory().getCurrentSession()
-                .createQuery("from ClassesSubscription where user_id=? ")
+                .createQuery("from classes_subscription where user_id=? ")
                 .setParameter(0, userId).list();
         return list;
     }
@@ -71,7 +71,7 @@ public class ClassesSubscriptionDAO {
     @Transactional
     public List<ClassesSubscription> getClassesSubscriptionByClasses(int classesId) {
         List list = getSessionFactory().getCurrentSession()
-                .createQuery("from ClassesSubscription where classes_id=? ")
+                .createQuery("from classes_subscription where classes_id=? ")
                 .setParameter(0, classesId).list();
         return list;
     }

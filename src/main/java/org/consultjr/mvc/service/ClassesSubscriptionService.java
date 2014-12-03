@@ -45,7 +45,7 @@ public class ClassesSubscriptionService {
         return getClassesSubscriptionDAO().getClassesSubscription(classesId, userId);
     }
 
-    public List<Classes> getClassesSubscription() {
+    public List<ClassesSubscription> getClassesSubscription() {
         return getClassesSubscriptionDAO().getClassesSubscription();
     }
     

@@ -5,9 +5,11 @@
  */
 package org.consultjr.mvc.service;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import static org.consultjr.mvc.model.Type.ADMIN;
 import static org.consultjr.mvc.model.Type.CLIENT;
@@ -20,39 +22,42 @@ import org.consultjr.mvc.model.User;
  */
 public class RequestAnalyser {
     
-    private List clientPages;
-    private List sponsorPages;
+    private Properties clientProperties;
+    private Properties sponsorProperties;
 
     public RequestAnalyser() {
-        clientPages = readPages("client.config");
-        clientPages = readPages("sponsor.config");
+       clientProperties = this.loadProperties("client.config");
+       sponsorProperties = this.loadProperties("sponsor.config");
     }
 
     public boolean checkPermission(User user, HttpServletRequest request){
         String uri = request.getRequestURI();
         if(user.getType() == CLIENT){
-            for(Object s : clientPages){
-                String str = (String) s;
-                if(uri.contains((CharSequence) s)){
-                    return true;
-                }
-            }
-            return false;
+            String permitPages = clientProperties.getProperty("pages.permit");
+            return uri.endsWith(permitPages);
         } else if(user.getType() == SPONSOR){
-            for(Object s : sponsorPages){
-                String str = (String) s;
-                if(uri.contains((CharSequence) s)){
-                    return true;
-                }
-            }
-            return false;
+            String permitPages = sponsorProperties.getProperty("pages.permit");
+            return uri.endsWith(permitPages);
         } else if(user.getType() == ADMIN){
             return true;
         }
         return false;
     }
 
-    private List readPages(String clientconfig) {
-        return new ArrayList();
+       private Properties loadProperties(String filename) {
+        Properties properties = new Properties();
+        InputStream fileStream = getClass().getClassLoader().getResourceAsStream(filename);
+
+        try {
+            properties.load(fileStream);
+            fileStream.close();
+        } catch (IOException ex) {
+            Logger.getLogger(RequestAnalyser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (null == fileStream) {
+            System.err.println("property file '" + filename + "' not found in the classpath");
+        }
+        return properties;
     }
 }
