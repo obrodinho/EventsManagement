@@ -8,7 +8,12 @@ package org.consultjr.mvc.controller;
 import java.util.List;
 import org.consultjr.mvc.core.base.AppController;
 import org.consultjr.mvc.core.base.CRUDable;
+import org.consultjr.mvc.model.ClassesSubscription;
+import org.consultjr.mvc.model.SubscriptionProfile;
 import org.consultjr.mvc.model.User;
+import org.consultjr.mvc.service.ClassesService;
+import org.consultjr.mvc.service.ClassesSubscriptionService;
+import org.consultjr.mvc.service.SubscriptionProfileService;
 import org.consultjr.mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -30,6 +35,12 @@ public class UserController extends AppController implements CRUDable{
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private ClassesSubscriptionService subscriptionService;
+    @Autowired
+    private ClassesService classesService;
+    @Autowired
+    private SubscriptionProfileService subscriptionProfileService;
 
     @RequestMapping("") // Index Method: => /PROJECT/User
     @Override
@@ -93,5 +104,42 @@ public class UserController extends AppController implements CRUDable{
         modelAndView.addObject("users", users);
         return modelAndView;
     }
+    
+    @RequestMapping(value = "/all/{id}")
+    public ModelAndView allUsers(@PathVariable int id) {
+        ModelAndView modelAndView = new ModelAndView("User/_listSubscription");
+        List<User> users = userService.getUsers();
+        modelAndView.addObject("users", users);
+        modelAndView.addObject("classId", id);
+        return modelAndView;
+    }
+    
+    
+        @RequestMapping(value = "/subscription/{classId}/{userId}/{tipo}")
+        public ModelAndView allUsers(@PathVariable int classId, @PathVariable int userId, @PathVariable int tipo) {
+        ModelAndView modelAndView = new ModelAndView("User/_listSubscription");
+        
+        ClassesSubscription subs = new ClassesSubscription();
+        subs.setUser(userService.getUserById(userId));
+        subs.setClasses(classesService.getClassesById(classId));
+        subs.setSubscriptionProfile(subscriptionProfileService.getSubscriptionProfileById(tipo));
+        System.out.println("AQUI" + subs.toString());
+        subscriptionService.addClassesSubscription(subs);
+        
+        List<User> users = userService.getUsers();        
+        modelAndView.addObject("users", users);
+        modelAndView.addObject("message", "Congratulations! The system [barely] works");
+        return modelAndView;
+    }
+    
+    
+        /*@RequestMapping(value = "/all/{id}")
+        public ModelAndView allUsers(@PathVariable int id) {
+        ModelAndView modelAndView = new ModelAndView("User/_listSubscription");
+        List<User> users = userService.getUsers();
+        modelAndView.addObject("users", users);
+        modelAndView.addObject("classId", id);
+        return modelAndView;
+    }*/
 
 }

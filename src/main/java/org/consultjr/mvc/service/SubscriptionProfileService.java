@@ -42,6 +42,10 @@ public class SubscriptionProfileService {
         getSubscriptionProfileDAO().updateSubscriptionProfile(subscriptionProfile);
     }
 
+    public SubscriptionProfile getSubscriptionProfileById(int id) {
+        return (getSubscriptionProfileDAO().getSubscriptionProfilesFromId(id)).get(0);
+    }
+    
     public List<SubscriptionProfile> getSubscriptionProfile() {
         return getSubscriptionProfileDAO().getSubscriptionProfile();
     }

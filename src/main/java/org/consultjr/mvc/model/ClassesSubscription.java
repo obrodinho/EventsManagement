@@ -27,6 +27,8 @@ import javax.persistence.Transient;
 public class ClassesSubscription implements Serializable{
     
     private static final long serialVersionUID = 1L;
+
+    
     
 
     //@ManyToOne(targetEntity = Classes_Profiles.class))
@@ -34,13 +36,18 @@ public class ClassesSubscription implements Serializable{
     //private Classes_Profiles profile;
     @Id
     @ManyToOne(targetEntity = Classes.class)
-    @JoinColumn(name="classes_id")
+    @JoinColumn(name="class_id")
     private Classes classes;
     
-    @Id
+    //@Id
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name="user_id")
     private User user;
+    
+    //@Id
+    @ManyToOne(targetEntity = SubscriptionProfile.class)
+    @JoinColumn(name="profile_id")
+    private SubscriptionProfile subscriptionProfile;
     
     @Column() 
     private Date associated;
@@ -68,5 +75,17 @@ public class ClassesSubscription implements Serializable{
 
     public void setAssociated(Date associated) {
         this.associated = associated;
+    }
+
+    public SubscriptionProfile getSubscriptionProfile() {
+        return subscriptionProfile;
+    }
+
+    public void setSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
+        this.subscriptionProfile = subscriptionProfile;
+    }
+    @Override
+    public String toString() {
+        return "ClassesSubscription{" + "classes=" + classes + ", user=" + user + ", subscriptionProfile=" + subscriptionProfile + ", associated=" + associated + '}';
     }
 }

@@ -20,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 public class SubscriptionProfileDAO {
+    
+    
+    
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -33,7 +36,7 @@ public class SubscriptionProfileDAO {
     
     @Transactional
     public void addSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
-        subscriptionProfile.setId(1);
+        /*subscriptionProfile.setId(1);
         subscriptionProfile.setDescription("É quem vai palestrar");
         subscriptionProfile.setName("Palestrante");
         subscriptionProfile.setCreated(new Date());
@@ -49,7 +52,7 @@ public class SubscriptionProfileDAO {
         subscriptionProfile.setId(3);
         subscriptionProfile.setDescription("É staff ou pessoa que auxilia o ministrante");
         subscriptionProfile.setName("Monitor");
-        subscriptionProfile.setCreated(new Date());
+        subscriptionProfile.setCreated(new Date());*/
         getSessionFactory().getCurrentSession().save(subscriptionProfile);
     }
 
@@ -65,15 +68,19 @@ public class SubscriptionProfileDAO {
 
     @Transactional
     public List<SubscriptionProfile> getSubscriptionProfile() {
-        List list = getSessionFactory().getCurrentSession().createQuery("from subscription_profiles").list();
+        List list = getSessionFactory().getCurrentSession().createQuery("from SubscriptionProfile").list();
         return list;
     }
     
     @Transactional
-    public List<SubscriptionProfile> getSubscriptionProfile(int profileId) {
-        List list = getSessionFactory().getCurrentSession().createQuery("from subscription_profiles where profile_id=?")
+    public List<SubscriptionProfile> getSubscriptionProfilesFromId(int profileId) {
+        List list = getSessionFactory().getCurrentSession().createQuery("from SubscriptionProfile where id=?")
                 .setParameter(0, profileId).list();
+        System.out.println(list.toString());
+                
         return list;
     }
+    
+    
     
 }

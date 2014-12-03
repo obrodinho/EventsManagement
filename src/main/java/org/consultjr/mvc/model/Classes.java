@@ -39,6 +39,7 @@ public class Classes implements Serializable {
     @JoinColumn(name="activity_id")
     private Activity activity;
     
+    
 //    @ManyToOne
 //    @JoinColumn(name ="event_id")
 //    private int event_id;

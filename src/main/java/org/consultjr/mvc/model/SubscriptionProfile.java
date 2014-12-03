@@ -80,4 +80,9 @@ public class SubscriptionProfile implements Serializable {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }    
+
+    @Override
+    public String toString() {
+        return "SubscriptionProfile{" + "id=" + id + ", description=" + description + ", name=" + name + ", created=" + created + ", updated=" + updated + '}';
+    }
 }

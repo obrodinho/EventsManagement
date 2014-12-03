@@ -103,6 +103,13 @@ public class ClassesController {
         //TODO checar se houve deleção!!!
         classesService.deleteClasses(classesService.getClassesById(id));
         List<Classes> manyClasses = classesService.getClasses();
+        if (manyClasses.size() > 1 ){
+            for(int i = 0; i < manyClasses.size(); i++){  
+                if (manyClasses.get(i).getStandard() == true){
+                    manyClasses.remove(i);
+                }
+            }
+        }
         modelAndView.addObject("classes", manyClasses);
         String message = "Class was successfully deleted.";
         modelAndView.addObject("message", message);
@@ -121,6 +128,13 @@ public class ClassesController {
     public ModelAndView allClasses(@PathVariable int id) {
         ModelAndView modelAndView = new ModelAndView("Classes/_list");
         List<Classes> manyClasses = classesService.getClassesByActivity(id);
+        if (manyClasses.size() > 1 ){
+            for(int i = 0; i < manyClasses.size(); i++){  
+                if (manyClasses.get(i).getStandard() == true){
+                    manyClasses.remove(i);
+                }
+            }
+        }
         modelAndView.addObject("classes", manyClasses);
         return modelAndView;
     }
