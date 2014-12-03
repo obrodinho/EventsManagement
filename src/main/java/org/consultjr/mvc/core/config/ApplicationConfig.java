@@ -136,10 +136,10 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
     
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-       registry.addInterceptor(new AuthenticationInterceptor());
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//       registry.addInterceptor(new AuthenticationInterceptor());
+//    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
