@@ -22,17 +22,21 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         User user = (User) request.getSession().getAttribute("usuarioLogado");
         //Se Usuario esta logado
         if(user != null) {
+            return true;
             //Verifica se ele tem permissao para acessar a pagina
-            if(rqAnalyser.checkPermission(user, request)){
+            /*if(rqAnalyser.checkPermission(user, request)){
                 return true;
             } else {
                 //se nao tiver manda de volta pra tela inicial dele
                 response.sendRedirect("/menu");
                 return false;
-            }
+            }*/
         } else {
             //se nao ta logado volta pra tela de login
-            response.sendRedirect("/loginForm");
+            if(uri.endsWith("/") || uri.endsWith("loginForm") || uri.endsWith("doLogin")){
+                return true;
+            }
+            response.sendRedirect("/org.consultjr.eventsmanagement/loginForm");
             return false;
         }
         
