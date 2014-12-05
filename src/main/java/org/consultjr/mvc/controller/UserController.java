@@ -31,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @Scope("request")
 @RequestMapping("/User")
-public class UserController extends AppController implements CRUDable{
+public class UserController extends AppController implements CRUDable {
 
     @Autowired
     private UserService userService;
@@ -45,7 +45,7 @@ public class UserController extends AppController implements CRUDable{
     @RequestMapping("") // Index Method: => /PROJECT/User
     @Override
     public ModelAndView index() {
-        return this.allUsers();
+        return new ModelAndView("redirect:/User/all");
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET) // GET: /PROJECT/User/add
@@ -59,7 +59,7 @@ public class UserController extends AppController implements CRUDable{
 
     @RequestMapping(value = "/add", method = RequestMethod.POST) // Save Method: POST /PROJECT/User/add
     public ModelAndView addUser(@ModelAttribute User user) {
-        ModelAndView modelAndView = new ModelAndView("User/_form");
+        ModelAndView modelAndView = new ModelAndView("forward:/User/all");
         userService.addUser(user);
         String message = "User was succesfully added";
         modelAndView.addObject("message", message);
@@ -78,7 +78,7 @@ public class UserController extends AppController implements CRUDable{
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView updateUser(@ModelAttribute User user, @PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("User/_form");
+        ModelAndView modelAndView = new ModelAndView("forward:/User/all");
         userService.updateUser(user, id);
         String message = "User was successfully edited.";
         modelAndView.addObject("message", message);
@@ -87,7 +87,7 @@ public class UserController extends AppController implements CRUDable{
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteUser(@PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("User/_list");
+        ModelAndView modelAndView = new ModelAndView("forward:/User/all");
         //TODO checar se houve deleção do usuário!
         userService.deleteUser(userService.getUserById(id));
         List<User> users = userService.getUsers();
@@ -101,45 +101,44 @@ public class UserController extends AppController implements CRUDable{
     public ModelAndView allUsers() {
         ModelAndView modelAndView = new ModelAndView("User/_list");
         List<User> users = userService.getUsers();
+        modelAndView.addObject("title", "All Users :D");
         modelAndView.addObject("users", users);
         return modelAndView;
     }
-    
+
     @RequestMapping(value = "/all/{id}")
     public ModelAndView allUsers(@PathVariable int id) {
         ModelAndView modelAndView = new ModelAndView("User/_listSubscription");
         List<User> users = userService.getUsers();
         modelAndView.addObject("users", users);
         modelAndView.addObject("classId", id);
+        modelAndView.addObject("profiles", subscriptionProfileService.getSubscriptionProfiles());
         return modelAndView;
     }
-    
-    
-        @RequestMapping(value = "/subscription/{classId}/{userId}/{tipo}")
-        public ModelAndView allUsers(@PathVariable int classId, @PathVariable int userId, @PathVariable int tipo) {
+
+    @RequestMapping(value = "/subscription/{classId}/{userId}/{typeId}")
+    public ModelAndView allUsers(@PathVariable int classId, @PathVariable int userId, @PathVariable int typeId) {
         ModelAndView modelAndView = new ModelAndView("User/_listSubscription");
-        
+
         ClassesSubscription subs = new ClassesSubscription();
         subs.setUser(userService.getUserById(userId));
         subs.setClasses(classesService.getClassesById(classId));
-        subs.setSubscriptionProfile(subscriptionProfileService.getSubscriptionProfileById(tipo));
+        subs.setSubscriptionProfile(subscriptionProfileService.getSubscriptionProfileById(typeId));
         System.out.println("AQUI" + subs.toString());
         subscriptionService.addClassesSubscription(subs);
-        
-        List<User> users = userService.getUsers();        
+
+        List<User> users = userService.getUsers();
         modelAndView.addObject("users", users);
         modelAndView.addObject("message", "Congratulations! The system works");
         return modelAndView;
     }
-    
-    
-        /*@RequestMapping(value = "/all/{id}")
-        public ModelAndView allUsers(@PathVariable int id) {
-        ModelAndView modelAndView = new ModelAndView("User/_listSubscription");
-        List<User> users = userService.getUsers();
-        modelAndView.addObject("users", users);
-        modelAndView.addObject("classId", id);
-        return modelAndView;
-    }*/
 
+    /*@RequestMapping(value = "/all/{id}")
+     public ModelAndView allUsers(@PathVariable int id) {
+     ModelAndView modelAndView = new ModelAndView("User/_listSubscription");
+     List<User> users = userService.getUsers();
+     modelAndView.addObject("users", users);
+     modelAndView.addObject("classId", id);
+     return modelAndView;
+     }*/
 }
