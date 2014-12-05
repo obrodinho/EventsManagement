@@ -1,7 +1,4 @@
 <%@ page pageEncoding="UTF-8" %>
-<%
-String resourcesPath = pageContext.getRequest().getServletContext().getContextPath() + "/resources/";
-%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,8 +10,7 @@ String resourcesPath = pageContext.getRequest().getServletContext().getContextPa
         <link href="${pageContext.request.contextPath}/resources/dist/css/vendor/bootstrap.min.css" rel="stylesheet">
 
         <!-- Loading Flat UI Pro -->
-        <link href="${pageContext.request.contextPath}/resources/dist/css/flat-ui-pro.css" rel="stylesheet">
-
+        <link href="${pageContext.request.contextPath}/resources/dist/css/flat-ui-pro.min.css" rel="stylesheet">
 
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico">
 
@@ -29,4 +25,3 @@ String resourcesPath = pageContext.getRequest().getServletContext().getContextPa
         <%@include file="nav.jspf" %>
         <div class="container">
             <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
-                
