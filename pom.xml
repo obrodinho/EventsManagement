@@ -29,10 +29,8 @@
             <url>http://repo.spring.io/milestone</url>
         </repository>
         <repository>
-            <url>http://repository.primefaces.org/</url>
-            <id>PrimeFaces-maven-lib</id>
-            <layout>default</layout>
-            <name>Repository for library PrimeFaces-maven-lib</name>
+            <id>JBoss repository</id>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
         </repository>
         <repository>
             <id>unknown-jars-temp-repo</id>
@@ -45,13 +43,24 @@
         <!-- hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-c3p0</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.1.Final</version>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <!-- SLF4J -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.7</version>
         </dependency>
         <!-- mysql and other databases -->
         <dependency>
@@ -177,16 +186,6 @@
             <artifactId>cglib</artifactId>
             <version>3.1</version>
         </dependency>
-        <!--        <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>javax.servlet.jsp.jstl</artifactId>
-            <version>1.2.2</version>
-        </dependency>-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -197,7 +196,7 @@
             <artifactId>javax.servlet.jsp-api</artifactId>
             <version>2.3.1</version>
         </dependency>
-                <dependency>
+        <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>
             <artifactId>javax.servlet.jsp.jstl-api</artifactId>
             <version>1.2.1</version>
@@ -212,20 +211,13 @@
             <artifactId>el-api</artifactId>
             <version>2.2</version>
         </dependency>
-<!--        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-javaconfig</artifactId>
-            <version>1.0.0.CI-SNAPSHOT</version>
-        </dependency>-->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -275,5 +267,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
