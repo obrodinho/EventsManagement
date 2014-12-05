@@ -20,9 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 public class SubscriptionProfileDAO {
-    
-    
-    
+
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -33,26 +31,26 @@ public class SubscriptionProfileDAO {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    
+
     @Transactional
     public void addSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
         /*subscriptionProfile.setId(1);
-        subscriptionProfile.setDescription("É quem vai palestrar");
-        subscriptionProfile.setName("Palestrante");
-        subscriptionProfile.setCreated(new Date());
-        getSessionFactory().getCurrentSession().save(subscriptionProfile);
+         subscriptionProfile.setDescription("É quem vai palestrar");
+         subscriptionProfile.setName("Palestrante");
+         subscriptionProfile.setCreated(new Date());
+         getSessionFactory().getCurrentSession().save(subscriptionProfile);
         
-        subscriptionProfile.setId(2);
-        subscriptionProfile.setDescription("É quem se inscreveu na atividade");
-        subscriptionProfile.setName("Participante");
-        subscriptionProfile.setCreated(new Date());
-        getSessionFactory().getCurrentSession().save(subscriptionProfile);
+         subscriptionProfile.setId(2);
+         subscriptionProfile.setDescription("É quem se inscreveu na atividade");
+         subscriptionProfile.setName("Participante");
+         subscriptionProfile.setCreated(new Date());
+         getSessionFactory().getCurrentSession().save(subscriptionProfile);
         
         
-        subscriptionProfile.setId(3);
-        subscriptionProfile.setDescription("É staff ou pessoa que auxilia o ministrante");
-        subscriptionProfile.setName("Monitor");
-        subscriptionProfile.setCreated(new Date());*/
+         subscriptionProfile.setId(3);
+         subscriptionProfile.setDescription("É staff ou pessoa que auxilia o ministrante");
+         subscriptionProfile.setName("Monitor");
+         subscriptionProfile.setCreated(new Date());*/
         getSessionFactory().getCurrentSession().save(subscriptionProfile);
     }
 
@@ -67,20 +65,20 @@ public class SubscriptionProfileDAO {
     }
 
     @Transactional
-    public List<SubscriptionProfile> getSubscriptionProfile() {
+    public List<SubscriptionProfile> getSubscriptionProfiles() {
         List list = getSessionFactory().getCurrentSession().createQuery("from SubscriptionProfile").list();
+        if (list.isEmpty()) {
+            return null;
+        }
         return list;
     }
-    
+
     @Transactional
-    public List<SubscriptionProfile> getSubscriptionProfilesFromId(int profileId) {
-        List list = getSessionFactory().getCurrentSession().createQuery("from SubscriptionProfile where id=?")
-                .setParameter(0, profileId).list();
-        System.out.println(list.toString());
-                
-        return list;
+    public SubscriptionProfile getSubscriptionProfilesById(int profileId) {
+        return (SubscriptionProfile) getSessionFactory()
+                .getCurrentSession()
+                .createQuery("from SubscriptionProfile where id=:id")
+                .setParameter("id", profileId).uniqueResult();
     }
-    
-    
-    
+
 }

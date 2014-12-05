@@ -60,8 +60,8 @@ public class UserDAO extends AppDAO {
     @Transactional
     public User getUserById(int id) {
         List list = getSessionFactory().getCurrentSession()
-                .createQuery("from User  where id=?")
-                .setParameter(0, id).list();
+                .createQuery("from User  where id=:id")
+                .setParameter("id", id).list();
         return (User) list.get(0);
     }
 
@@ -80,8 +80,8 @@ public class UserDAO extends AppDAO {
 
     public User getUserByUsername(String username) {
         List list = getSessionFactory().getCurrentSession()
-            .createQuery("from User  where username=?")
-            .setParameter(0, username).list();
+            .createQuery("from User  where username=:u")
+            .setParameter("u", username).list();
         if(list.isEmpty()){
             return null;
         }

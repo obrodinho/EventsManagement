@@ -43,11 +43,11 @@ public class SubscriptionProfileService {
     }
 
     public SubscriptionProfile getSubscriptionProfileById(int id) {
-        return (getSubscriptionProfileDAO().getSubscriptionProfilesFromId(id)).get(0);
+        return getSubscriptionProfileDAO().getSubscriptionProfilesById(id);
     }
     
-    public List<SubscriptionProfile> getSubscriptionProfile() {
-        return getSubscriptionProfileDAO().getSubscriptionProfile();
+    public List<SubscriptionProfile> getSubscriptionProfiles() {
+        return getSubscriptionProfileDAO().getSubscriptionProfiles();
     }
     
 

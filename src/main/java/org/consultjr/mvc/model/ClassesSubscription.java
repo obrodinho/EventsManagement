@@ -9,14 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.Transient;
 
 /**
  *
@@ -24,34 +20,31 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "classes_subscription")
-public class ClassesSubscription implements Serializable{
-    
+public class ClassesSubscription implements Serializable {
+
     private static final long serialVersionUID = 1L;
-
     
-    
-
-    //@ManyToOne(targetEntity = Classes_Profiles.class))
-    //@Column(name = "profile_id")
-    //private Classes_Profiles profile;
     @Id
     @ManyToOne(targetEntity = Classes.class)
-    @JoinColumn(name="class_id")
+    @JoinColumn(name = "class_id")
     private Classes classes;
     
-    //@Id
+    @Id
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
-    
-    //@Id
+
+    @Id
     @ManyToOne(targetEntity = SubscriptionProfile.class)
-    @JoinColumn(name="profile_id")
+    @JoinColumn(name = "profile_id")
     private SubscriptionProfile subscriptionProfile;
-    
-    @Column() 
+
+    @Column()
     private Date associated;
-    
+
+    public ClassesSubscription() {
+        this.associated = new Date();
+    }
 
     public Classes getClasses() {
         return classes;
@@ -68,7 +61,7 @@ public class ClassesSubscription implements Serializable{
     public void setUser(User user) {
         this.user = user;
     }
-    
+
     public Date getAssociated() {
         return associated;
     }
@@ -84,6 +77,7 @@ public class ClassesSubscription implements Serializable{
     public void setSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
         this.subscriptionProfile = subscriptionProfile;
     }
+
     @Override
     public String toString() {
         return "ClassesSubscription{" + "classes=" + classes + ", user=" + user + ", subscriptionProfile=" + subscriptionProfile + ", associated=" + associated + '}';
