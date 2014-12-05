@@ -1,5 +1,6 @@
 package org.consultjr.mvc.controller;
 
+import java.util.Date;
 import java.util.List;
 import org.consultjr.mvc.core.components.AppUtils;
 import org.consultjr.mvc.model.Activity;
@@ -55,10 +56,13 @@ public class ActivityController {
         activityService.addActivity(activity);
         
         Classes standardClasses = new Classes();
-        standardClasses.setActivity (activity);
+        standardClasses.setActivity (activityService.getActivityById(1));
         standardClasses.setStandard(true);
         standardClasses.setDescription("Turma Padrão");
+        standardClasses.setCreated(new Date());
+        standardClasses.setTitle("Turma Padrao");
         classesService.addClasses(standardClasses);
+        
         
         String message = "Activity was succesfully added";
         modelAndView.addObject("message", message);
