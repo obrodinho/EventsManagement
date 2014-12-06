@@ -6,15 +6,18 @@
 package org.consultjr.mvc.controller;
 
 import java.util.Date;
-import java.util.List;
 import org.consultjr.mvc.core.base.AppController;
+import org.consultjr.mvc.core.components.AppUtils;
 import org.consultjr.mvc.model.Activity;
+import org.consultjr.mvc.model.ActivityType;
 import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.model.Event;
+import org.consultjr.mvc.model.SystemConfig;
 import org.consultjr.mvc.model.SystemProfile;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.model.UserSystemProfile;
 import org.consultjr.mvc.service.ActivityService;
+import org.consultjr.mvc.service.ActivityTypeService;
 import org.consultjr.mvc.service.ClassesService;
 import org.consultjr.mvc.service.EventService;
 import org.consultjr.mvc.service.SystemConfigService;
@@ -53,6 +56,9 @@ public class SystemController extends AppController {
     private EventService evtService;
 
     @Autowired
+    private ActivityTypeService actTypeService;
+
+    @Autowired
     private ActivityService actService;
 
     @Autowired
@@ -80,37 +86,52 @@ public class SystemController extends AppController {
 
     @RequestMapping("/install")
     public ModelAndView install() {
-        ModelAndView sysView = new ModelAndView("redirect:/");
+        ModelAndView sysView = new ModelAndView("redirect:/Activity/all");
+
+        if (systemConfigService.getConfigByKey("_installed") == null) {
+            systemConfigService.addConfig(new SystemConfig("_installed", "yes"));
+            systemConfigService.addConfig(new SystemConfig("_configuredAt", AppUtils.DateToString(new Date())));
+        } else {
+            sysView.addObject("message", "Initial database objects has already been created.");
+
+            return sysView;
+        }
 
         SystemProfile adminProfile = new SystemProfile("admin", "Administrador do Sistema");
-        if (spService.getSystemProfileByShortname("admin") == null) {
-            spService.addSystemProfile(adminProfile);
-            System.out.println(adminProfile);
-        }
+//        if (spService.getSystemProfileByShortname("admin") == null) {
+        spService.addSystemProfile(adminProfile);
+        System.out.println(adminProfile);
+//        }
 
         User defaultUser = new User("Administrador", "do Sistema", "admin", "admin@LPS");
-        if (userService.getUserByUsername("admin") == null) {
-            userService.addUser(defaultUser);
-            System.out.println(defaultUser);
-        }
-        User admin = userService.getUserByUsername("admin");
-        SystemProfile adminP = spService.getSystemProfileByShortname("admin");
-        List<UserSystemProfile> list = uspService.getUserSystemProfiles();
-        if (list.isEmpty()) {
-            
-            UserSystemProfile usp = new UserSystemProfile(admin, adminProfile);
-            uspService.addUserSystemProfile(usp);
-            System.out.println(usp);
-        }
+//        if (userService.getUserByUsername("admin") == null) {
+        userService.addUser(defaultUser);
+        System.out.println(defaultUser);
+//        }
 
-        if (evtService.getEvents().isEmpty()) {
-            Event evt = new Event("Evento Padrão", "Padrão", new Date(), new Date());
-            evtService.addEvent(evt);
-            Activity act = new Activity(evt, "Atividade Padrão", "Padrão");
-            actService.addActivity(act);
-            Classes cls = new Classes(act, "Turma Padrão", "Padrão", true);
-            clsService.addClasses(cls);
-        }
+//        if (uspService.getUserSystemProfiles().isEmpty()) {
+        UserSystemProfile usp = new UserSystemProfile(userService.getUserByUsername("admin"), spService.getSystemProfileByShortname("admin"));
+        uspService.addUserSystemProfile(usp);
+        System.out.println(usp);
+//        }
+
+//        if (evtService.getEvents().isEmpty()) {
+        
+        
+        
+        Event evt = new Event("Evento Padrão", "Padrão", userService.getUserByUsername("admin"), new Date(), new Date());
+        evtService.addEvent(evt);
+        
+        actTypeService.addActivityType(new ActivityType("default", "default", "Example Description"));
+        actTypeService.addActivityType(new ActivityType("course", "course", "Example Description"));
+        actTypeService.addActivityType(new ActivityType("workshop", "Workshop", "Example Description"));
+        actTypeService.addActivityType(new ActivityType("laboratory", "laboratory", "Example Description"));
+        
+        Activity act = new Activity(evt, "Default Activity", "Default", actTypeService.getActivityTypeByShortname("default"));
+        actService.addActivity(act);
+        Classes cls = new Classes(act, "Default Class", "Default", true);
+        clsService.addClasses(cls);
+//        }
 
         sysView.addObject("message", "Initial database objects has been created.");
         return sysView;
