@@ -39,10 +39,10 @@ public class SystemConfig implements Serializable {
     @Column(name = "config_value")
     private String value;
 
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date created;
 
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
     
     public SystemConfig() {

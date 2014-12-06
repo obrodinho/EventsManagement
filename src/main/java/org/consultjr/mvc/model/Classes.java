@@ -81,10 +81,10 @@ public class Classes implements Serializable {
     @Column()
     private String description;
 
-    @Column()
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date created;
 
-    @Column()
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
     
     @Column()

@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -43,10 +44,10 @@ public class ClassesProfile implements Serializable {
     @Column 
     private String name;
     
-    @Column
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date created;
     
-    @Column
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
     
     public String getDescription() {

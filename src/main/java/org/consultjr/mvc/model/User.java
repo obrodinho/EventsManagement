@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
 /**
@@ -74,13 +75,13 @@ public class User implements Serializable {
     /**
      *
      */
-    @Column()
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date created;
 
     /**
      *
      */
-    @Column()
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
 
     @OneToMany(mappedBy = "user", targetEntity = UserSystemProfile.class)
