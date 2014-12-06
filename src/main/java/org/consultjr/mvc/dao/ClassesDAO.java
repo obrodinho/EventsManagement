@@ -49,6 +49,7 @@ public class ClassesDAO {
     @Transactional
     public void addClasses(Classes classes) {
         getSessionFactory().getCurrentSession().save(classes);
+        getSessionFactory().getCurrentSession().flush();
         getSessionFactory().getCurrentSession().refresh(classes);
     }
 

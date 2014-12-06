@@ -26,6 +26,7 @@ public class EventDAO extends AppDAO {
     @Transactional
     public void addEvent(Event event) {
         getSessionFactory().getCurrentSession().save(event);
+        getSessionFactory().getCurrentSession().flush();
         getSessionFactory().getCurrentSession().refresh(event);
 
     }

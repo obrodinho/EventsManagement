@@ -27,6 +27,7 @@ public class UserDAO extends AppDAO {
     @Transactional
     public void addUser(User user) {
         getSessionFactory().getCurrentSession().save(user);
+        getSessionFactory().getCurrentSession().flush();
         getSessionFactory().getCurrentSession().refresh(user);
 
     }

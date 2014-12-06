@@ -21,6 +21,7 @@ public class SystemConfigDAO extends AppDAO {
     @Transactional
     public void addConfig(SystemConfig config) {
         getSessionFactory().getCurrentSession().save(config);
+        getSessionFactory().getCurrentSession().flush();
         getSessionFactory().getCurrentSession().refresh(config);
     }
 

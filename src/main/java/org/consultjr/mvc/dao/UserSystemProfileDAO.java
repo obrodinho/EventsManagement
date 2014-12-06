@@ -33,6 +33,7 @@ public class UserSystemProfileDAO {
     @Transactional
     public void addUserSystemProfile(UserSystemProfile usp) {
         getSessionFactory().getCurrentSession().save(usp);
+        getSessionFactory().getCurrentSession().flush();
         getSessionFactory().getCurrentSession().refresh(usp);
     }
 

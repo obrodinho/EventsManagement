@@ -1,9 +1,8 @@
 package org.consultjr.mvc.dao;
 
 import java.util.List;
+import org.consultjr.mvc.core.base.AppDAO;
 import org.consultjr.mvc.model.Activity;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,22 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
  * @author kallenon
  */
 @Repository
-public class ActivityDAO {
-
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+public class ActivityDAO extends AppDAO {
 
     @Transactional
     public void addActivity(Activity activity) {
         getSessionFactory().getCurrentSession().save(activity);
+        getSessionFactory().getCurrentSession().flush();
         getSessionFactory().getCurrentSession().refresh(activity);
     }
 

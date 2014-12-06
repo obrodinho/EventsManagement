@@ -33,6 +33,7 @@ public class SystemProfileDAO {
     @Transactional
     public void addSystemProfile(SystemProfile sp) {
         getSessionFactory().getCurrentSession().save(sp);
+        getSessionFactory().getCurrentSession().flush();
         getSessionFactory().getCurrentSession().refresh(sp);
     }
 

@@ -34,7 +34,8 @@ public class ClassesSubscriptionDAO {
     @Transactional
     public void addClassesSubscription(ClassesSubscription subscription) {
         getSessionFactory().getCurrentSession().save(subscription);
-        getSessionFactory().getCurrentSession().refresh(subscription);
+            getSessionFactory().getCurrentSession().flush();
+    getSessionFactory().getCurrentSession().refresh(subscription);
     }
 
     @Transactional
