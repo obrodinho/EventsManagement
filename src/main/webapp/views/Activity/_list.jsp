@@ -32,7 +32,7 @@
                         <td>${activity.id}</td>
                         <td>${activity.title}</td>
                         <td>${activity.description}</td>
-                        <td>${activity.type}</td>
+                        <td>${activity.type.title}</td>
                         <td>${activity.workload}</td>
                         <td>${activity.start}</td>
                         <td>${activity.end}</td>

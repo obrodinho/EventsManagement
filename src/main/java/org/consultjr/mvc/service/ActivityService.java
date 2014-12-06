@@ -26,16 +26,15 @@ public class ActivityService {
     @Transactional(readOnly = false)
     public void addActivity(Activity activity) {
         // create all strategies for assigning the event. 
-        // The activity controller must be used only by managing a Event
-        Event defaultEvent = new Event();
-        defaultEvent.setId(1);
-        activity.setEvent(defaultEvent);
+       
+        if (activity.getDateStart() != null) {
+            activity.setStart(AppUtils.StringToDate(activity.getDateStart()));
+        }
         
-        activity.setCreated(new Date());
-        
-        activity.setStart(AppUtils.StringToDate(activity.getDateStart()));
-        activity.setEnd(AppUtils.StringToDate(activity.getDateEnd()));
-        
+        if (activity.getDateEnd() != null) {
+            activity.setEnd(AppUtils.StringToDate(activity.getDateEnd()));
+        }
+
         getActivityDAO().addActivity(activity);
     }
 
@@ -47,14 +46,14 @@ public class ActivityService {
     @Transactional(readOnly = false)
     public void updateActivity(Activity activityView, int id) {
         Activity activityBD = getActivityById(id);
-        
+
         activityBD.setTitle(activityView.getTitle());
         activityBD.setDescription(activityView.getDescription());
         activityBD.setType(activityView.getType());
         activityBD.setWorkload(activityView.getWorkload());
         activityBD.setStart(AppUtils.StringToDate(activityView.getDateStart()));
-        activityBD.setEnd(AppUtils.StringToDate(activityView.getDateEnd()));      
-        
+        activityBD.setEnd(AppUtils.StringToDate(activityView.getDateEnd()));
+
         activityBD.setUpdated(new Date());
 
         getActivityDAO().updateActivity(activityBD);

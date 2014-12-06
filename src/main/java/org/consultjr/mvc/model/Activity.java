@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
 /**
@@ -31,11 +32,11 @@ public class Activity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "activity_id")
     private int id;
-    
+
     @ManyToOne(targetEntity = Event.class)
     @JoinColumn(name = "event_id")
     private Event event;
-    
+
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "activity")
     private List<Classes> classes;
 
@@ -45,28 +46,29 @@ public class Activity implements Serializable {
     @Column()
     private String description;
 
-    @Column()
-    private Integer type;
+    @ManyToOne(targetEntity = ActivityType.class)
+    @JoinColumn(name = "type")
+    private ActivityType type;
 
     @Column()
-    private Integer workload;
+    private int workload;
 
-    @Column()
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date start;
 
     @Transient
     private String dateStart;
 
-    @Column()
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date end;
 
     @Transient
     private String dateEnd;
 
-    @Column()
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date created;
 
-    @Column()
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
 
     public int getId() {
@@ -101,19 +103,19 @@ public class Activity implements Serializable {
         this.description = description;
     }
 
-    public Integer getType() {
+    public ActivityType getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(ActivityType type) {
         this.type = type;
     }
 
-    public Integer getWorkload() {
+    public int getWorkload() {
         return workload;
     }
 
-    public void setWorkload(Integer workload) {
+    public void setWorkload(int workload) {
         this.workload = workload;
     }
 
@@ -193,12 +195,19 @@ public class Activity implements Serializable {
         this.created = new Date();
     }
 
-    public Activity(Event event, String title, String description) {
+    public Activity(Date start, Date end) {
+        this();
+        this.start = start;
+        this.end = end;
+    }    
+
+    public Activity(Event event, String title, String description, ActivityType type) {
+        this(new Date(), new Date());
+
         this.event = event;
         this.title = title;
         this.description = description;
-        
-        this.created = new Date();
+        this.type = type;
     }
 
 }
