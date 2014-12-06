@@ -56,8 +56,6 @@ public class Event implements Serializable {
     private Date updated;
 
     @OneToMany(mappedBy = "event", targetEntity = Activity.class)
-//    @OneToMany(mappedBy="event", fetch = FetchType.LAZY)
-//    @Cascade(CascadeType.ALL)
     private List<Event> activities;
 
     public Event() {

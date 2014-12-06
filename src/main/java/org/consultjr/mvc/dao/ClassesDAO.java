@@ -32,7 +32,6 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Mario
  */
-
 @Repository
 public class ClassesDAO {
 
@@ -50,6 +49,7 @@ public class ClassesDAO {
     @Transactional
     public void addClasses(Classes classes) {
         getSessionFactory().getCurrentSession().save(classes);
+        getSessionFactory().getCurrentSession().refresh(classes);
     }
 
     @Transactional
@@ -67,6 +67,10 @@ public class ClassesDAO {
         List list = getSessionFactory().getCurrentSession()
                 .createQuery("from Classes where id=?")
                 .setParameter(0, id).list();
+
+        if (list.isEmpty()) {
+            return null;
+        }
         return (Classes) list.get(0);
     }
 
@@ -75,7 +79,7 @@ public class ClassesDAO {
         List list = getSessionFactory().getCurrentSession().createQuery("from Classes").list();
         return list;
     }
-    
+
     @Transactional
     public List<Classes> getClassesByActivity(int activityId) {
         List list = getSessionFactory().getCurrentSession()

@@ -34,15 +34,10 @@ public class Classes implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "class_id")
     private int id;
-        
+    
     @ManyToOne(targetEntity = Activity.class)
     @JoinColumn(name="activity_id")
     private Activity activity;
-    
-    
-//    @ManyToOne
-//    @JoinColumn(name ="event_id")
-//    private int event_id;
 
     public Classes() {
         this.created = new Date();
@@ -151,5 +146,14 @@ public class Classes implements Serializable {
     public void setStandard(boolean standard) {
         this.standard = standard;
     }
+
+    public Classes(Activity activity, String title, String description, boolean standard) {
+        this.activity = activity;
+        this.title = title;
+        this.description = description;
+        this.standard = standard;
+    }
+    
+    
 
 }

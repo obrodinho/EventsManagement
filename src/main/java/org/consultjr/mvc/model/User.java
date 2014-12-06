@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -85,7 +86,7 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", targetEntity = UserSystemProfile.class)
     private List<UserSystemProfile> profiles;
 
-    @Column()
+    @Transient
     private Type type;
 
     @Override

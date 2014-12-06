@@ -31,7 +31,7 @@ public class Activity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "activity_id")
     private int id;
-
+    
     @ManyToOne(targetEntity = Event.class)
     @JoinColumn(name = "event_id")
     private Event event;

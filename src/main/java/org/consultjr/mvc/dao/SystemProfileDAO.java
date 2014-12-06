@@ -33,6 +33,7 @@ public class SystemProfileDAO {
     @Transactional
     public void addSystemProfile(SystemProfile sp) {
         getSessionFactory().getCurrentSession().save(sp);
+        getSessionFactory().getCurrentSession().refresh(sp);
     }
 
     @Transactional
@@ -50,14 +51,20 @@ public class SystemProfileDAO {
         List list = getSessionFactory().getCurrentSession()
                 .createQuery("from SystemProfile where id=?")
                 .setParameter(0, id).list();
+        if (list.isEmpty()) {
+            return null;
+        }
         return (SystemProfile) list.get(0);
     }
 
     @Transactional
     public SystemProfile getSystemProfileByShortname(String shortname) {
         List list = getSessionFactory().getCurrentSession()
-                .createQuery("from SystemProfile where shortname=?")
-                .setParameter(0, shortname).list();
+                .createQuery("from SystemProfile where shortname=:sh")
+                .setParameter("sh", shortname).list();
+        if (list.isEmpty()) {
+            return null;
+        }
         return (SystemProfile) list.get(0);
     }
 

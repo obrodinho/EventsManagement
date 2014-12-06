@@ -96,22 +96,6 @@ public class UserService {
         this.userDAO = userDAO;
     }
 
-    /**
-     * Testing purposes
-     *
-     * @return User
-     */
-    public User getUserDetails() {
-        User u = new User();
-
-        u.setId(123);
-        u.setFirstname("TEST");
-        u.setLastname("TEST LAST NAME");
-        u.setUsername("test.username");
-
-        return u;
-    }
-
     public User getUserByUsername(String username) {
         return this.userDAO.getUserByUsername(username);
     }

@@ -8,7 +8,7 @@ package org.consultjr.mvc.dao;
 import java.util.Date;
 import java.util.List;
 import org.consultjr.mvc.model.ClassesSubscription;
-import org.consultjr.mvc.model.SubscriptionProfile;
+import org.consultjr.mvc.model.ClassesProfile;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,39 +33,23 @@ public class SubscriptionProfileDAO {
     }
 
     @Transactional
-    public void addSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
-        /*subscriptionProfile.setId(1);
-         subscriptionProfile.setDescription("É quem vai palestrar");
-         subscriptionProfile.setName("Palestrante");
-         subscriptionProfile.setCreated(new Date());
-         getSessionFactory().getCurrentSession().save(subscriptionProfile);
-        
-         subscriptionProfile.setId(2);
-         subscriptionProfile.setDescription("É quem se inscreveu na atividade");
-         subscriptionProfile.setName("Participante");
-         subscriptionProfile.setCreated(new Date());
-         getSessionFactory().getCurrentSession().save(subscriptionProfile);
-        
-        
-         subscriptionProfile.setId(3);
-         subscriptionProfile.setDescription("É staff ou pessoa que auxilia o ministrante");
-         subscriptionProfile.setName("Monitor");
-         subscriptionProfile.setCreated(new Date());*/
+    public void addSubscriptionProfile(ClassesProfile subscriptionProfile) {
         getSessionFactory().getCurrentSession().save(subscriptionProfile);
+        getSessionFactory().getCurrentSession().refresh(subscriptionProfile);
     }
 
     @Transactional
-    public void deleteSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
+    public void deleteSubscriptionProfile(ClassesProfile subscriptionProfile) {
         getSessionFactory().getCurrentSession().delete(subscriptionProfile);
     }
 
     @Transactional
-    public void updateSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
+    public void updateSubscriptionProfile(ClassesProfile subscriptionProfile) {
         getSessionFactory().getCurrentSession().update(subscriptionProfile);
     }
 
     @Transactional
-    public List<SubscriptionProfile> getSubscriptionProfiles() {
+    public List<ClassesProfile> getSubscriptionProfiles() {
         List list = getSessionFactory().getCurrentSession().createQuery("from SubscriptionProfile").list();
         if (list.isEmpty()) {
             return null;
@@ -74,8 +58,8 @@ public class SubscriptionProfileDAO {
     }
 
     @Transactional
-    public SubscriptionProfile getSubscriptionProfilesById(int profileId) {
-        return (SubscriptionProfile) getSessionFactory()
+    public ClassesProfile getSubscriptionProfilesById(int profileId) {
+        return (ClassesProfile) getSessionFactory()
                 .getCurrentSession()
                 .createQuery("from SubscriptionProfile where id=:id")
                 .setParameter("id", profileId).uniqueResult();

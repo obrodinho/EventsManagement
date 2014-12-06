@@ -30,6 +30,7 @@ public class ActivityDAO {
     @Transactional
     public void addActivity(Activity activity) {
         getSessionFactory().getCurrentSession().save(activity);
+        getSessionFactory().getCurrentSession().refresh(activity);
     }
 
     @Transactional

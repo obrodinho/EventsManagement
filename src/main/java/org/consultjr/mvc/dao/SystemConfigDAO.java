@@ -17,23 +17,23 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 public class SystemConfigDAO extends AppDAO {
-    
+
     @Transactional
     public void addConfig(SystemConfig config) {
         getSessionFactory().getCurrentSession().save(config);
+        getSessionFactory().getCurrentSession().refresh(config);
     }
-    
-        
+
     @Transactional
     public void deleteConfig(SystemConfig config) {
         getSessionFactory().getCurrentSession().delete(config);
     }
-        
+
     @Transactional
     public void updateConfig(SystemConfig config) {
         getSessionFactory().getCurrentSession().update(config);
     }
-    
+
     @Transactional
     public SystemConfig getConfigById(int id) {
         List list = getSessionFactory().getCurrentSession()
@@ -41,15 +41,15 @@ public class SystemConfigDAO extends AppDAO {
                 .setParameter(0, id).list();
         return (SystemConfig) list.get(0);
     }
-    
+
     @Transactional
     public SystemConfig getConfigByKey(String key) {
-        List list = getSessionFactory().getCurrentSession()
-                .createQuery("from SystemConfig where key=?")
-                .setParameter(0, key).list();
-        return (SystemConfig) list.get(0);
+
+        return (SystemConfig) getSessionFactory().getCurrentSession()
+                .createQuery("from SystemConfig where key=:k")
+                .setParameter("k", key).uniqueResult();
     }
-    
+
     @Transactional
     public List<SystemConfig> getConfigs() {
         List list = getSessionFactory().getCurrentSession()

@@ -11,7 +11,7 @@ import org.consultjr.mvc.dao.ClassesSubscriptionDAO;
 import org.consultjr.mvc.dao.SubscriptionProfileDAO;
 import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.model.ClassesSubscription;
-import org.consultjr.mvc.model.SubscriptionProfile;
+import org.consultjr.mvc.model.ClassesProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,26 +27,26 @@ public class SubscriptionProfileService {
     SubscriptionProfileDAO subscriptionProfileDAO;
     
     @Transactional(readOnly = false)
-    public void addSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
+    public void addSubscriptionProfile(ClassesProfile subscriptionProfile) {
         subscriptionProfile.setCreated(new Date());
         getSubscriptionProfileDAO().addSubscriptionProfile(subscriptionProfile);
     }
 
     @Transactional(readOnly = false)
-    public void deleteSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
+    public void deleteSubscriptionProfile(ClassesProfile subscriptionProfile) {
         getSubscriptionProfileDAO().deleteSubscriptionProfile(subscriptionProfile);
     }
 
     @Transactional(readOnly = false)
-    public void updateSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
+    public void updateSubscriptionProfile(ClassesProfile subscriptionProfile) {
         getSubscriptionProfileDAO().updateSubscriptionProfile(subscriptionProfile);
     }
 
-    public SubscriptionProfile getSubscriptionProfileById(int id) {
+    public ClassesProfile getSubscriptionProfileById(int id) {
         return getSubscriptionProfileDAO().getSubscriptionProfilesById(id);
     }
     
-    public List<SubscriptionProfile> getSubscriptionProfiles() {
+    public List<ClassesProfile> getSubscriptionProfiles() {
         return getSubscriptionProfileDAO().getSubscriptionProfiles();
     }
     

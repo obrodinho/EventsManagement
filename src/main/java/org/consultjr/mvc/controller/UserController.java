@@ -9,7 +9,7 @@ import java.util.List;
 import org.consultjr.mvc.core.base.AppController;
 import org.consultjr.mvc.core.base.CRUDable;
 import org.consultjr.mvc.model.ClassesSubscription;
-import org.consultjr.mvc.model.SubscriptionProfile;
+import org.consultjr.mvc.model.ClassesProfile;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.service.ClassesService;
 import org.consultjr.mvc.service.ClassesSubscriptionService;

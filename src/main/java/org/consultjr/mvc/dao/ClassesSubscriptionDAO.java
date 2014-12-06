@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 public class ClassesSubscriptionDAO {
+
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -33,6 +34,7 @@ public class ClassesSubscriptionDAO {
     @Transactional
     public void addClassesSubscription(ClassesSubscription subscription) {
         getSessionFactory().getCurrentSession().save(subscription);
+        getSessionFactory().getCurrentSession().refresh(subscription);
     }
 
     @Transactional
@@ -48,9 +50,13 @@ public class ClassesSubscriptionDAO {
     @Transactional
     public ClassesSubscription getClassesSubscription(int classesId, int userId) {
         List list = getSessionFactory().getCurrentSession()
-                .createQuery("from ClassesSubscription where class_id=? and user_id=?")
-                .setParameter(0, classesId)
-                .setParameter(1, userId).list();
+                .createQuery("from ClassesSubscription where class_id=:cid and user_id=:uid")
+                .setParameter("cid", classesId)
+                .setParameter("uid", userId).list();
+        if (list.isEmpty()) {
+            return null;
+        }
+
         return (ClassesSubscription) list.get(0);
     }
 
@@ -59,7 +65,7 @@ public class ClassesSubscriptionDAO {
         List list = getSessionFactory().getCurrentSession().createQuery("from ClassesSubscription").list();
         return list;
     }
-    
+
     @Transactional
     public List<ClassesSubscription> getClassesSubscriptionByUser(int userId) {
         List list = getSessionFactory().getCurrentSession()
@@ -67,7 +73,7 @@ public class ClassesSubscriptionDAO {
                 .setParameter(0, userId).list();
         return list;
     }
-    
+
     @Transactional
     public List<ClassesSubscription> getClassesSubscriptionByClasses(int classesId) {
         List list = getSessionFactory().getCurrentSession()

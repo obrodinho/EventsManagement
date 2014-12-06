@@ -27,6 +27,7 @@ public class UserDAO extends AppDAO {
     @Transactional
     public void addUser(User user) {
         getSessionFactory().getCurrentSession().save(user);
+        getSessionFactory().getCurrentSession().refresh(user);
 
     }
 
@@ -48,7 +49,7 @@ public class UserDAO extends AppDAO {
      */
     @Transactional
     public void updateUser(User user) {
-        getSessionFactory().getCurrentSession().update(user);        
+        getSessionFactory().getCurrentSession().update(user);
     }
 
     /**
@@ -62,6 +63,9 @@ public class UserDAO extends AppDAO {
         List list = getSessionFactory().getCurrentSession()
                 .createQuery("from User  where id=:id")
                 .setParameter("id", id).list();
+        if (list.isEmpty()) {
+            return null;
+        }
         return (User) list.get(0);
     }
 
@@ -74,15 +78,15 @@ public class UserDAO extends AppDAO {
     public List<User> getUsers() {
         List list = getSessionFactory().getCurrentSession().createQuery("from User").list();
         System.out.print(list.size());
-        
+
         return list;
     }
 
     public User getUserByUsername(String username) {
         List list = getSessionFactory().getCurrentSession()
-            .createQuery("from User  where username=:u")
-            .setParameter("u", username).list();
-        if(list.isEmpty()){
+                .createQuery("from User  where username=:u")
+                .setParameter("u", username).list();
+        if (list.isEmpty()) {
             return null;
         }
         return (User) list.get(0);

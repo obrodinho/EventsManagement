@@ -5,10 +5,18 @@
  */
 package org.consultjr.mvc.controller;
 
+import java.util.Date;
+import java.util.List;
 import org.consultjr.mvc.core.base.AppController;
+import org.consultjr.mvc.model.Activity;
+import org.consultjr.mvc.model.Classes;
+import org.consultjr.mvc.model.Event;
 import org.consultjr.mvc.model.SystemProfile;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.model.UserSystemProfile;
+import org.consultjr.mvc.service.ActivityService;
+import org.consultjr.mvc.service.ClassesService;
+import org.consultjr.mvc.service.EventService;
 import org.consultjr.mvc.service.SystemConfigService;
 import org.consultjr.mvc.service.SystemProfileService;
 import org.consultjr.mvc.service.UserService;
@@ -31,6 +39,7 @@ public class SystemController extends AppController {
 
     @Autowired
     private SystemConfigService systemConfigService;
+
     @Autowired
     private UserService userService;
 
@@ -39,6 +48,15 @@ public class SystemController extends AppController {
 
     @Autowired
     private UserSystemProfileService uspService;
+
+    @Autowired
+    private EventService evtService;
+
+    @Autowired
+    private ActivityService actService;
+
+    @Autowired
+    private ClassesService clsService;
 
     public SystemConfigService getSystemConfigService() {
         return systemConfigService;
@@ -50,7 +68,7 @@ public class SystemController extends AppController {
 
     @Override
     public ModelAndView index() {
-        return this.admin();
+        return new ModelAndView("redirect:/System/admin");
     }
 
     @RequestMapping("admin")
@@ -62,21 +80,39 @@ public class SystemController extends AppController {
 
     @RequestMapping("/install")
     public ModelAndView install() {
-        ModelAndView sysView = new ModelAndView("User/_list");
+        ModelAndView sysView = new ModelAndView("redirect:/");
 
         SystemProfile adminProfile = new SystemProfile("admin", "Administrador do Sistema");
-        spService.addSystemProfile(adminProfile);
-        System.out.println(adminProfile);
-        
+        if (spService.getSystemProfileByShortname("admin") == null) {
+            spService.addSystemProfile(adminProfile);
+            System.out.println(adminProfile);
+        }
+
         User defaultUser = new User("Administrador", "do Sistema", "admin", "admin@LPS");
-        userService.addUser(defaultUser);
-        System.out.println(defaultUser);
-        
-        UserSystemProfile usp = new UserSystemProfile(userService.getUserByUsername("admin"), spService.getSystemProfileByShortname("admin"));
-        uspService.addUserSystemProfile(usp);
-        System.out.println(usp);
-        
-        sysView.addObject("users", userService.getUsers());
+        if (userService.getUserByUsername("admin") == null) {
+            userService.addUser(defaultUser);
+            System.out.println(defaultUser);
+        }
+        User admin = userService.getUserByUsername("admin");
+        SystemProfile adminP = spService.getSystemProfileByShortname("admin");
+        List<UserSystemProfile> list = uspService.getUserSystemProfiles();
+        if (list.isEmpty()) {
+            
+            UserSystemProfile usp = new UserSystemProfile(admin, adminProfile);
+            uspService.addUserSystemProfile(usp);
+            System.out.println(usp);
+        }
+
+        if (evtService.getEvents().isEmpty()) {
+            Event evt = new Event("Evento Padrão", "Padrão", new Date(), new Date());
+            evtService.addEvent(evt);
+            Activity act = new Activity(evt, "Atividade Padrão", "Padrão");
+            actService.addActivity(act);
+            Classes cls = new Classes(act, "Turma Padrão", "Padrão", true);
+            clsService.addClasses(cls);
+        }
+
+        sysView.addObject("message", "Initial database objects has been created.");
         return sysView;
     }
 

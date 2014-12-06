@@ -38,7 +38,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             }
         } else {
             //se nao ta logado volta pra tela de login
-            if(uri.endsWith("/org.consultjr.EventsManagement") || uri.endsWith("loginForm") || uri.endsWith("doLogin")){
+            if(uri.endsWith("/org.consultjr.EventsManagement") || uri.endsWith("loginForm") || uri.endsWith("doLogin") || uri.endsWith("install")){
                 return true;
             }
             response.sendRedirect("/org.consultjr.EventsManagement/loginForm");
