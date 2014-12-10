@@ -54,7 +54,7 @@ public class ActivityController {
     public ModelAndView addActivity(@ModelAttribute Activity activity) {
         ModelAndView modelAndView = new ModelAndView("Activity/_form");
         activityService.addActivity(activity);
-        
+
         Classes standardClasses = new Classes();
         standardClasses.setActivity (activityService.getActivityById(1));
         standardClasses.setStandard(true);

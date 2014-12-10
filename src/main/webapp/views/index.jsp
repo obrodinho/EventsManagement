@@ -22,6 +22,11 @@
     <ol>
         <li><a href="${pageContext.request.contextPath}/Classes/all">List</a></li> 
     </ol>
+    <h2>Activity Type</h2>
+    <ol>
+        <li><a href="${pageContext.request.contextPath}/ActivityType/all">List</a></li> 
+        <li><a href="${pageContext.request.contextPath}/ActivityType/add">Create</a></li>
+    </ol>
     <h2>Activity</h2>
     <ol>
         <li><a href="${pageContext.request.contextPath}/Activity/all">List</a></li> 

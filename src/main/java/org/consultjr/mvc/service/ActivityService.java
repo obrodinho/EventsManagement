@@ -5,7 +5,6 @@ import java.util.List;
 import org.consultjr.mvc.core.components.AppUtils;
 import org.consultjr.mvc.dao.ActivityDAO;
 import org.consultjr.mvc.model.Activity;
-import org.consultjr.mvc.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

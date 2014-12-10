@@ -1,7 +1,7 @@
 <%-- 
     Document   : _form
     Created on : Nov 15, 2014, 4:35:08 PM
-    Author     : rgcs
+    Author     : kallenon
 --%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri='http://java.sun.com/jstl/core' prefix='c' %>
@@ -15,7 +15,7 @@
 
 </div>
 <form:form method="POST" commandName="activity" action="${pageContext.request.contextPath}/Activity/${empty activityID ? action : action.concat('/').concat(activityID)}">
-    <input type="hidden" name="userID" value="${userID}" >
+    <input type="hidden" name="activityID" value="${activityID}" >
     <table>
         <tbody>
             <tr>
@@ -28,7 +28,13 @@
             </tr>
             <tr>
                 <td>Type:</td>
-                <td><form:input path="type" /></td>
+                <td>
+                    <select class="selectpicker" style="height: 35px; width: 197px " >
+                        <option value="2">Messages</option>
+                        <option value="3">My Settings</option>
+                        <option value="4">Logout</option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td>Workload:</td>

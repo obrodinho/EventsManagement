@@ -1,12 +1,8 @@
 package org.consultjr.mvc.controller;
 
-import java.util.Date;
 import java.util.List;
-import org.consultjr.mvc.core.components.AppUtils;
-import org.consultjr.mvc.model.Activity;
-import org.consultjr.mvc.model.Classes;
-import org.consultjr.mvc.service.ActivityService;
-import org.consultjr.mvc.service.ClassesService;
+import org.consultjr.mvc.model.ActivityType;
+import org.consultjr.mvc.service.ActivityTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -24,91 +20,75 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @Scope("request")
-@RequestMapping("/Activity")
-public class ActivityController {
+@RequestMapping("/ActivityType")
+public class ActivityTypeController {
 
     @Autowired
-    private ActivityService activityService;
-    @Autowired
-    private ClassesService classesService;
+    private ActivityTypeService activityTypeService;
 
-    public void setActivityService(final ActivityService activityService) {
-        this.activityService = activityService;
+    public void setActivityTypeService(final ActivityTypeService activityTypeService) {
+        this.activityTypeService = activityTypeService;
     }
 
-    @RequestMapping("") // Index Method: => /PROJECT/Activity
+    @RequestMapping("") // Index Method: => /PROJECT/ActivityType
     public ModelAndView index() {
-        return this.allActivities();
+        return this.allActivitiesType();
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET) // GET: /PROJECT/Activity/add
+    @RequestMapping(value = "/add", method = RequestMethod.GET) // GET: /PROJECT/ActivityType/add
     public ModelAndView add() {
-        ModelAndView modelAndView = new ModelAndView("Activity/_form");
-        modelAndView.addObject("activity", new Activity());
+        ModelAndView modelAndView = new ModelAndView("ActivityType/_form");
+        modelAndView.addObject("activityType", new ActivityType());
         modelAndView.addObject("action", "add");
-        modelAndView.addObject("activityID", null);
+        modelAndView.addObject("activityTypeID", null);
         return modelAndView;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST) // Save Method: POST /PROJECT/Activity/add
-    public ModelAndView addActivity(@ModelAttribute Activity activity) {
-        ModelAndView modelAndView = new ModelAndView("Activity/_form");
-        activityService.addActivity(activity);
-        
-        Classes standardClasses = new Classes();
-        standardClasses.setActivity (activityService.getActivityById(1));
-        standardClasses.setStandard(true);
-        standardClasses.setDescription("Turma Padrão");
-        standardClasses.setCreated(new Date());
-        standardClasses.setTitle("Turma Padrao");
-        classesService.addClasses(standardClasses);
-        
-        
-        String message = "Activity was succesfully added";
+    @RequestMapping(value = "/add", method = RequestMethod.POST) // Save Method: POST /PROJECT/ActivityType/add
+    public ModelAndView addActivityType(@ModelAttribute ActivityType activityType) {
+        ModelAndView modelAndView = new ModelAndView("ActivityType/_form");
+        activityTypeService.addActivityType(activityType);
+        String message = "ActivityType was succesfully added";
         modelAndView.addObject("message", message);
         return modelAndView;
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public ModelAndView update(@PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("Activity/_form");
-        Activity activity = activityService.getActivityById(id);
-
-        activity.setDateStart(AppUtils.FormatDate(activity.getStart()));
-        activity.setDateEnd(AppUtils.FormatDate(activity.getEnd()));
-
-        modelAndView.addObject("activity", activity);
+        ModelAndView modelAndView = new ModelAndView("ActivityType/_form");
+        ActivityType activityType = activityTypeService.getActivityTypeById(id);
+        modelAndView.addObject("activityType", activityType);
         modelAndView.addObject("action", "edit");
-        modelAndView.addObject("activityID", activity.getId());
+        modelAndView.addObject("activityTypeID", activityType.getId());
         return modelAndView;
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public ModelAndView updateActivity(@ModelAttribute Activity activity, @PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("Activity/_form");
-        activityService.updateActivity(activity, id);
-        String message = "Activity was successfully edited.";
+    public ModelAndView updateActivityType(@ModelAttribute ActivityType activityType, @PathVariable Integer id) {
+        ModelAndView modelAndView = new ModelAndView("ActivityType/_form");
+        activityTypeService.updateActivityType(activityType, id);
+        String message = "ActivityType was successfully edited.";
         modelAndView.addObject("message", message);
         return modelAndView;
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteActivity(@PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("Activity/_list");
+    public ModelAndView deleteActivityType(@PathVariable Integer id) {
+        ModelAndView modelAndView = new ModelAndView("ActivityType/_list");
         //TODO checar se houve deleção!!!
-        activityService.deleteActivity(activityService.getActivityById(id));
-        List<Activity> activities = activityService.getActivities();
-        modelAndView.addObject("activities", activities);
-        String message = "Activity was successfully deleted.";
+        activityTypeService.deleteActivityType(activityTypeService.getActivityTypeById(id));
+        List<ActivityType> activityTypes = activityTypeService.getActivityTypes();
+        modelAndView.addObject("activityTypes", activityTypes);
+        String message = "ActivityType was successfully deleted.";
         modelAndView.addObject("message", message);
         return modelAndView;
     }
 
     @RequestMapping(value = "/all")
-    public ModelAndView allActivities() {
-        ModelAndView modelAndView = new ModelAndView("Activity/_list");
-        List<Activity> activities = activityService.getActivities();
-        modelAndView.addObject("activities", activities);
+    public ModelAndView allActivitiesType() {
+        ModelAndView modelAndView = new ModelAndView("ActivityType/_list");
+        List<ActivityType> activityTypes = activityTypeService.getActivityTypes();
+        modelAndView.addObject("activityTypes", activityTypes);
         return modelAndView;
     }
 

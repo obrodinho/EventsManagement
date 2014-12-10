@@ -46,8 +46,6 @@ public class ActivityType implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
 
-    
-
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof ActivityType)) {

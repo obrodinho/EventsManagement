@@ -8,16 +8,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../../templates/header.jspf" %>
 <div class="page-header">
-    <h2>Activity</h2>
+    <h2>Activities Type</h2>
 </div>    
 <div>
     ${message}
 
 </div>
-<form:form method="POST" commandName="activity" action="${pageContext.request.contextPath}/Activity/${empty activityID ? action : action.concat('/').concat(activityID)}">
-    <input type="hidden" name="userID" value="${userID}" >
+<form:form method="POST" commandName="activityType" action="${pageContext.request.contextPath}/ActivityType/${empty activityTypeID ? action : action.concat('/').concat(activityTypeID)}">
+    <input type="hidden" name="activityTypeID" value="${activityTypeID}" >
     <table>
         <tbody>
+            <tr>
+                <td>Short name:</td>
+                <td><form:input path="shortname" /></td>
+            </tr>
             <tr>
                 <td>Title:</td>
                 <td><form:input path="title" /></td>
@@ -27,23 +31,7 @@
                 <td><form:input path="description" /></td>
             </tr>
             <tr>
-                <td>Type:</td>
-                <td><form:input path="type" /></td>
-            </tr>
-            <tr>
-                <td>Workload:</td>
-                <td><form:input path="workload" /></td>
-            </tr>
-            <tr>
-                <td>Start:</td>
-                <td><form:input path="dateStart" /> Ex: dd-mm-yyyy hh:mm:ss</td>
-            </tr>
-            <tr>
-                <td>End:</td>
-                <td><form:input path="dateEnd" /> Ex: dd-mm-yyyy hh:mm:ss</td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="${empty activityID ? "Add" : "Save"}" /></td>
+                <td><input type="submit" value="${empty activityTypeID ? "Add" : "Save"}" /></td>
             </tr>
         </tbody>
     </table>
