@@ -1,16 +1,20 @@
-<%-- 
-    Document   : login
-    Created on : Nov 28, 2014, 1:14:37 PM
-    Author     : Murilo
---%>
-
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@taglib uri='http://java.sun.com/jstl/core' prefix='c' %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../templates/header.jspf" %>
 <div class="page-header">
     <h2>Please, Login!</h2>
 </div>
+<c:if test="${param.error != null}">        
+    <p>
+        Invalid username or password.
+    </p>
+</c:if>
+<c:if test="${param.logout != null}">       
+    <p>
+        You have been logged out.
+    </p>
+</c:if>
 <div class="row">
     <div>
         ${message}
