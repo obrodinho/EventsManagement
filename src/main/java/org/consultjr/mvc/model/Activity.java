@@ -49,6 +49,9 @@ public class Activity implements Serializable {
     @ManyToOne(targetEntity = ActivityType.class)
     @JoinColumn(name = "type")
     private ActivityType type;
+    
+    @Transient
+    private String typeAux;
 
     @Column()
     private int workload;
@@ -109,6 +112,14 @@ public class Activity implements Serializable {
 
     public void setType(ActivityType type) {
         this.type = type;
+    }
+
+    public String getTypeAux() {
+        return typeAux;
+    }
+
+    public void setTypeAux(String typeAux) {
+        this.typeAux = typeAux;
     }
 
     public int getWorkload() {

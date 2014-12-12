@@ -25,6 +25,11 @@ public class ActivityService {
     @Transactional(readOnly = false)
     public void addActivity(Activity activity) {
         // create all strategies for assigning the event. 
+        
+        ActivityTypeService activityTypeService = new ActivityTypeService();
+//        System.out.println("activity.getTypeAux(): "+ activity.getTypeAux());
+//        activityTypeService.getActivityTypeByShortname(activity.getTypeAux());
+        activity.setType(activityTypeService.getActivityTypeByShortname(activity.getTypeAux()));
        
         if (activity.getDateStart() != null) {
             activity.setStart(AppUtils.StringToDate(activity.getDateStart()));

@@ -3,8 +3,10 @@
     Created on : Nov 15, 2014, 4:35:08 PM
     Author     : kallenon
 --%>
+<%@page import="org.consultjr.mvc.model.ActivityType"%>
+<%@page import="java.util.List"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@taglib uri='http://java.sun.com/jstl/core' prefix='c' %>
+<%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../../templates/header.jspf" %>
 <div class="page-header">
@@ -30,9 +32,9 @@
                 <td>Type:</td>
                 <td>
                     <select class="selectpicker" style="height: 35px; width: 197px " >
-                        <option value="2">Messages</option>
-                        <option value="3">My Settings</option>
-                        <option value="4">Logout</option>
+                        <c:forEach var="activityType" items="${activityTypes}">
+                            <option value="${activityType.id}">${activityType.title}</option>
+                        </c:forEach>
                     </select>
                 </td>
             </tr>

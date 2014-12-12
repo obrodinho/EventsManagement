@@ -40,6 +40,7 @@ public class ActivityTypeController {
         ModelAndView modelAndView = new ModelAndView("ActivityType/_form");
         modelAndView.addObject("activityType", new ActivityType());
         modelAndView.addObject("action", "add");
+        modelAndView.addObject("activityTypes", activityTypeService.getActivityTypes());
         modelAndView.addObject("activityTypeID", null);
         return modelAndView;
     }
