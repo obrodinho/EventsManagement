@@ -22,19 +22,17 @@ public class ActivityService {
     @Autowired
     ActivityDAO activityDAO;
 
+    @Autowired
+    ActivityTypeService activityTypeService;
+
     @Transactional(readOnly = false)
     public void addActivity(Activity activity) {
         // create all strategies for assigning the event. 
         
-        ActivityTypeService activityTypeService = new ActivityTypeService();
-//        System.out.println("activity.getTypeAux(): "+ activity.getTypeAux());
-//        activityTypeService.getActivityTypeByShortname(activity.getTypeAux());
-        activity.setType(activityTypeService.getActivityTypeByShortname(activity.getTypeAux()));
-       
         if (activity.getDateStart() != null) {
             activity.setStart(AppUtils.StringToDate(activity.getDateStart()));
         }
-        
+
         if (activity.getDateEnd() != null) {
             activity.setEnd(AppUtils.StringToDate(activity.getDateEnd()));
         }

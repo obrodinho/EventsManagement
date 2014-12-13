@@ -6,7 +6,9 @@ import org.consultjr.mvc.core.components.AppUtils;
 import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.service.ActivityService;
+import org.consultjr.mvc.service.ActivityTypeService;
 import org.consultjr.mvc.service.ClassesService;
+import org.consultjr.mvc.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -30,7 +32,11 @@ public class ActivityController {
     @Autowired
     private ActivityService activityService;
     @Autowired
+    private ActivityTypeService activityTypeService;
+    @Autowired
     private ClassesService classesService;
+    @Autowired
+    private EventService eventService;
 
     public void setActivityService(final ActivityService activityService) {
         this.activityService = activityService;
@@ -47,23 +53,30 @@ public class ActivityController {
         modelAndView.addObject("activity", new Activity());
         modelAndView.addObject("action", "add");
         modelAndView.addObject("activityID", null);
+        modelAndView.addObject("activityTypes", activityTypeService.getActivityTypes());
         return modelAndView;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST) // Save Method: POST /PROJECT/Activity/add
     public ModelAndView addActivity(@ModelAttribute Activity activity) {
-        ModelAndView modelAndView = new ModelAndView("Activity/_form");
+        ModelAndView modelAndView = new ModelAndView("redirect:all");
+        activity.setType(activityTypeService.getActivityTypeById(activity.getTypeID()));
+        
+        if (activity.getEvent() == null && eventService.getEvents().size() > 0) {
+            activity.setEvent(eventService.getEvents().get(0));
+        }
         activityService.addActivity(activity);
+        
+        System.out.println(activity.getType());
 
         Classes standardClasses = new Classes();
-        standardClasses.setActivity (activityService.getActivityById(1));
+        standardClasses.setActivity(activity);
         standardClasses.setStandard(true);
         standardClasses.setDescription("Turma Padrão");
         standardClasses.setCreated(new Date());
         standardClasses.setTitle("Turma Padrao");
         classesService.addClasses(standardClasses);
-        
-        
+
         String message = "Activity was succesfully added";
         modelAndView.addObject("message", message);
         return modelAndView;

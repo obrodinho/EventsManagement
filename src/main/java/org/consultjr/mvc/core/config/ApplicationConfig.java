@@ -16,6 +16,7 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
@@ -40,6 +41,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @ComponentScan("org.consultjr.mvc")
 //Enables Spring's annotations
 @EnableWebMvc
+//@Import({ApplicationSecurityConfig.class})
 public class ApplicationConfig extends WebMvcConfigurerAdapter {
 
     @Resource
@@ -111,7 +113,6 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
         sessionFactory.setAnnotatedPackages("org.consultjr.mvc.model");
         sessionFactory.setPackagesToScan("org.consultjr.mvc.model");
         sessionFactory.setHibernateProperties(properties);
-        //sessionFactory.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
         return sessionFactory;
     }
 
@@ -135,7 +136,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
-
+    
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
        registry.addInterceptor(new AuthenticationInterceptor());
@@ -144,7 +145,6 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
-        //registry.addViewController("/services.htm").setViewName("services");
     }
 
     @Bean(name = "indexController")

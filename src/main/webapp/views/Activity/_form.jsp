@@ -31,11 +31,13 @@
             <tr>
                 <td>Type:</td>
                 <td>
-                    <select class="selectpicker" style="height: 35px; width: 197px " >
-                        <c:forEach var="activityType" items="${activityTypes}">
-                            <option value="${activityType.id}">${activityType.title}</option>
-                        </c:forEach>
-                    </select>
+                    <form:select 
+                        path="typeID" 
+                        name="type" 
+                        cssClass="form-control" 
+                        items="${activityTypes}" 
+                        itemLabel="title" 
+                        itemValue="id" />
                 </td>
             </tr>
             <tr>
