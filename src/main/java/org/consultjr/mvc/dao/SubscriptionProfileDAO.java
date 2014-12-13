@@ -8,7 +8,7 @@ package org.consultjr.mvc.dao;
 import java.util.Date;
 import java.util.List;
 import org.consultjr.mvc.model.ClassesSubscription;
-import org.consultjr.mvc.model.ClassesProfile;
+import org.consultjr.mvc.model.SubscriptionProfile;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,24 +33,24 @@ public class SubscriptionProfileDAO {
     }
 
     @Transactional
-    public void addSubscriptionProfile(ClassesProfile subscriptionProfile) {
+    public void addSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
         getSessionFactory().getCurrentSession().save(subscriptionProfile);
         getSessionFactory().getCurrentSession().flush();
         getSessionFactory().getCurrentSession().refresh(subscriptionProfile);
     }
 
     @Transactional
-    public void deleteSubscriptionProfile(ClassesProfile subscriptionProfile) {
+    public void deleteSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
         getSessionFactory().getCurrentSession().delete(subscriptionProfile);
     }
 
     @Transactional
-    public void updateSubscriptionProfile(ClassesProfile subscriptionProfile) {
+    public void updateSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
         getSessionFactory().getCurrentSession().update(subscriptionProfile);
     }
 
     @Transactional
-    public List<ClassesProfile> getSubscriptionProfiles() {
+    public List<SubscriptionProfile> getSubscriptionProfiles() {
         List list = getSessionFactory().getCurrentSession().createQuery("from SubscriptionProfile").list();
         if (list.isEmpty()) {
             return null;
@@ -59,8 +59,8 @@ public class SubscriptionProfileDAO {
     }
 
     @Transactional
-    public ClassesProfile getSubscriptionProfilesById(int profileId) {
-        return (ClassesProfile) getSessionFactory()
+    public SubscriptionProfile getSubscriptionProfilesById(int profileId) {
+        return (SubscriptionProfile) getSessionFactory()
                 .getCurrentSession()
                 .createQuery("from SubscriptionProfile where id=:id")
                 .setParameter("id", profileId).uniqueResult();
