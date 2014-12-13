@@ -51,7 +51,7 @@ public class Activity implements Serializable {
     private ActivityType type;
     
     @Transient
-    private String typeAux;
+    private int typeID;
 
     @Column()
     private int workload;
@@ -114,12 +114,12 @@ public class Activity implements Serializable {
         this.type = type;
     }
 
-    public String getTypeAux() {
-        return typeAux;
+    public int getTypeID() {
+        return typeID;
     }
 
-    public void setTypeAux(String typeAux) {
-        this.typeAux = typeAux;
+    public void setTypeID(int typeID) {
+        this.typeID = typeID;
     }
 
     public int getWorkload() {

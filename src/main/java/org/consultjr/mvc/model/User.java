@@ -75,6 +75,12 @@ public class User implements Serializable {
     /**
      *
      */
+    @Column(nullable = true)
+    private Boolean deleted;
+
+    /**
+     *
+     */
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date created;
 
@@ -173,6 +179,30 @@ public class User implements Serializable {
         this.type = type;
     }
 
+    public Boolean getDeleted() {
+        return deleted;
+    }
+    
+    public Boolean isDeleted() {
+        return deleted.booleanValue();
+    }
+
+    public Boolean isEnabled() {
+        return !deleted.booleanValue();
+    }
+    
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public List<UserSystemProfile> getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(List<UserSystemProfile> profiles) {
+        this.profiles = profiles;
+    }
+    
     public User() {
         this.created = new Date();
     }

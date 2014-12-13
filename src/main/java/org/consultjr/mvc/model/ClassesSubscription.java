@@ -35,9 +35,9 @@ public class ClassesSubscription implements Serializable {
     private User user;
 
     @Id
-    @ManyToOne(targetEntity = ClassesProfile.class)
+    @ManyToOne(targetEntity = SubscriptionProfile.class)
     @JoinColumn(name = "profile_id")
-    private ClassesProfile subscriptionProfile;
+    private SubscriptionProfile subscriptionProfile;
 
     @Column()
     private Date associated;
@@ -70,11 +70,11 @@ public class ClassesSubscription implements Serializable {
         this.associated = associated;
     }
 
-    public ClassesProfile getSubscriptionProfile() {
+    public SubscriptionProfile getSubscriptionProfile() {
         return subscriptionProfile;
     }
 
-    public void setSubscriptionProfile(ClassesProfile subscriptionProfile) {
+    public void setSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
         this.subscriptionProfile = subscriptionProfile;
     }
 

@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">              
                 <label>Password:</label>
-                <form:input path="password" id="password" class="form-control" />
+                <form:input type="password" path="password" id="password" class="form-control" />
             </div>
             <button type="submit" class="btn btn-default btn-embossed btn-large btn-primary"><span class="fui-check-circle"></span> Login</button>
         </form:form>

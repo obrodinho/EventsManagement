@@ -21,7 +21,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "classes_profiles")
-public class ClassesProfile implements Serializable {
+public class SubscriptionProfile implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
