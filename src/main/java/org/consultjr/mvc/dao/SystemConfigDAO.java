@@ -6,7 +6,7 @@
 package org.consultjr.mvc.dao;
 
 import java.util.List;
-import org.consultjr.mvc.core.base.AppDAO;
+import org.consultjr.mvc.core.base.ApplicationDAO;
 import org.consultjr.mvc.model.SystemConfig;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Rafael
  */
 @Repository
-public class SystemConfigDAO extends AppDAO {
+public class SystemConfigDAO extends ApplicationDAO {
 
     @Transactional
     public void addConfig(SystemConfig config) {

@@ -6,6 +6,7 @@
 package org.consultjr.mvc.dao;
 
 import java.util.List;
+import org.consultjr.mvc.core.base.ApplicationDAO;
 import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.model.ClassesSubscription;
 import org.hibernate.SessionFactory;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Mario
  */
 @Repository
-public class ClassesSubscriptionDAO {
+public class ClassesSubscriptionDAO extends ApplicationDAO {
 
     @Autowired
     private SessionFactory sessionFactory;

@@ -6,6 +6,7 @@
 package org.consultjr.mvc.dao;
 
 import java.util.List;
+import org.consultjr.mvc.core.base.ApplicationDAO;
 import org.consultjr.mvc.model.SystemProfile;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Rafael
  */
 @Repository
-public class SystemProfileDAO {
+public class SystemProfileDAO extends ApplicationDAO {
 
     @Autowired
     private SessionFactory sessionFactory;

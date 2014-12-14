@@ -7,7 +7,7 @@ package org.consultjr.mvc.dao;
 
 import java.util.Iterator;
 import java.util.List;
-import org.consultjr.mvc.core.base.AppDAO;
+import org.consultjr.mvc.core.base.ApplicationDAO;
 import org.consultjr.mvc.model.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author rgcs
  */
 @Repository
-public class UserDAO extends AppDAO {
+public class UserDAO extends ApplicationDAO {
 
     /**
      * Add user
@@ -78,8 +78,6 @@ public class UserDAO extends AppDAO {
     @Transactional
     public List<User> getUsers() {
         List list = getSessionFactory().getCurrentSession().createQuery("from User").list();
-        System.out.print(list.size());
-
         return list;
     }
 

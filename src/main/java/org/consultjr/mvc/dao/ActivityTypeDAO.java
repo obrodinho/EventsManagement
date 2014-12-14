@@ -1,7 +1,7 @@
 package org.consultjr.mvc.dao;
 
 import java.util.List;
-import org.consultjr.mvc.core.base.AppDAO;
+import org.consultjr.mvc.core.base.ApplicationDAO;
 import org.consultjr.mvc.model.ActivityType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author rgcs
  */
 @Repository
-public class ActivityTypeDAO extends AppDAO {
+public class ActivityTypeDAO extends ApplicationDAO {
 
     @Transactional
     public void addActivityType(ActivityType activitytype) {
@@ -34,9 +34,12 @@ public class ActivityTypeDAO extends AppDAO {
 
     @Transactional
     public ActivityType getActivityTypeById(int id) {
-        return (ActivityType) getSessionFactory().getCurrentSession()
+        this.getLogger().info("Into getActivityTypeById.");
+        ActivityType a = (ActivityType) getSessionFactory().getCurrentSession()
                 .createQuery("from ActivityType where id=:id")
                 .setParameter("id", id).uniqueResult();
+        this.getLogger().info("Grabbed From DB: {}", a.getShortname());
+        return a;
     }
 
     @Transactional

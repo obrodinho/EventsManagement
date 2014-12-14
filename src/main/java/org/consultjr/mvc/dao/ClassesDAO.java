@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import org.consultjr.mvc.core.base.ApplicationDAO;
 import org.consultjr.mvc.model.Classes;
 import org.hibernate.SessionFactory;
 import org.hibernate.annotations.Cascade;
@@ -33,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Mario
  */
 @Repository
-public class ClassesDAO {
+public class ClassesDAO extends ApplicationDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
