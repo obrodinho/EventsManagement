@@ -11,13 +11,16 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import org.consultjr.mvc.service.ActivityTypeConverter;
 import org.consultjr.mvc.service.AuthenticationInterceptor;
+import org.consultjr.mvc.service.DateFormatter;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
@@ -37,9 +40,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
  */
 @Configuration //Marks this class as configuration
 @EnableTransactionManagement
-//Specifies which package to scan
 @ComponentScan("org.consultjr.mvc")
-//Enables Spring's annotations
 @EnableWebMvc
 //@Import({ApplicationSecurityConfig.class})
 public class ApplicationConfig extends WebMvcConfigurerAdapter {
@@ -68,6 +69,28 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
 
     public ApplicationConfig() {
         this.loadProperties("jdbc.properties");
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new AuthenticationInterceptor());
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index");
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        super.addFormatters(registry); //To change body of generated methods, choose Tools | Templates.
+        registry.addFormatter(new DateFormatter());
+        registry.addConverter(ActivityTypeConverter.getInstance());
     }
 
     private void loadProperties(String filename) {
@@ -124,27 +147,19 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public FormattingConversionService mvcConversionService() {
+        FormattingConversionService conversionService = new FormattingConversionService();
+        addFormatters(conversionService);
+        return conversionService;
+    }
+
+    @Bean
     public UrlBasedViewResolver setupViewResolver() {
         UrlBasedViewResolver resolver = new UrlBasedViewResolver();
         resolver.setPrefix("/views/");
         resolver.setSuffix(".jsp");
         resolver.setViewClass(JstlView.class);
         return resolver;
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-    }
-    
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-       registry.addInterceptor(new AuthenticationInterceptor());
-    }
-    
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
     }
 
     @Bean(name = "indexController")

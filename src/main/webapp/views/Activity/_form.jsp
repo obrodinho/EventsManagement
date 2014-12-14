@@ -16,7 +16,7 @@
     ${message}
 
 </div>
-<form:form method="POST" commandName="activity" action="${pageContext.request.contextPath}/Activity/${empty activityID ? action : action.concat('/').concat(activityID)}">
+    <form:form method="POST" commandName="activity" modelAttribute="activity" action="${pageContext.request.contextPath}/Activity/${empty activityID ? action : action.concat('/').concat(activityID)}">
     <input type="hidden" name="activityID" value="${activityID}" >
     <table>
         <tbody>
@@ -32,8 +32,7 @@
                 <td>Type:</td>
                 <td>
                     <form:select 
-                        path="typeID" 
-                        name="type" 
+                        path="type"
                         cssClass="form-control" 
                         items="${activityTypes}" 
                         itemLabel="title" 
@@ -46,11 +45,11 @@
             </tr>
             <tr>
                 <td>Start:</td>
-                <td><form:input path="dateStart" /> Ex: dd-mm-yyyy hh:mm:ss</td>
+                <td><form:input path="start" /> Ex: dd-mm-yyyy hh:mm:ss</td>
             </tr>
             <tr>
                 <td>End:</td>
-                <td><form:input path="dateEnd" /> Ex: dd-mm-yyyy hh:mm:ss</td>
+                <td><form:input path="end" /> Ex: dd-mm-yyyy hh:mm:ss</td>
             </tr>
             <tr>
                 <td><input type="submit" value="${empty activityID ? "Add" : "Save"}" /></td>
