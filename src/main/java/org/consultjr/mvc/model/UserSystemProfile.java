@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.consultjr.mvc.core.base.ApplicationModel;
 
 /**
  *
@@ -19,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user_system_profiles")
-public class UserSystemProfile implements Serializable {
+public class UserSystemProfile extends ApplicationModel implements Serializable {
 
     @Id
     @ManyToOne(targetEntity = User.class)
@@ -65,6 +66,31 @@ public class UserSystemProfile implements Serializable {
         this.user = user;
         this.profile = systemProfile;
         this.associated = new Date();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (this.profile.getId()*10 + this.user.getId() != 0 ? this.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass() + "[ " + user.getUsername() + ", " + profile.getShortname() + " ]";
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof UserSystemProfile)) {
+            return false;
+        }
+        UserSystemProfile other = (UserSystemProfile) object;
+        if ((this.user.getId() != other.user.getId()) || (this.profile.getId() != other.profile.getId())) {
+            return false;
+        }
+        return true;
     }
 
 }

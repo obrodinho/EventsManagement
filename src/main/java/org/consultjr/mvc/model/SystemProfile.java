@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import org.consultjr.mvc.core.base.ApplicationModel;
 
 /**
  *
@@ -23,7 +24,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "system_profiles")
-public class SystemProfile implements Serializable {
+public class SystemProfile extends ApplicationModel implements Serializable {
 
     @Id
     @Column(name = "profile_id")
@@ -94,4 +95,29 @@ public class SystemProfile implements Serializable {
         this.description = description;
        
     }    
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != 0 ? this.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass() + "[ " + id  + " ]";
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof SystemProfile)) {
+            return false;
+        }
+        SystemProfile other = (SystemProfile) object;
+        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
+            return false;
+        }
+        return true;
+    }
 }

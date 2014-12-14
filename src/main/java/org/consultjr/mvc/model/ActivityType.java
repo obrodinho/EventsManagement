@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import org.consultjr.mvc.core.base.ApplicationModel;
 
 /**
  *
@@ -21,7 +22,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "activity_types")
-public class ActivityType implements Serializable {
+public class ActivityType extends ApplicationModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,30 +46,6 @@ public class ActivityType implements Serializable {
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof ActivityType)) {
-            return false;
-        }
-        ActivityType other = (ActivityType) object;
-        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "org.consultjr.mvc.model.Activity[ id=" + id + " ]";
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
-        return hash;
-    }
 
     public ActivityType() {
         this.created = new Date();
@@ -136,6 +113,32 @@ public class ActivityType implements Serializable {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+    
+    
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof ActivityType)) {
+            return false;
+        }
+        ActivityType other = (ActivityType) object;
+        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != 0 ? this.hashCode() : 0);
+        return hash;
+    }
+
+
+    @Override
+    public String toString() {
+        return this.getClass() + "[ " + id  + " ]";
     }
 
 }

@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import org.consultjr.mvc.core.base.ApplicationModel;
 
 /**
  *
@@ -24,7 +25,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User extends ApplicationModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,13 +40,6 @@ public class User implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
-        return hash;
     }
 
     /**
@@ -95,24 +89,6 @@ public class User implements Serializable {
 
     @Transient
     private Type type;
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
-            return false;
-        }
-        User other = (User) object;
-        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.rguimaraens.spring.model.User[ id=" + id + " ]";
-    }
 
     public String getFirstname() {
         return firstname;
@@ -182,7 +158,7 @@ public class User implements Serializable {
     public Boolean getDeleted() {
         return deleted;
     }
-    
+
     public Boolean isDeleted() {
         return deleted.booleanValue();
     }
@@ -190,7 +166,7 @@ public class User implements Serializable {
     public Boolean isEnabled() {
         return !deleted.booleanValue();
     }
-    
+
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
@@ -202,7 +178,7 @@ public class User implements Serializable {
     public void setProfiles(List<UserSystemProfile> profiles) {
         this.profiles = profiles;
     }
-    
+
     public User() {
         this.created = new Date();
     }
@@ -216,4 +192,28 @@ public class User implements Serializable {
 
     }
 
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof User)) {
+            return false;
+        }
+        User other = (User) object;
+        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass() + "[ " + id + " ]";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != 0 ? this.hashCode() : 0);
+        return hash;
+    }
 }

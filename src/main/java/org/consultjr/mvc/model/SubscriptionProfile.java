@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import org.consultjr.mvc.core.base.ApplicationModel;
 
 /**
  *
@@ -21,7 +22,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "classes_profiles")
-public class SubscriptionProfile implements Serializable {
+public class SubscriptionProfile extends ApplicationModel implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
@@ -85,5 +86,25 @@ public class SubscriptionProfile implements Serializable {
     @Override
     public String toString() {
         return "SubscriptionProfile{" + "id=" + id + ", description=" + description + ", name=" + name + ", created=" + created + ", updated=" + updated + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != 0 ? this.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof SubscriptionProfile)) {
+            return false;
+        }
+        SubscriptionProfile other = (SubscriptionProfile) object;
+        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
+            return false;
+        }
+        return true;
     }
 }

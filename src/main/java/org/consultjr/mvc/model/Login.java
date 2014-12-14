@@ -6,19 +6,20 @@
 package org.consultjr.mvc.model;
 
 import java.io.Serializable;
+import org.consultjr.mvc.core.base.ApplicationModel;
 
 /**
  *
  * @author Murilo
  */
-public class Login implements Serializable{
+public class Login extends ApplicationModel implements Serializable {
+
     private String username;
     private String password;
 
     public Login() {
     }
 
-    
     /**
      * @return the username
      */
@@ -46,5 +47,29 @@ public class Login implements Serializable{
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (username.hashCode());
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass() + "[ " + this.getUsername() + " ]";
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Login)) {
+            return false;
+        }
+        Login other = (Login) object;
+        if (this.username == null ? other.username != null : !this.username.equals(other.username)) {
+            return false;
+        }
+        return true;
+    }
+
 }

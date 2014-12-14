@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import org.consultjr.mvc.core.base.ApplicationModel;
 
 /**
  *
@@ -22,7 +23,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "events")
-public class Event implements Serializable {
+public class Event extends ApplicationModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -96,30 +97,6 @@ public class Event implements Serializable {
         this.activities = activities;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof Event)) {
-            return false;
-        }
-        Event other = (Event) object;
-        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "org.consultjr.mvc.model.Event[ id=" + id + " ]";
-    }
-
     public String getTitle() {
         return title;
     }
@@ -183,5 +160,30 @@ public class Event implements Serializable {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
+    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != 0 ? this.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Event)) {
+            return false;
+        }
+        Event other = (Event) object;
+        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass() + "[ " + id  + " ]";
+    }
+
 
 }

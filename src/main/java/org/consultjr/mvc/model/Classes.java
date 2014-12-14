@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import org.consultjr.mvc.core.base.ApplicationModel;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
@@ -26,17 +27,17 @@ import org.hibernate.annotations.FetchMode;
  */
 @Entity
 @Table(name = "classes")
-public class Classes implements Serializable {
+public class Classes extends ApplicationModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "class_id")
     private int id;
-    
+
     @ManyToOne(targetEntity = Activity.class)
-    @JoinColumn(name="activity_id")
+    @JoinColumn(name = "activity_id")
     private Activity activity;
 
     public Classes() {
@@ -58,22 +59,6 @@ public class Classes implements Serializable {
     public void setActivity(Activity activity) {
         this.activity = activity;
     }
-    
-    
-//    public int getEvent_id() {
-//        return event_id;
-//    }
-//
-//    public void setEvent_id(int event_id) {
-//        this.event_id = event_id;
-//    }   
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
-        return hash;
-    }
 
     @Column()
     private String title;
@@ -86,26 +71,9 @@ public class Classes implements Serializable {
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
-    
+
     @Column()
     private boolean standard;
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof Classes)) {
-            return false;
-        }
-        Classes other = (Classes) object;
-        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "org.consultjr.mvc.model.Classes[ id=" + id + " ]";
-    }
 
     public String getTitle() {
         return title;
@@ -138,7 +106,7 @@ public class Classes implements Serializable {
     public void setCreated(Date created) {
         this.created = created;
     }
-    
+
     public boolean getStandard() {
         return standard;
     }
@@ -153,7 +121,29 @@ public class Classes implements Serializable {
         this.description = description;
         this.standard = standard;
     }
-    
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != 0 ? this.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass() + "[ " + id + " ]";
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Classes)) {
+            return false;
+        }
+        Classes other = (Classes) object;
+        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
+            return false;
+        }
+        return true;
+    }
 
 }

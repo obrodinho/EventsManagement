@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.consultjr.mvc.core.base.ApplicationModel;
 
 /**
  *
@@ -20,15 +21,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "classes_subscription")
-public class ClassesSubscription implements Serializable {
+public class ClassesSubscription extends ApplicationModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @ManyToOne(targetEntity = Classes.class)
     @JoinColumn(name = "class_id")
     private Classes classes;
-    
+
     @Id
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
@@ -81,5 +82,27 @@ public class ClassesSubscription implements Serializable {
     @Override
     public String toString() {
         return "ClassesSubscription{" + "classes=" + classes + ", user=" + user + ", subscriptionProfile=" + subscriptionProfile + ", associated=" + associated + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (classes.getId() + user.getId() * 10 + subscriptionProfile.getId() * 100 != 0 ? this.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ClassesSubscription)) {
+            return false;
+        }
+        ClassesSubscription other = (ClassesSubscription) object;
+        if ((this.user.getId() != other.user.getId()) || 
+                (this.classes.getId() != other.classes.getId()) || 
+                (this.subscriptionProfile.getId() != other.subscriptionProfile.getId())) {
+            return false;
+        }
+        return true;
     }
 }
