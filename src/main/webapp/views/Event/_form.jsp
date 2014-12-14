@@ -1,7 +1,7 @@
 <%-- 
     Document   : _form
     Created on : Nov 15, 2014, 4:35:08 PM
-    Author     : rgcs
+    Author     : kallenon
 --%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
@@ -19,8 +19,33 @@
     <table>
         <tbody>
             <tr>
-                <td>COLUMN</td>
-                <!--                        <td><//form:input path="ObjectAttribute" /></td>-->
+                <td>Title:</td>
+                <td><form:input path="title" /></td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td><form:input path="description" /></td>
+            </tr>
+            <tr>
+                <td>Start:</td>
+                <td><form:input path="start" /> Ex: dd-mm-yyyy hh:mm:ss</td>
+            </tr>
+            <tr>
+                <td>End:</td>
+                <td><form:input path="end" /> Ex: dd-mm-yyyy hh:mm:ss</td>
+            </tr>
+            <tr>
+                <td>Owner:</td>
+                <td>
+                    <form:select 
+                        path="userID" 
+                        name="user"
+                        cssClass="selectpicker" 
+                        style="height: 35px; width: 197px"
+                        items="${users}" 
+                        itemLabel="username" 
+                        itemValue="id" />
+                </td>
             </tr>
             <tr>
                 <td><input type="submit" value="${empty eventID ? "Add" : "Save"}" /></td>

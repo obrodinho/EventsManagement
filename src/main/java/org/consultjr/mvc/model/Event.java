@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import org.consultjr.mvc.core.base.ApplicationModel;
+import javax.persistence.Transient;
 
 /**
  *
@@ -23,7 +23,7 @@ import org.consultjr.mvc.core.base.ApplicationModel;
  */
 @Entity
 @Table(name = "events")
-public class Event extends ApplicationModel implements Serializable {
+public class Event implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,13 +40,22 @@ public class Event extends ApplicationModel implements Serializable {
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date start;
+    
+    @Transient
+    private String dateStart;
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date end;
+    
+    @Transient
+    private String dateEnd;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name="owner")
     private User owner;
+    
+    @Transient
+    private int userID;
 
     @Column
     private boolean deleted;
@@ -89,12 +98,60 @@ public class Event extends ApplicationModel implements Serializable {
         this.id = id;
     }
 
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public String getDateStart() {
+        return dateStart;
+    }
+
+    public void setDateStart(String dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public String getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(String dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
     public List<Event> getActivities() {
         return activities;
     }
 
     public void setActivities(List<Event> activities) {
         this.activities = activities;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != 0 ? this.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Event)) {
+            return false;
+        }
+        Event other = (Event) object;
+        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "org.consultjr.mvc.model.Event[ id=" + id + " ]";
     }
 
     public String getTitle() {
@@ -160,30 +217,5 @@ public class Event extends ApplicationModel implements Serializable {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
-    
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof Event)) {
-            return false;
-        }
-        Event other = (Event) object;
-        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return this.getClass() + "[ " + id  + " ]";
-    }
-
 
 }

@@ -18,7 +18,7 @@
                 <tr>
                     <th width="">Id</th>
                     <th width="">Title</th>
-                    <th width="200">Description</th>
+                    <th width="">Description</th>
                     <th width="">Type</th>
                     <th width="">Workload</th>
                     <th width="">Start</th>

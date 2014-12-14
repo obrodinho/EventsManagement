@@ -7,7 +7,7 @@ package org.consultjr.mvc.service;
 
 import java.util.Date;
 import java.util.List;
-import org.consultjr.mvc.core.base.ApplicationService;
+import org.consultjr.mvc.core.components.AppUtils;
 import org.consultjr.mvc.dao.EventDAO;
 import org.consultjr.mvc.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class EventService extends ApplicationService {
+public class EventService {
 
     @Autowired
     private EventDAO eventDAO;
@@ -32,6 +32,15 @@ public class EventService extends ApplicationService {
      */
     @Transactional(readOnly = false)
     public void addEvent(Event event) {
+        
+        if (event.getDateStart() != null) {
+            event.setStart(AppUtils.StringToDate(event.getDateStart()));
+        }
+
+        if (event.getDateEnd() != null) {
+            event.setEnd(AppUtils.StringToDate(event.getDateEnd()));
+        }
+        
         getEventDAO().addEvent(event);
     }
 

@@ -17,7 +17,11 @@
         <li><a href="${pageContext.request.contextPath}/loginForm">Login</a></li>
         <li><a href="${pageContext.request.contextPath}/menu">Menu</a></li>
     </ol>
-
+    <h2>Event</h2>
+    <ol>
+        <li><a href="${pageContext.request.contextPath}/Event/all">List</a></li> 
+        <li><a href="${pageContext.request.contextPath}/Event/add">Create</a></li>
+    </ol>
     <h2>Classes</h2>
     <ol>
         <li><a href="${pageContext.request.contextPath}/Classes/all">List</a></li> 
