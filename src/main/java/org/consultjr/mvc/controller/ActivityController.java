@@ -65,7 +65,7 @@ public class ActivityController extends ApplicationController {
         if (errors.hasErrors()) {
             getLogger().info("Binding Error");
         }
-        ModelAndView modelAndView = new ModelAndView("forward:all");        
+        ModelAndView modelAndView = new ModelAndView("forward:all");
 
         if (activity.getEvent() == null && eventService.getEvents().size() > 0) {
             activity.setEvent(eventService.getEvents().get(0));
@@ -96,6 +96,7 @@ public class ActivityController extends ApplicationController {
         modelAndView.addObject("activity", activity);
         modelAndView.addObject("action", "edit");
         modelAndView.addObject("activityID", activity.getId());
+        modelAndView.addObject("activityTypes", activityTypeService.getActivityTypes());
         return modelAndView;
     }
 

@@ -11,9 +11,10 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
-import org.consultjr.mvc.service.ActivityTypeConverter;
+import org.consultjr.mvc.service.ActivityTypeFormatter;
 import org.consultjr.mvc.service.AuthenticationInterceptor;
 import org.consultjr.mvc.service.DateFormatter;
+import org.consultjr.mvc.service.UserFormatter;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -90,7 +91,8 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         super.addFormatters(registry); //To change body of generated methods, choose Tools | Templates.
         registry.addFormatter(new DateFormatter());
-        registry.addConverter(ActivityTypeConverter.getInstance());
+        registry.addFormatter(ActivityTypeFormatter.getInstance());
+        registry.addFormatter(UserFormatter.getInstance());
     }
 
     private void loadProperties(String filename) {

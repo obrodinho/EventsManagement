@@ -5,11 +5,13 @@
  */
 package org.consultjr.mvc.service;
 
+import java.text.ParseException;
+import java.util.Locale;
 import javax.annotation.Resource;
 import org.consultjr.mvc.model.ActivityType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.Formatter;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,37 +19,37 @@ import org.springframework.stereotype.Component;
  * @author Rafael
  */
 @Component
-public class ActivityTypeConverter implements Converter<String, ActivityType> {
+public class ActivityTypeFormatter implements Formatter<ActivityType> {
 
-    private static ActivityTypeConverter instance = null;
+    private static ActivityTypeFormatter instance = null;
 
-    private static final Logger logger = LoggerFactory.getLogger(ActivityTypeConverter.class);
+    private static final Logger logger = LoggerFactory.getLogger(ActivityTypeFormatter.class);
 
     @Resource
     private ActivityTypeService activityTypeService;
 
-    private ActivityTypeConverter() {
+    private ActivityTypeFormatter() {
         logger.info("Creating Singleton...");
         this.activityTypeService = new ActivityTypeService();
     }
 
-    public static ActivityTypeConverter getInstance() {
-        return ActivityTypeConverter.instance == null ? new ActivityTypeConverter() : instance;
+    public static ActivityTypeFormatter getInstance() {
+        return ActivityTypeFormatter.instance == null ? new ActivityTypeFormatter() : instance;
     }
 
-    /**
-     *
-     * @param source
-     * @return
-     */
     @Override
-    public ActivityType convert(String source) {
+    public String print(ActivityType t, Locale locale) {
+        return Integer.toString(t.getId());
+    }
+
+    @Override
+    public ActivityType parse(String s, Locale locale) throws ParseException {
         ActivityType activityType = new ActivityType();
 //        int id = -1;
 //        try {
         logger.info("Trying to convert String to ActivityType");
         logger.info("GREATEST GAMBIARRA on Earth. Can't reach Service to retrieve info from DB. So, return an empty object with the ID we must Grab from DB and return that object. Shame on you, Spring.");
-        activityType.setId(Integer.parseInt(source));
+        activityType.setId(Integer.parseInt(s));
         logger.info("object: {}", activityType);
         return activityType;
 
@@ -59,7 +61,7 @@ public class ActivityTypeConverter implements Converter<String, ActivityType> {
 //            return activityType;
 //        } catch (NumberFormatException e) {
 //            throw new ConversionFailedException(TypeDescriptor.valueOf(String.class), TypeDescriptor.valueOf(ActivityType.class), source, null);
-//        }
+//        }    
     }
 
 }

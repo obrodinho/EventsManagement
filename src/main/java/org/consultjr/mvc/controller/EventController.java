@@ -1,6 +1,7 @@
 package org.consultjr.mvc.controller;
 
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.model.Event;
 import org.consultjr.mvc.service.EventService;
@@ -8,6 +9,7 @@ import org.consultjr.mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,13 +29,12 @@ public class EventController extends ApplicationController {
 
     @Autowired
     private EventService eventService;
-    
+
     @Autowired
     private UserService userService;
-    
+
 //    private ClassesService classesService;
 //    @Autowired
-
     public void setEventService(final EventService eventService) {
         this.eventService = eventService;
     }
@@ -58,9 +59,12 @@ public class EventController extends ApplicationController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST) // Save Method: POST /PROJECT/Event/add
-    public ModelAndView addEvent(@ModelAttribute Event event) {
+    public ModelAndView addEvent(@ModelAttribute Event event, BindingResult errors, HttpServletRequest request) {
+        if (errors.hasErrors()) {
+            getLogger().info("Binding Error");
+        }
         ModelAndView modelAndView = new ModelAndView("redirect:all");
-        event.setOwner(userService.getUserById(event.getUserID()));
+        //event.setOwner(userService.getUserById(event.getUserID()));
         eventService.addEvent(event);
         String message = "Event was succesfully added";
         modelAndView.addObject("message", message);
@@ -74,10 +78,10 @@ public class EventController extends ApplicationController {
 
 //        event.setDateStart(AppUtils.FormatDate(activity.getStart()));
 //        activity.setDateEnd(AppUtils.FormatDate(activity.getEnd()));
-
         modelAndView.addObject("event", event);
         modelAndView.addObject("action", "edit");
         modelAndView.addObject("eventID", event.getId());
+        modelAndView.addObject("users", userService.getUsers());
         return modelAndView;
     }
 

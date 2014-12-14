@@ -38,8 +38,8 @@
                 <td>Owner:</td>
                 <td>
                     <form:select 
-                        path="userID" 
-                        name="user"
+                        path="owner" 
+                        name="owner"
                         cssClass="selectpicker" 
                         style="height: 35px; width: 197px"
                         items="${users}" 
