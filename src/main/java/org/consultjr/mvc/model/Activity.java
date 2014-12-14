@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import org.consultjr.mvc.core.base.ApplicationModel;
 
 /**
  *
@@ -24,7 +25,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "activities")
-public class Activity implements Serializable {
+public class Activity extends ApplicationModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
