@@ -33,7 +33,7 @@ public class AppUtils {
 
     public static Date StringToDate(String strDate) {
         String srtDateFormated = strDate.replace(".0", "");
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         try {
             return formatter.parse(srtDateFormated);
         } catch (ParseException ex) {
@@ -43,9 +43,9 @@ public class AppUtils {
     }
     
     public static String DateToString(Date date) {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         try {
-            return formatter.format(date).toString();
+            return formatter.format(date);
         } catch (Exception ex) {
             Logger.getLogger(AppUtils.class.getName()).log(Level.SEVERE, null, ex);
             return null;

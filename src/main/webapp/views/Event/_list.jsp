@@ -1,7 +1,7 @@
 <%-- 
     Document   : _list
     Created on : Nov 15, 2014, 4:35:48 PM
-    Author     : rgcs
+    Author     : kallenon
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,7 +16,12 @@
     <table class="table table-bordered table-condensed table-hover">
         <thead>
             <tr>
-                <th width="">id</th>
+                <th width="">Id</th>
+                <th width="">Title</th>
+                <th width="">Description</th>
+                <th width="">Start</th>
+                <th width="">End</th>
+                <th width="">Owner</th>
                 <th width="">Operations</th>
             </tr>
         </thead>
@@ -24,7 +29,11 @@
             <c:forEach var="event" items="${events}">
                 <tr>
                     <td>${event.id}</td>
-
+                    <td>${event.title}</td>
+                    <td>${event.description}</td>
+                    <td>${event.start}</td>
+                    <td>${event.end}</td>
+                    <td>${event.owner.username}</td>
                     <td>
                         <a href="${pageContext.request.contextPath}/Event/edit/${event.id}">Edit</a> | 
                         <a href="${pageContext.request.contextPath}/Event/delete/${event.id}">Delete</a>

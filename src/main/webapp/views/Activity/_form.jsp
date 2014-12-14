@@ -33,8 +33,9 @@
                 <td>
                     <form:select 
                         path="typeID" 
-                        name="type" 
-                        cssClass="form-control" 
+                        name="type"
+                        cssClass="selectpicker" 
+                        style="height: 35px; width: 197px"
                         items="${activityTypes}" 
                         itemLabel="title" 
                         itemValue="id" />
