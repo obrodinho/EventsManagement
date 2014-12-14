@@ -2,6 +2,8 @@ package org.consultjr.mvc.controller;
 
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.core.components.AppUtils;
 import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.Classes;
@@ -10,12 +12,13 @@ import org.consultjr.mvc.service.ActivityTypeService;
 import org.consultjr.mvc.service.ClassesService;
 import org.consultjr.mvc.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -25,9 +28,9 @@ import org.springframework.web.servlet.ModelAndView;
  * @author kallenon
  */
 @Controller
-@Scope("request")
-@RequestMapping("/Activity")
-public class ActivityController {
+@RequestMapping("Activity")
+@SessionAttributes("activity")
+public class ActivityController extends ApplicationController {
 
     @Autowired
     private ActivityService activityService;
@@ -58,16 +61,16 @@ public class ActivityController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST) // Save Method: POST /PROJECT/Activity/add
-    public ModelAndView addActivity(@ModelAttribute Activity activity) {
-        ModelAndView modelAndView = new ModelAndView("redirect:all");
-        activity.setType(activityTypeService.getActivityTypeById(activity.getTypeID()));
-        
+    public ModelAndView addActivity(@ModelAttribute Activity activity, BindingResult errors, HttpServletRequest request) {
+        if (errors.hasErrors()) {
+            getLogger().info("Binding Error");
+        }
+        ModelAndView modelAndView = new ModelAndView("forward:all");        
+
         if (activity.getEvent() == null && eventService.getEvents().size() > 0) {
             activity.setEvent(eventService.getEvents().get(0));
         }
         activityService.addActivity(activity);
-        
-        System.out.println(activity.getType());
 
         Classes standardClasses = new Classes();
         standardClasses.setActivity(activity);

@@ -6,6 +6,7 @@
 package org.consultjr.mvc.controller;
 
 import java.util.List;
+import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.service.ClassesService;
@@ -25,9 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
-@Scope("request")
 @RequestMapping("/Classes")
-public class ClassesController {
+public class ClassesController extends ApplicationController {
 
     @Autowired
     private ClassesService classesService;

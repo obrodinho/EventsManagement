@@ -6,15 +6,14 @@
 package org.consultjr.mvc.controller;
 
 import javax.servlet.http.HttpSession;
+import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.model.Login;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -22,11 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Murilo
  */
 @Controller
-public class LoginController {
+public class LoginController extends ApplicationController {
     
     @Autowired
     private UserService userService;
-    
+       
     @RequestMapping(value = "/menu")
     public ModelAndView menu(){
         return new ModelAndView("menu");
@@ -57,4 +56,5 @@ public class LoginController {
             }
         }
     }
+
 }

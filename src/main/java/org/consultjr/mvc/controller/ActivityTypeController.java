@@ -1,6 +1,7 @@
 package org.consultjr.mvc.controller;
 
 import java.util.List;
+import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.model.ActivityType;
 import org.consultjr.mvc.service.ActivityTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
  * @author kallenon
  */
 @Controller
-@Scope("request")
-@RequestMapping("/ActivityType")
-public class ActivityTypeController {
+@RequestMapping("ActivityType")
+public class ActivityTypeController extends ApplicationController {
 
     @Autowired
     private ActivityTypeService activityTypeService;

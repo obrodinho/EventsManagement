@@ -6,7 +6,7 @@
 package org.consultjr.mvc.controller;
 
 import java.util.Date;
-import org.consultjr.mvc.core.base.AppController;
+import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.core.components.AppUtils;
 import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.ActivityType;
@@ -38,7 +38,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @Scope("request")
 @RequestMapping("System")
-public class SystemController extends AppController {
+public class SystemController extends ApplicationController {
 
     @Autowired
     private SystemConfigService systemConfigService;
@@ -72,7 +72,6 @@ public class SystemController extends AppController {
         this.systemConfigService = systemConfigService;
     }
 
-    @Override
     public ModelAndView index() {
         return new ModelAndView("redirect:/System/admin");
     }
@@ -100,19 +99,16 @@ public class SystemController extends AppController {
         SystemProfile adminProfile = new SystemProfile("admin", "Administrador do Sistema");
 //        if (spService.getSystemProfileByShortname("admin") == null) {
         spService.addSystemProfile(adminProfile);
-        System.out.println(adminProfile);
 //        }
 
         User defaultUser = new User("Administrador", "do Sistema", "admin", "admin@LPS");
 //        if (userService.getUserByUsername("admin") == null) {
         userService.addUser(defaultUser);
-        System.out.println(defaultUser);
 //        }
 
 //        if (uspService.getUserSystemProfiles().isEmpty()) {
         UserSystemProfile usp = new UserSystemProfile(userService.getUserByUsername("admin"), spService.getSystemProfileByShortname("admin"));
         uspService.addUserSystemProfile(usp);
-        System.out.println(usp);
 //        }
 
 //        if (evtService.getEvents().isEmpty()) {

@@ -6,7 +6,7 @@
 package org.consultjr.mvc.controller;
 
 import java.util.List;
-import org.consultjr.mvc.core.base.AppController;
+import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.core.base.CRUDable;
 import org.consultjr.mvc.model.ClassesSubscription;
 import org.consultjr.mvc.model.SubscriptionProfile;
@@ -29,9 +29,8 @@ import org.springframework.web.servlet.ModelAndView;
  * @author rgcs
  */
 @Controller
-@Scope("request")
 @RequestMapping("/User")
-public class UserController extends AppController implements CRUDable {
+public class UserController extends ApplicationController {
 
     @Autowired
     private UserService userService;
@@ -43,7 +42,6 @@ public class UserController extends AppController implements CRUDable {
     private SubscriptionProfileService subscriptionProfileService;
 
     @RequestMapping("") // Index Method: => /PROJECT/User
-    @Override
     public ModelAndView index() {
         return new ModelAndView("redirect:/User/all");
     }

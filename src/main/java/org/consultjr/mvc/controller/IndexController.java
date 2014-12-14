@@ -5,7 +5,7 @@
  */
 package org.consultjr.mvc.controller;
 
-import org.consultjr.mvc.core.base.AppController;
+import org.consultjr.mvc.core.base.ApplicationController;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +13,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @Scope("request")
-public class IndexController extends AppController {
+public class IndexController extends ApplicationController {
 
     @RequestMapping("about")
     protected ModelAndView about() {
         return new ModelAndView("about");
+    }
+
+    @RequestMapping("signup")
+    protected ModelAndView signup() {
+        return new ModelAndView("signup");
     }
 }
