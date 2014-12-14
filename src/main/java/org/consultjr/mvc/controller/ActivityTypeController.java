@@ -32,7 +32,7 @@ public class ActivityTypeController extends ApplicationController {
 
     @RequestMapping("") // Index Method: => /PROJECT/ActivityType
     public ModelAndView index() {
-        return this.allActivitiesType();
+        return new ModelAndView("redirect:/ActivityType/all");
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET) // GET: /PROJECT/ActivityType/add
@@ -65,7 +65,7 @@ public class ActivityTypeController extends ApplicationController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView updateActivityType(@ModelAttribute ActivityType activityType, @PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("ActivityType/_form");
+        ModelAndView modelAndView = new ModelAndView("forward:/ActivityType/all");
         activityTypeService.updateActivityType(activityType, id);
         String message = "ActivityType was successfully edited.";
         modelAndView.addObject("message", message);
@@ -74,7 +74,7 @@ public class ActivityTypeController extends ApplicationController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteActivityType(@PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("ActivityType/_list");
+        ModelAndView modelAndView = new ModelAndView("forward:/ActivityType/all");
         //TODO checar se houve deleção!!!
         activityTypeService.deleteActivityType(activityTypeService.getActivityTypeById(id));
         List<ActivityType> activityTypes = activityTypeService.getActivityTypes();

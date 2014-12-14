@@ -65,7 +65,7 @@ public class ActivityController extends ApplicationController {
         if (errors.hasErrors()) {
             getLogger().info("Binding Error");
         }
-        ModelAndView modelAndView = new ModelAndView("forward:all");
+        ModelAndView modelAndView = new ModelAndView("forward:/Activity/all");
 
         if (activity.getEvent() == null && eventService.getEvents().size() > 0) {
             activity.setEvent(eventService.getEvents().get(0));
@@ -102,16 +102,17 @@ public class ActivityController extends ApplicationController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView updateActivity(@ModelAttribute Activity activity, @PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("Activity/_form");
+        ModelAndView modelAndView = new ModelAndView("forward:/Activity/all");
         activityService.updateActivity(activity, id);
         String message = "Activity was successfully edited.";
         modelAndView.addObject("message", message);
+        
         return modelAndView;
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteActivity(@PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("Activity/_list");
+        ModelAndView modelAndView = new ModelAndView("forward:/Activity/all");
         //TODO checar se houve deleção!!!
         activityService.deleteActivity(activityService.getActivityById(id));
         List<Activity> activities = activityService.getActivities();

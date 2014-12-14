@@ -40,7 +40,7 @@ public class ClassesController extends ApplicationController {
     
     @RequestMapping("") // Index Method: => /PROJECT/Classes
     public ModelAndView index() {
-        return this.allClasses();
+        return new ModelAndView("redirect:/Classes/all");
     }
     
     
@@ -59,7 +59,7 @@ public class ClassesController extends ApplicationController {
 
     @RequestMapping(value = "/add/{id}", method = RequestMethod.POST) // Save Method: POST /PROJECT/Classes/add
     public ModelAndView addClasses(@ModelAttribute Classes classes, @PathVariable int id) {
-        ModelAndView modelAndView = new ModelAndView("Classes/_form");
+        ModelAndView modelAndView = new ModelAndView("forward:/Classes/all");
         
         Activity defaultActivity = activityService.getActivityById(id);
         classes.setActivity(defaultActivity);
@@ -90,7 +90,7 @@ public class ClassesController extends ApplicationController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView updateClasses(@ModelAttribute Classes classes, @PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("Classes/_form");
+        ModelAndView modelAndView = new ModelAndView("forward:/Classes/all");
         classesService.updateClasses(classes);
         String message = "Class was successfully edited.";
         modelAndView.addObject("message", message);
@@ -99,7 +99,7 @@ public class ClassesController extends ApplicationController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteClasses(@PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("Classes/_list");
+        ModelAndView modelAndView = new ModelAndView("forward:/Classes/all");
         //TODO checar se houve deleção!!!
         classesService.deleteClasses(classesService.getClassesById(id));
         List<Classes> manyClasses = classesService.getClasses();

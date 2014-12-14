@@ -45,7 +45,7 @@ public class EventController extends ApplicationController {
 
     @RequestMapping("") // Index Method: => /PROJECT/Event
     public ModelAndView index() {
-        return this.allEvents();
+        return new ModelAndView("redirect:/Event/all");
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET) // GET: /PROJECT/Event/add
@@ -63,7 +63,7 @@ public class EventController extends ApplicationController {
         if (errors.hasErrors()) {
             getLogger().info("Binding Error");
         }
-        ModelAndView modelAndView = new ModelAndView("redirect:all");
+        ModelAndView modelAndView = new ModelAndView("forward:/Event/all");
         //event.setOwner(userService.getUserById(event.getUserID()));
         eventService.addEvent(event);
         String message = "Event was succesfully added";
@@ -87,7 +87,7 @@ public class EventController extends ApplicationController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView updateEvent(@ModelAttribute Event event, @PathVariable Integer id) {
-        ModelAndView modelAndView = new ModelAndView("Event/_form");
+        ModelAndView modelAndView = new ModelAndView("forward:/Event/all");
         eventService.updateEvent(event, id);
         String message = "Event was successfully edited.";
         modelAndView.addObject("message", message);
