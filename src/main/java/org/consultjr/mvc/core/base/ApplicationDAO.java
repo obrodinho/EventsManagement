@@ -7,13 +7,26 @@ package org.consultjr.mvc.core.base;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author Rafael
  */
-public class AppDAO {
+public class ApplicationDAO {
+
+    private final Logger logger;
+
+    public Logger getLogger() {
+        return logger;
+    }
+
+    public ApplicationDAO() {
+        this.logger = LoggerFactory.getLogger(this.getClass());
+    }
+
     @Autowired
     private SessionFactory sessionFactory;
 

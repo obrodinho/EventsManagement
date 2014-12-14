@@ -7,8 +7,16 @@ package org.consultjr.mvc.core.base;
 
 /**
  *
- * @author rgcs
+ * @author Rafael
  */
-public class AppService {
+public abstract class ApplicationModel {
     
+    @Override
+    public abstract int hashCode();
+    
+    @Override
+    public abstract String toString();
+    
+    @Override
+    public abstract boolean equals(Object object);
 }

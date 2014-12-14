@@ -1,2 +1,3 @@
 /target/*
-jdbc.properties
+/src/main/resources/jdbc.properties
+App.log
