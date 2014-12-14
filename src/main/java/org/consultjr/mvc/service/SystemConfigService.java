@@ -7,6 +7,7 @@ package org.consultjr.mvc.service;
 
 import java.util.Date;
 import java.util.List;
+import org.consultjr.mvc.core.base.ApplicationService;
 import org.consultjr.mvc.dao.SystemConfigDAO;
 import org.consultjr.mvc.model.SystemConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class SystemConfigService {
+public class SystemConfigService extends ApplicationService {
 
     @Autowired
     private SystemConfigDAO systemConfigDAO;

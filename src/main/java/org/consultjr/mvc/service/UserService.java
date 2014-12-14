@@ -2,6 +2,7 @@ package org.consultjr.mvc.service;
 
 import java.util.Date;
 import java.util.List;
+import org.consultjr.mvc.core.base.ApplicationService;
 
 import org.consultjr.mvc.dao.UserDAO;
 import org.consultjr.mvc.model.User;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class UserService {
+public class UserService extends ApplicationService {
 
     // UserDAO is injected...
     @Autowired

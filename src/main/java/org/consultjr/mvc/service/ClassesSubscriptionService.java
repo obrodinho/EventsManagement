@@ -7,6 +7,7 @@ package org.consultjr.mvc.service;
 
 import java.util.Date;
 import java.util.List;
+import org.consultjr.mvc.core.base.ApplicationService;
 import org.consultjr.mvc.dao.ClassesDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ import org.consultjr.mvc.model.ClassesSubscription;
  */
 @Service("ClassesSubscritptionService")
 @Transactional(readOnly = true)
-public class ClassesSubscriptionService {
+public class ClassesSubscriptionService extends ApplicationService {
     @Autowired
     ClassesSubscriptionDAO subscriptionDAO;
     

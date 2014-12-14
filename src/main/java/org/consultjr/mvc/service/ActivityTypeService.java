@@ -2,9 +2,11 @@ package org.consultjr.mvc.service;
 
 import java.util.Date;
 import java.util.List;
+import org.consultjr.mvc.core.base.ApplicationService;
 import org.consultjr.mvc.dao.ActivityTypeDAO;
 import org.consultjr.mvc.model.ActivityType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author rgcs
  */
-@Service("ActivityTypeService")
-public class ActivityTypeService {
+@Service
+public class ActivityTypeService extends ApplicationService {
 
     @Autowired
     ActivityTypeDAO activitytypeDAO;
@@ -43,14 +45,17 @@ public class ActivityTypeService {
         getActivityTypeDAO().updateActivityType(activitytypeBD);
     }
 
+    @Transactional(readOnly = false)
     public ActivityType getActivityTypeById(int id) {
-        return getActivityTypeDAO().getActivityTypeById(id);
+        return this.activitytypeDAO.getActivityTypeById(id);
     }
 
+    @Transactional(readOnly = false)
     public ActivityType getActivityTypeByShortname(String shortname) {
         return getActivityTypeDAO().getActivityTypeByShortname(shortname);
     }
 
+    @Transactional(readOnly = false)
     public List<ActivityType> getActivityTypes() {
         return getActivityTypeDAO().getActivityTypes();
     }

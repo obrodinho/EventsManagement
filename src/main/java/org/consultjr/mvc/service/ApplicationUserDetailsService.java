@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.consultjr.mvc.core.base.ApplicationService;
 import org.consultjr.mvc.dao.SystemProfileDAO;
 import org.consultjr.mvc.dao.UserDAO;
 import org.consultjr.mvc.dao.UserSystemProfileDAO;
@@ -28,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Rafael
  */
 @Service("UDService")
-public class ApplicationUserDetailsService implements UserDetailsService {
+public class ApplicationUserDetailsService extends ApplicationService implements UserDetailsService {
 
     @Autowired
     private UserDAO userDAO;

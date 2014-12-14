@@ -6,6 +6,7 @@
 package org.consultjr.mvc.service;
 
 import java.util.List;
+import org.consultjr.mvc.core.base.ApplicationService;
 import org.consultjr.mvc.dao.UserSystemProfileDAO;
 import org.consultjr.mvc.model.UserSystemProfile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class UserSystemProfileService {
+public class UserSystemProfileService extends ApplicationService {
     @Autowired
     private UserSystemProfileDAO uspDAO;
     
