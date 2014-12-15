@@ -81,7 +81,18 @@ public class SubscriptionProfile extends ApplicationModel implements Serializabl
 
     public void setUpdated(Date updated) {
         this.updated = updated;
-    }    
+    }
+
+    public SubscriptionProfile() {
+        this.created = new Date();
+    }
+
+    public SubscriptionProfile(String description, String name) {
+        this();
+        
+        this.description = description;
+        this.name = name;        
+    }
 
     @Override
     public String toString() {

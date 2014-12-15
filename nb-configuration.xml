@@ -31,5 +31,6 @@ Any value defined here will override the pom.xml file value but is only applicab
         <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
         <org-netbeans-modules-web-clientproject-api.js_2e_libs_2e_folder>WEB-INF/resources/dist/js/vendor</org-netbeans-modules-web-clientproject-api.js_2e_libs_2e_folder>
         <org-netbeans-modules-html-editor-lib.default-html-public-id>HTML5</org-netbeans-modules-html-editor-lib.default-html-public-id>
+        <netbeans.compile.on.save>all</netbeans.compile.on.save>
     </properties>
 </project-shared-configuration>

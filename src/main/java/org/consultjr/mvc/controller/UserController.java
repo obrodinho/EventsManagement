@@ -127,6 +127,8 @@ public class UserController extends ApplicationController {
 
         List<User> users = userService.getUsers();
         modelAndView.addObject("users", users);
+        modelAndView.addObject("classId", classId); 
+        modelAndView.addObject("profiles", subscriptionProfileService.getSubscriptionProfiles());
         modelAndView.addObject("message", "Congratulations! The system works");
         return modelAndView;
     }

@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
 import org.consultjr.mvc.core.base.ApplicationModel;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -58,12 +59,14 @@ public class Activity extends ApplicationModel implements Serializable {
     private int workload;
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date start;
 
     @Transient
     private String dateStart;
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date end;
 
     @Transient

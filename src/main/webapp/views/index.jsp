@@ -8,8 +8,11 @@
 <%@include file="../templates/header.jspf" %>
 <div class="page-header">
     <h2>Project Base Actions</h2>
-</div>    
-<div>
+</div>
+<div class="row">
+    ${message}
+</div>
+<div class="row">
     <h2>User</h2>
     <ol>
         <li><a href="${pageContext.request.contextPath}/User/all">List</a></li> 
