@@ -9,12 +9,12 @@
 <%@include file="../../templates/header.jspf" %>
 
 <div class="page-header">
-    <h2>User</h2>
+    <h2>Register Yourself!</h2>
 </div>
 <div>
     ${message}
 </div>
-<form:form method="POST" commandName="user" action="${pageContext.request.contextPath}/User/${empty userID ? action : action.concat('/').concat(userID)}">
+<form:form method="POST" commandName="user" action="${pageContext.request.contextPath}/signup">
     <input type="hidden" name="userID" value="${userID}" >
     <table>
         <tbody>
@@ -35,11 +35,16 @@
                 <td><form:input path="password" /></td>
             </tr>
             <tr>
-                <td><input type="submit" value="${empty userID ? "Add" : "Save"}" /></td>
+                <td><input type="submit" value="Register" /></td>
             </tr>
         </tbody>
     </table>
 </form:form>
+<c:if test="${userID == null}">        
+    <p>
+        <a href="${pageContext.request.contextPath}/loginForm">Already Registered?</a>
+    </p>
+</c:if>
 
 
-<%@include file="../../templates/footer.jspf" %>
+    <%@include file="../../templates/footer.jspf" %>

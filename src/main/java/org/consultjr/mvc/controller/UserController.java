@@ -60,7 +60,7 @@ public class UserController extends ApplicationController {
     public ModelAndView addUser(@ModelAttribute User user) {
         ModelAndView modelAndView = new ModelAndView("forward:/User/all");
         userService.addUser(user);
-        String message = "Usuario cadastrado com sucesso! Faça login para entrar no sistema";
+        String message = "User was succesfully added";
         modelAndView.addObject("message", message);
         return modelAndView;
     }

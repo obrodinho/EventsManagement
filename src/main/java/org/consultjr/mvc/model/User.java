@@ -201,7 +201,7 @@ public class User extends ApplicationModel implements Serializable {
         User other = (User) object;
         if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
             return false;
-        }
+    }
         return true;
     }
 

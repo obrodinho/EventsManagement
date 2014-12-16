@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.consultjr.mvc.model.Type;
 import org.consultjr.mvc.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
@@ -16,36 +17,50 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * @author Murilo
  */
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
-    private RequestAnalyser rqAnalyser = new RequestAnalyser();
+
+    private final RequestAnalyser rqAnalyser = new RequestAnalyser();
+
+    private final SystemConfigService sysService = new SystemConfigService();
+
     @Override
-    public boolean preHandle(HttpServletRequest request,HttpServletResponse response,Object controller) throws Exception {
+    public boolean preHandle(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Object controller) throws Exception {
         String uri = request.getRequestURI();
+        String contextPath = request.getContextPath();
         User user = (User) request.getSession().getAttribute("usuarioLogado");
         //Se Usuario esta logado
-        if(user != null) {
+        if (user != null) {
             //return true;
             //Verifica se ele tem permissao para acessar a pagina
             user.setType(Type.ADMIN);
-            if(uri.endsWith("/org.consultjr.EventsManagement") || uri.endsWith("loginForm") || uri.endsWith("doLogin")){
+            if (uri.endsWith(contextPath)/* || uri.endsWith("loginForm") || uri.endsWith("doLogin")*/) {
                 return true;
             }
-            if(rqAnalyser.checkPermission(user, request)){
+            if (rqAnalyser.checkPermission(user, request)) {
                 return true;
             } else {
                 //se nao tiver manda de volta pra tela inicial dele
-                response.sendRedirect("/org.consultjr.EventsManagement/menu");
+                response.sendRedirect(contextPath + "/menu");
                 return false;
             }
+//        } else if (user == null && sysService.getConfigByKey("_installed") == null) {
+//            response.sendRedirect(contextPath + "/System/install");
+//            return false;
         } else {
             //se nao ta logado volta pra tela de login
-            if(uri.endsWith("/org.consultjr.EventsManagement") || uri.endsWith("loginForm") || uri.endsWith("doLogin") || uri.endsWith("install") || uri.endsWith("User/add")){
+            if (uri.endsWith(contextPath)
+                    || uri.endsWith("/loginForm")
+                    || uri.endsWith("/doLogin")
+                    || uri.endsWith("/System/install")
+                    || uri.endsWith("/signup")
+                    || uri.endsWith("/about")) {
                 return true;
+            } else {
+                response.sendRedirect(contextPath + "/loginForm");
+                return false;
             }
-            response.sendRedirect("/org.consultjr.EventsManagement/loginForm");
-            return false;
         }
-        
-        
     }
-    
 }
