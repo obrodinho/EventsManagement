@@ -5,11 +5,7 @@
  */
 package org.consultjr.mvc.core.config;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import org.consultjr.mvc.service.ActivityTypeFormatter;
 import org.consultjr.mvc.service.AuthenticationInterceptor;
@@ -19,6 +15,7 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.support.FormattingConversionService;
@@ -42,6 +39,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @Configuration //Marks this class as configuration
 @EnableTransactionManagement
 @ComponentScan("org.consultjr.mvc")
+@PropertySource("classpath:jdbc.properties")
 @EnableWebMvc
 //@Import({ApplicationSecurityConfig.class})
 public class ApplicationConfig extends WebMvcConfigurerAdapter {
@@ -49,27 +47,9 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
     @Resource
     private Environment env;
     private Properties properties = new Properties();
-    private Properties hibernateProperties = new Properties();
-    /*
-     # MYSQL JDBC
-     jdbc.driverClassName = com.mysql.jdbc.Driver
-     jdbc.url = jdbc:mysql://localhost:3306/events_management
-     jdbc.username = root
-     jdbc.password = mysql
-
-     # Hibernate Config
-     hibernate.dialect = org.hibernate.dialect.MySQLDialect
-     hibernate.show_sql = true
-     hibernate.format_sql = false
-     hibernate.generate_statistics = false
-     hibernate.dialect = org.hibernate.dialect.MySQLDialect
-     hibernate.hbm2ddl.auto = update
-     hibernate.current_session_context_class = thread
-    
-     */
 
     public ApplicationConfig() {
-        this.loadProperties("jdbc.properties");
+        properties = ApplicationProperties.load("jdbc.properties");
     }
 
     @Override
@@ -95,28 +75,9 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
         registry.addFormatter(UserFormatter.getInstance());
     }
 
-    private void loadProperties(String filename) {
-        InputStream fileStream = getClass().getClassLoader().getResourceAsStream(filename);
-
-        try {
-            properties.load(fileStream);
-            fileStream.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ApplicationConfig.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (null == fileStream) {
-            System.err.println("property file '" + filename + "' not found in the classpath");
-        }
-
-    }
-
     @Bean
-    public PropertyPlaceholderConfigurer setupPropertyConfigurer() {
-        PropertyPlaceholderConfigurer propertyConfigurer = new PropertyPlaceholderConfigurer();
-
-        propertyConfigurer.setProperties(properties);
-        return propertyConfigurer;
+    public static PropertyPlaceholderConfigurer setupPropertyConfigurer() {
+        return new PropertyPlaceholderConfigurer();
     }
 
     @Bean
@@ -163,12 +124,4 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
         resolver.setViewClass(JstlView.class);
         return resolver;
     }
-
-    @Bean(name = "indexController")
-    public ParameterizableViewController indexController() {
-        ParameterizableViewController parameterizableViewController = new ParameterizableViewController();
-        parameterizableViewController.setViewName("index");
-        return parameterizableViewController;
-    }
-
 }
