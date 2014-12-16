@@ -10,6 +10,7 @@ import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.core.base.CRUDable;
 import org.consultjr.mvc.model.ClassesSubscription;
 import org.consultjr.mvc.model.SubscriptionProfile;
+import org.consultjr.mvc.model.Type;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.service.ClassesService;
 import org.consultjr.mvc.service.ClassesSubscriptionService;
@@ -59,7 +60,7 @@ public class UserController extends ApplicationController {
     public ModelAndView addUser(@ModelAttribute User user) {
         ModelAndView modelAndView = new ModelAndView("forward:/User/all");
         userService.addUser(user);
-        String message = "User was succesfully added";
+        String message = "Usuario cadastrado com sucesso! Faça login para entrar no sistema";
         modelAndView.addObject("message", message);
         return modelAndView;
     }

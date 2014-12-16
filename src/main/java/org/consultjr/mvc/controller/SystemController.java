@@ -89,6 +89,9 @@ public class SystemController extends ApplicationController {
             SystemProfile adminProfile = new SystemProfile("admin", "Administrador do Sistema");
             spService.addSystemProfile(adminProfile);
 
+            SystemProfile userProfile = new SystemProfile("client", "Usuario Final");
+            spService.addSystemProfile(userProfile);
+            
             User defaultUser = new User("Administrador", "do Sistema", "admin", "admin@LPS");
             userService.addUser(defaultUser);
 

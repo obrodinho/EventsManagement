@@ -40,5 +40,11 @@
                 </tbody>
             </table>
         </form:form>
+        <c:if test="${userID == null}">        
+            <p>
+            <a href="${pageContext.request.contextPath}/loginForm">Ja é registrado?</a>
+            </p>
+        </c:if>
+        
 
 <%@include file="../../templates/footer.jspf" %>

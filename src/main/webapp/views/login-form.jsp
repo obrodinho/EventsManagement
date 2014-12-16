@@ -32,6 +32,7 @@
                 <form:input type="password" path="password" id="password" class="form-control" />
             </div>
             <button type="submit" class="btn btn-default btn-embossed btn-large btn-primary"><span class="fui-check-circle"></span> Login</button>
+            <a href="${pageContext.request.contextPath}/User/add">Cadastre-se!</a>
         </form:form>
     </div>
 </div>
