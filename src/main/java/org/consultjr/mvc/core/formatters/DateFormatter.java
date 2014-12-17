@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.consultjr.mvc.service;
+package org.consultjr.mvc.core.formatters;
 
 import org.consultjr.mvc.core.components.AppUtils;
 import java.text.DateFormat;
