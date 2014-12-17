@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.consultjr.mvc.service;
+package org.consultjr.mvc.core.formatters;
 
 import java.text.ParseException;
 import java.util.Locale;
 import javax.annotation.Resource;
 import org.consultjr.mvc.model.ActivityType;
+import org.consultjr.mvc.service.ActivityTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.Formatter;
