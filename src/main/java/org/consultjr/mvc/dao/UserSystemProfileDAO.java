@@ -7,6 +7,8 @@ package org.consultjr.mvc.dao;
 
 import java.util.List;
 import org.consultjr.mvc.core.base.ApplicationDAO;
+import org.consultjr.mvc.model.SystemProfile;
+import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.model.UserSystemProfile;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +69,22 @@ public class UserSystemProfileDAO extends ApplicationDAO {
     @Transactional
     public List<UserSystemProfile> getUserSystemProfiles() {
         List list = getSessionFactory().getCurrentSession().createQuery("from UserSystemProfile").list();
+        return list;
+    }
+
+    @Transactional
+    public List<SystemProfile> getSystemProfilesOfUser(int userID) {
+        List list = getSessionFactory().getCurrentSession()
+                .createQuery("from UserSystemProfile usp JOIN SystemProfile sp ON usp.profile = sp.id where user=?")
+                .setParameter(0, userID).list();
+        return list;
+    }
+    
+    @Transactional
+    public List<User> getUsersOfSystemProfile(int profileID) {
+        List list = getSessionFactory().getCurrentSession()
+                .createQuery("from UserSystemProfile usp JOIN User u ON usp.user = u.id where profile=?")
+                .setParameter(0, profileID).list();
         return list;
     }
 

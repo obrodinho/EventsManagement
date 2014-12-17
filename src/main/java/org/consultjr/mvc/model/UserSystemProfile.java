@@ -8,6 +8,7 @@ package org.consultjr.mvc.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,12 +24,12 @@ import org.consultjr.mvc.core.base.ApplicationModel;
 public class UserSystemProfile extends ApplicationModel implements Serializable {
 
     @Id
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Id
-    @ManyToOne(targetEntity = SystemProfile.class)
+    @ManyToOne(targetEntity = SystemProfile.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "profile_id")
     private SystemProfile profile;
 

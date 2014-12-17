@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +51,7 @@ public class Event implements Serializable {
     @Transient
     private String dateEnd;
 
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name="owner")
     private User owner;
     
@@ -66,7 +67,7 @@ public class Event implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
 
-    @OneToMany(mappedBy = "event", targetEntity = Activity.class)
+    @OneToMany(mappedBy = "event", targetEntity = Activity.class, fetch = FetchType.EAGER)
     private List<Event> activities;
 
     public Event() {

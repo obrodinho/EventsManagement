@@ -101,4 +101,5 @@ public class UserService extends ApplicationService {
         return this.userDAO.getUserByUsername(username);
     }
     
+    
 }

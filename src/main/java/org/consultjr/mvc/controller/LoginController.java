@@ -22,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Murilo
  */
 @Controller
-@SessionAttributes("user")
 public class LoginController extends ApplicationController {
 
     @Autowired
