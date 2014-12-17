@@ -24,37 +24,37 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @SessionAttributes("user")
 public class LoginController extends ApplicationController {
-    
+
     @Autowired
     private UserService userService;
-       
+
     @RequestMapping(value = "/menu")
-    public ModelAndView menu(){
+    public ModelAndView menu() {
         return new ModelAndView("menu");
     }
-    
-    @RequestMapping(value = "/loginForm")
-    public ModelAndView login(){
-        return new ModelAndView("login-form","login",new Login());
+
+    @RequestMapping(value = "/login")
+    public ModelAndView login() {
+        return new ModelAndView("login-form", "login", new Login());
     }
-    
+
     @RequestMapping(value = "/doLogin") // Save Method: POST /PROJECT/User/add
-    public ModelAndView doLogin(@ModelAttribute Login login,HttpSession session) {
+    public ModelAndView doLogin(@ModelAttribute Login login, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView("login-form");
         User user = userService.getUserByUsername(login.getUsername());
-        if(user == null){
-            String message = "User"+login.getUsername()+ "doesn`t exists";
+        if (user == null) {
+            String message = "User " + login.getUsername() + " doesn`t exists";
             modelAndView.addObject("message", message);
             return modelAndView;
         } else {
-            if(user.getPassword().equals(login.getPassword())){
+            if (user.getPassword().equals(login.getPassword())) {
                 session.setAttribute("usuarioLogado", user);
                 modelAndView = new ModelAndView("menu");
                 return modelAndView;
             } else {
-               String message = "Incorrect password";
-               modelAndView.addObject("message", message);
-               return modelAndView;     
+                String message = "Incorrect password";
+                modelAndView.addObject("message", message);
+                return modelAndView;
             }
         }
     }

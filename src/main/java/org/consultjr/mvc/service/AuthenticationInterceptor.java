@@ -35,7 +35,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             //return true;
             //Verifica se ele tem permissao para acessar a pagina
             user.setType(Type.ADMIN);
-            if (uri.endsWith(contextPath)/* || uri.endsWith("loginForm") || uri.endsWith("doLogin")*/) {
+            if (uri.endsWith(contextPath)/* || uri.endsWith("login") || uri.endsWith("doLogin")*/) {
                 return true;
             }
             if (rqAnalyser.checkPermission(user, request)) {
@@ -51,14 +51,14 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         } else {
             //se nao ta logado volta pra tela de login
             if (uri.endsWith(contextPath)
-                    || uri.endsWith("/loginForm")
+                    || uri.endsWith("/login")
                     || uri.endsWith("/doLogin")
                     || uri.endsWith("/System/install")
                     || uri.endsWith("/signup")
                     || uri.endsWith("/about")) {
                 return true;
             } else {
-                response.sendRedirect(contextPath + "/loginForm");
+                response.sendRedirect(contextPath + "/login");
                 return false;
             }
         }

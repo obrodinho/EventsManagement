@@ -42,7 +42,7 @@ public class IndexController extends ApplicationController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public ModelAndView signup() {
-        ModelAndView indexView = new ModelAndView("/User/signup");
+        ModelAndView indexView = new ModelAndView("/Client/signup");
 
         indexView.addObject("user", new User());
 
@@ -51,7 +51,7 @@ public class IndexController extends ApplicationController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ModelAndView addUserAsClient(@ModelAttribute User user) {
-        ModelAndView indexView = new ModelAndView("/User/signup");
+        ModelAndView indexView = new ModelAndView("/Client/signup");
 
         //TESTS
         if (null != userService.getUserByUsername(user.getUsername())) {
@@ -61,7 +61,7 @@ public class IndexController extends ApplicationController {
             userService.addUser(user);
             uspService.addUserSystemProfile(new UserSystemProfile(user, spService.getSystemProfileByShortname("client")));
             indexView.addObject("message", "Registration successfull!");
-            return new ModelAndView("forward:/loginForm");
+            return new ModelAndView("forward:/login");
         }
 
         return indexView;

@@ -42,7 +42,7 @@
 </form:form>
 <c:if test="${userID == null}">        
     <p>
-        <a href="${pageContext.request.contextPath}/loginForm">Already Registered?</a>
+        <a href="${pageContext.request.contextPath}/login">Already Registered?</a>
     </p>
 </c:if>
 

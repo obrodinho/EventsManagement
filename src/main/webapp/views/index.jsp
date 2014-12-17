@@ -17,7 +17,7 @@
     <ol>
         <li><a href="${pageContext.request.contextPath}/User/all">List</a></li> 
         <li><a href="${pageContext.request.contextPath}/User/add">Create</a></li>
-        <li><a href="${pageContext.request.contextPath}/loginForm">Login</a></li>
+        <li><a href="${pageContext.request.contextPath}/login">Login</a></li>
         <li><a href="${pageContext.request.contextPath}/menu">Menu</a></li>
     </ol>
     <h2>Event</h2>

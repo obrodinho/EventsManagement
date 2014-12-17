@@ -82,7 +82,7 @@ public class SystemController extends ApplicationController {
 
     @RequestMapping("/install")
     public ModelAndView install() {
-        ModelAndView sysView = new ModelAndView("forward:/loginForm");
+        ModelAndView sysView = new ModelAndView("forward:/login");
 
         if (systemConfigService.getConfigByKey("_installed") == null) {
 
