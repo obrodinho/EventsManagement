@@ -39,7 +39,12 @@ public class ClassesSubscription extends ApplicationModel implements Serializabl
     @ManyToOne(targetEntity = SubscriptionProfile.class)
     @JoinColumn(name = "profile_id")
     private SubscriptionProfile subscriptionProfile;
-
+    
+    @Id
+    @ManyToOne(targetEntity = Payment.class)
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
+    
     @Column()
     private Date associated;
 
