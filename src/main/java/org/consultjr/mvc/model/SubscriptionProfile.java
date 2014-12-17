@@ -42,8 +42,8 @@ public class SubscriptionProfile extends ApplicationModel implements Serializabl
     @Column
     private String description;
     
-    @Column 
-    private String name;
+    @Column(unique = true) 
+    private String shortname;
     
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date created;
@@ -59,12 +59,12 @@ public class SubscriptionProfile extends ApplicationModel implements Serializabl
         this.description = description;
     }
 
-    public String getName() {
-        return name;
+    public String getShortname() {
+        return shortname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setShortname(String shortname) {
+        this.shortname = shortname;
     }
 
     public Date getCreated() {
@@ -91,12 +91,12 @@ public class SubscriptionProfile extends ApplicationModel implements Serializabl
         this();
         
         this.description = description;
-        this.name = name;        
+        this.shortname = name;        
     }
 
     @Override
     public String toString() {
-        return "SubscriptionProfile{" + "id=" + id + ", description=" + description + ", name=" + name + ", created=" + created + ", updated=" + updated + '}';
+        return "SubscriptionProfile{" + "id=" + id + ", description=" + description + ", name=" + shortname + ", created=" + created + ", updated=" + updated + '}';
     }
 
     @Override

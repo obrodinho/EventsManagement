@@ -66,5 +66,13 @@ public class SubscriptionProfileDAO extends ApplicationDAO {
                 .createQuery("from SubscriptionProfile where id=:id")
                 .setParameter("id", profileId).uniqueResult();
     }
+    
+    @Transactional
+    public SubscriptionProfile getSubscriptionProfilesByShortname(String profile) {
+        return (SubscriptionProfile) getSessionFactory()
+                .getCurrentSession()
+                .createQuery("from SubscriptionProfile where shortname=:sh")
+                .setParameter("sh", profile).uniqueResult();
+    }
 
 }

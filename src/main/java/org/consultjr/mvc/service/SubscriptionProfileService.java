@@ -24,9 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("SubscritptionProfileService")
 @Transactional(readOnly = true)
 public class SubscriptionProfileService extends ApplicationService {
+
     @Autowired
     SubscriptionProfileDAO subscriptionProfileDAO;
-    
+
     @Transactional(readOnly = false)
     public void addSubscriptionProfile(SubscriptionProfile subscriptionProfile) {
         subscriptionProfile.setCreated(new Date());
@@ -46,11 +47,14 @@ public class SubscriptionProfileService extends ApplicationService {
     public SubscriptionProfile getSubscriptionProfileById(int id) {
         return getSubscriptionProfileDAO().getSubscriptionProfilesById(id);
     }
-    
+
+    public SubscriptionProfile getSubscriptionProfileByShortname(String shortname) {
+        return getSubscriptionProfileDAO().getSubscriptionProfilesByShortname(shortname);
+    }
+
     public List<SubscriptionProfile> getSubscriptionProfiles() {
         return getSubscriptionProfileDAO().getSubscriptionProfiles();
     }
-    
 
     public SubscriptionProfileDAO getSubscriptionProfileDAO() {
         return subscriptionProfileDAO == null ? new SubscriptionProfileDAO() : subscriptionProfileDAO;
