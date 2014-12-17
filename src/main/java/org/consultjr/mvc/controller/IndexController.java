@@ -30,6 +30,11 @@ public class IndexController extends ApplicationController {
     @Autowired
     private SystemProfileService spService;
 
+    @RequestMapping("/")
+    public ModelAndView index() {
+        return new ModelAndView("index");
+    }
+
     @RequestMapping("/about")
     public ModelAndView about() {
         return new ModelAndView("about");
