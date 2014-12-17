@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.consultjr.mvc.service;
+package org.consultjr.mvc.core.components;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,43 +21,22 @@ import org.consultjr.mvc.model.User;
  * @author Murilo
  */
 public class RequestAnalyser {
-    
-    private Properties clientProperties;
-    private Properties sponsorProperties;
 
-    public RequestAnalyser() {
-       clientProperties = this.loadProperties("client.properties");
-       sponsorProperties = this.loadProperties("sponsor.properties");
-    }
-
-    public boolean checkPermission(User user, HttpServletRequest request){
+    public boolean checkPermission(User user, HttpServletRequest request) {
         String uri = request.getRequestURI();
-        if(user.getType() == CLIENT){
-            String permitPages = clientProperties.getProperty("pages.permit");
-            return uri.endsWith(permitPages);
-        } else if(user.getType() == SPONSOR){
-            String permitPages = sponsorProperties.getProperty("pages.permit");
-            return uri.endsWith(permitPages);
-        } else if(user.getType() == ADMIN){
+        if (user.hasRole("client")) {
+            /**
+             * TODO Use Classes, DB or Session, to express these values
+             */
+            /* FreePages*/
+            if (uri.contains("/Activity/subscription/")
+                    || uri.contains("/Activity/paymentSubscription/")) {
+                return true;
+            }
+            return false;
+        } else if (user.hasRole("admin")) {
             return true;
         }
         return false;
-    }
-
-       private Properties loadProperties(String filename) {
-        Properties properties = new Properties();
-        InputStream fileStream = getClass().getClassLoader().getResourceAsStream(filename);
-
-        try {
-            properties.load(fileStream);
-            fileStream.close();
-        } catch (IOException ex) {
-            Logger.getLogger(RequestAnalyser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (null == fileStream) {
-            System.err.println("property file '" + filename + "' not found in the classpath");
-        }
-        return properties;
     }
 }

@@ -7,6 +7,7 @@ import org.consultjr.mvc.core.base.ApplicationService;
 import org.consultjr.mvc.dao.UserDAO;
 import org.consultjr.mvc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,8 @@ public class UserService extends ApplicationService {
      */
     @Transactional(readOnly = false)
     public void addUser(User user) {
+        BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+        user.setPassword(pe.encode(user.getPassword()));
         getUserDAO().addUser(user);
     }
 
@@ -52,12 +55,12 @@ public class UserService extends ApplicationService {
     @Transactional(readOnly = false)
     public void updateUser(User userView, int id) {
         User userBD = getUserById(id);
-        
+
         userBD.setFirstname(userView.getFirstname());
         userBD.setLastname(userView.getLastname());
         userBD.setUsername(userView.getUsername());
         userBD.setUpdated(new Date());
-        
+
         getUserDAO().updateUser(userBD);
     }
 
@@ -65,7 +68,7 @@ public class UserService extends ApplicationService {
      * Get User
      *
      * @param id int User Id
-     * @return 
+     * @return
      */
     public User getUserById(int id) {
         return getUserDAO().getUserById(id);
@@ -100,6 +103,5 @@ public class UserService extends ApplicationService {
     public User getUserByUsername(String username) {
         return this.userDAO.getUserByUsername(username);
     }
-    
-    
+
 }

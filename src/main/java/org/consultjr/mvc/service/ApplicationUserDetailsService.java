@@ -13,8 +13,10 @@ import org.consultjr.mvc.core.base.ApplicationService;
 import org.consultjr.mvc.dao.SystemProfileDAO;
 import org.consultjr.mvc.dao.UserDAO;
 import org.consultjr.mvc.dao.UserSystemProfileDAO;
+import org.consultjr.mvc.model.SystemProfile;
 import org.consultjr.mvc.model.User;
-import org.consultjr.mvc.model.UserSystemProfile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,7 +32,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service("UDService")
 public class ApplicationUserDetailsService extends ApplicationService implements UserDetailsService {
-
+    
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());   
+    
     @Autowired
     private UserDAO userDAO;
 
@@ -44,7 +48,7 @@ public class ApplicationUserDetailsService extends ApplicationService implements
     @Override
     public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
         User user = userDAO.getUserByUsername(string);
-        List<GrantedAuthority> authorities = buildUserAuthority(uspDAO.getUserSystemProfilesOfUser(user.getId()));
+        List<GrantedAuthority> authorities = buildUserAuthority(uspDAO.getSystemProfilesOfUser(user.getId()));
 
         return buildUserForAuthentication(user, authorities);
     }
@@ -60,16 +64,16 @@ public class ApplicationUserDetailsService extends ApplicationService implements
         );
     }
 
-    private List<GrantedAuthority> buildUserAuthority(List<UserSystemProfile> userRoles) {
+    private List<GrantedAuthority> buildUserAuthority(List<SystemProfile> userRoles) {
 
-        Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
+        Set<GrantedAuthority> setAuths = new HashSet<>();
 
         // Build user's authorities
-        for (UserSystemProfile userRole : userRoles) {
-            setAuths.add(new SimpleGrantedAuthority(userRole.getSystemProfile().getShortname()));
+        for (SystemProfile userRole : userRoles) {
+            setAuths.add(new SimpleGrantedAuthority(userRole.getShortname()));
         }
 
-        List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
+        List<GrantedAuthority> Result = new ArrayList<>(setAuths);
 
         return Result;
     }

@@ -161,12 +161,12 @@ public class User extends ApplicationModel implements Serializable {
         return deleted;
     }
 
-    public Boolean isDeleted() {
-        return deleted.booleanValue();
+    public boolean isDeleted() {
+        return deleted == null ? false : deleted.booleanValue();
     }
 
-    public Boolean isEnabled() {
-        return !deleted.booleanValue();
+    public boolean isEnabled() {
+        return !isDeleted();
     }
 
     public void setDeleted(Boolean deleted) {
@@ -220,17 +220,17 @@ public class User extends ApplicationModel implements Serializable {
 
     public boolean hasRole(String roleName) {
         getLogger().info("Role: ", roleName);
-        
+
         Iterator<UserSystemProfile> it = this.profiles.iterator();
-        
-        while(it.hasNext()) {
+
+        while (it.hasNext()) {
             UserSystemProfile usp = it.next();
             getLogger().info("User Role: ", usp.getSystemProfile().getShortname());
             if (usp.getSystemProfile().getShortname().equals(roleName)) {
                 return true;
             }
-        } 
-        
+        }
+
         return false;
-    }    
+    }
 }

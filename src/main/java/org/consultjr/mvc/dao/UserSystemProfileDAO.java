@@ -75,16 +75,20 @@ public class UserSystemProfileDAO extends ApplicationDAO {
     @Transactional
     public List<SystemProfile> getSystemProfilesOfUser(int userID) {
         List list = getSessionFactory().getCurrentSession()
-                .createQuery("from UserSystemProfile usp JOIN SystemProfile sp ON usp.profile = sp.id where user=?")
-                .setParameter(0, userID).list();
+                .createQuery("SELECT usp.profile from UserSystemProfile usp INNER JOIN usp.profile where usp.user.id=:uid")
+                .setParameter("uid", userID)
+//                .setResultTransformer(Transformers.aliasToBean(SystemProfile.class))
+                .list();
         return list;
     }
     
     @Transactional
     public List<User> getUsersOfSystemProfile(int profileID) {
         List list = getSessionFactory().getCurrentSession()
-                .createQuery("from UserSystemProfile usp JOIN User u ON usp.user = u.id where profile=?")
-                .setParameter(0, profileID).list();
+                .createQuery("SELECT usp.user from UserSystemProfile usp INNER JOIN usp.user where usp.profile.id=:pid")
+                .setParameter("pid", profileID)
+//              .setResultTransformer(Transformers.aliasToBean(User.class))
+                .list();
         return list;
     }
 

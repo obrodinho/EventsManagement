@@ -11,9 +11,11 @@ import org.consultjr.mvc.model.Login;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,35 +29,36 @@ public class LoginController extends ApplicationController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/menu")
-    public ModelAndView menu() {
-        return new ModelAndView("menu");
-    }
-
     @RequestMapping(value = "/login")
     public ModelAndView login() {
         return new ModelAndView("login-form", "login", new Login());
     }
 
-    @RequestMapping(value = "/doLogin") // Save Method: POST /PROJECT/User/add
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView doLogin(@ModelAttribute Login login, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView("login-form");
         User user = userService.getUserByUsername(login.getUsername());
         if (user == null) {
-            String message = "User " + login.getUsername() + " doesn`t exists";
-            modelAndView.addObject("message", message);
+            modelAndView.addObject("message", "User " + login.getUsername() + " doesn't exists");
             return modelAndView;
         } else {
-            if (user.getPassword().equals(login.getPassword())) {
+            BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+                       
+            if (pe.matches(login.getPassword(), user.getPassword())) {
                 session.setAttribute("usuarioLogado", user);
-                modelAndView = new ModelAndView("menu");
+                modelAndView = new ModelAndView("forward:/");
+                modelAndView.addObject("message", "Welcome, " + user.getFirstname() + " " + user.getLastname()  + "!");
                 return modelAndView;
             } else {
-                String message = "Incorrect password";
-                modelAndView.addObject("message", message);
+                modelAndView.addObject("message", "Incorrect password");
                 return modelAndView;
             }
         }
+    }
+        
+    @RequestMapping(value = "/403")
+    public ModelAndView accessDenied() {
+        return new ModelAndView("/403");
     }
 
 }
