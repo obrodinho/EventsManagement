@@ -13,13 +13,18 @@
         <link href="${pageContext.request.contextPath}/resources/dist/css/flat-ui-pro.min.css" rel="stylesheet">
 
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico">
-
+        
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
           <script src="${pageContext.request.contextPath}/resources/js/vendor/html5shiv.js"></script>
           <script src="${pageContext.request.contextPath}/resources/js/vendor/respond.min.js"></script>
         <![endif]-->
+        <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+        <script src="${pageContext.request.contextPath}/resources/dist/js/vendor/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/dist/js/vendor/video.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="${pageContext.request.contextPath}/resources/dist/js/flat-ui-pro.min.js"></script>
     </head>
     <body>
         <%@include file="nav.jspf" %>
