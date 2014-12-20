@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.Transient;
 
 /**
  *
@@ -64,6 +63,14 @@ public class Payment implements Serializable {
      */
     @OneToMany(mappedBy = "payment", targetEntity = ClassesSubscription.class)
     private List<ClassesSubscription> classes;
+
+    public List<ClassesSubscription> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<ClassesSubscription> classes) {
+        this.classes = classes;
+    }
 
     @Override
     public boolean equals(Object object) {
@@ -115,41 +122,14 @@ public class Payment implements Serializable {
         this.paid_at = paid_at;
     }
 
-    /**
-    public Type getType() {
-        return type;
-    }
-
-    /**
-     * @return the password
-     
-    public String getPassword() {
-        return password;
-    }
-    
-    
-     * @param password the password to set
-     
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    * 
-    */
-    /**
-     * @param type the type to set
-     
-    public void setType(Type type) {
-        this.type = type;
-    }
-    */
     public Payment() {
         this.paid_at = new Date();
     }
 
     public Payment(String status, int type) {
+        this();
         this.status = status;
         this.type = type;
-        this.paid_at = new Date();
 
     }
 

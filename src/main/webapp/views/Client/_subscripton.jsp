@@ -14,47 +14,49 @@
 <div>
     ${message}
 </div>
-<table class="table table-bordered table-condensed table-hover">
-    <thead>
-        <tr>
-            <th width="">Select</th>
-            <th width="">Title</th>
-            <th width="">Description</th>
-            <th width="">Type</th>
-            <th width="">Workload</th>
-            <th width="">Start</th>
-            <th width="">End</th>
-            <th width="">Operations</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach var="activity" items="${activities}">
+<form:form method="POST" action="${pageContext.request.contextPath}/Activity/addSubscription">
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
             <tr>
-                <td><input 
-                        type="checkbox" 
-                        name="subscribeActivities" 
-                        id="subscribeActivities" value="${activity.id}">
-                </td>
-                <td>${activity.title}</td>
-                <td>${activity.description}</td>
-                <td>${activity.type.title}</td>
-                <td>${activity.workload}</td>
-                <td>${activity.start}</td>
-                <td>${activity.end}</td>
+                <th width="">Select</th>
+                <th width="">Title</th>
+                <th width="">Description</th>
+                <th width="">Type</th>
+                <th width="">Workload</th>
+                <th width="">Start</th>
+                <th width="">End</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="activity" items="${activities}">
+                <tr>
+                    <td style="text-align: center">
+                        <label class="checkbox" for="checkbox${activity.id}">
+                            <input type="checkbox" name="subscribeActivities" value="${activity.id}" id="checkbox${activity.id}" data-toggle="checkbox" class="custom-checkbox">
+                        </label>
+                    </td>
+                    <td>${activity.title}</td>
+                    <td>${activity.description}</td>
+                    <td>${activity.type.title}</td>
+                    <td>${activity.workload}</td>
+                    <td>${activity.start}</td>
+                    <td>${activity.end}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+        <tfoot>
+            <tr>
                 <td>
-                    <a href="${pageContext.request.contextPath}/Activity/edit/${activity.id}">Edit</a> | 
-                    <a href="${pageContext.request.contextPath}/Activity/delete/${activity.id}">Delete</a> |
-                    <a href="${pageContext.request.contextPath}/Classes/add/${activity.id}">Add Class</a> |
-                    <a href="${pageContext.request.contextPath}/Classes/all/${activity.id}">List Classes</a>
+                    <input type="submit" value="Register" class="btn btn-default btn-primary btn-embossed">
                 </td>
             </tr>
-        </c:forEach>
-    </tbody>
-</table>
+        </tfoot>
+    </table>
+</form:form>
 
 <script>
     $(document).ready(function () {
-        $(':checkbox').radiocheck();
+        $('[data-toggle="checkbox"]').radiocheck();
     });
 </script>
 

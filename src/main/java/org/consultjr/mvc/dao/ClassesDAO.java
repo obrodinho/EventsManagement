@@ -90,4 +90,9 @@ public class ClassesDAO extends ApplicationDAO {
         return list;
     }
 
+    @Transactional
+    public Classes getFirstClassOfActivity(int activityId) {
+        return (Classes) this.getClassesByActivity(activityId).get(0);
+    }
+
 }

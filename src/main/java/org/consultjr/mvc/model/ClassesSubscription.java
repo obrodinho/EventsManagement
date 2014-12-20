@@ -52,6 +52,22 @@ public class ClassesSubscription extends ApplicationModel implements Serializabl
         this.associated = new Date();
     }
 
+    public ClassesSubscription(Classes classes, User user, SubscriptionProfile subscriptionProfile, Payment payment) {
+        this();
+        this.payment = payment;
+        this.classes = classes;
+        this.user = user;
+        this.subscriptionProfile = subscriptionProfile;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+    
     public Classes getClasses() {
         return classes;
     }

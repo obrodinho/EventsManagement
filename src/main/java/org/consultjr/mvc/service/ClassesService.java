@@ -64,4 +64,9 @@ public class ClassesService extends ApplicationService {
     public void setClassesDAO(ClassesDAO classesDAO) {
         this.classesDAO = classesDAO;
     }
+    
+    public Classes getFirstClassOfActivity(int activityId) {
+        return this.classesDAO.getFirstClassOfActivity(activityId);
+    }
+
 }

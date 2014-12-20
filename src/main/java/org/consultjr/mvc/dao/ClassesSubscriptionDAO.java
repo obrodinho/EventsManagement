@@ -61,7 +61,7 @@ public class ClassesSubscriptionDAO extends ApplicationDAO {
 
         return (ClassesSubscription) list.get(0);
     }
-
+    
     @Transactional
     public List<ClassesSubscription> getClassesSubscription() {
         List list = getSessionFactory().getCurrentSession().createQuery("from ClassesSubscription").list();
@@ -82,5 +82,17 @@ public class ClassesSubscriptionDAO extends ApplicationDAO {
                 .createQuery("from ClassesSubscription where class_id=? ")
                 .setParameter(0, classesId).list();
         return list;
+    }
+    
+    @Transactional
+    public ClassesSubscription getClassesSubscriptionById(int id) {
+        List list = getSessionFactory().getCurrentSession()
+                .createQuery("from ClassesSubscription where id=?")
+                .setParameter(0, id).list();
+
+        if (list.isEmpty()) {
+            return null;
+        }
+        return (ClassesSubscription) list.get(0);
     }
 }

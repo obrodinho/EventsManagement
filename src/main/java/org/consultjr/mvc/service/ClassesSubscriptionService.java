@@ -8,12 +8,10 @@ package org.consultjr.mvc.service;
 import java.util.Date;
 import java.util.List;
 import org.consultjr.mvc.core.base.ApplicationService;
-import org.consultjr.mvc.dao.ClassesDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.consultjr.mvc.dao.ClassesSubscriptionDAO;
-import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.model.ClassesSubscription;
 
 /**
@@ -50,6 +48,9 @@ public class ClassesSubscriptionService extends ApplicationService {
         return getClassesSubscriptionDAO().getClassesSubscription();
     }
     
+    public List<ClassesSubscription> getClassesSubscriptionByUser(int userId) {
+        return getClassesSubscriptionDAO().getClassesSubscriptionByUser(userId);
+    }
 
     public ClassesSubscriptionDAO getClassesSubscriptionDAO() {
         return subscriptionDAO == null ? new ClassesSubscriptionDAO() : subscriptionDAO;
@@ -57,5 +58,9 @@ public class ClassesSubscriptionService extends ApplicationService {
 
     public void setClassesSubscriptionDAO(ClassesSubscriptionDAO subscriptionDAO) {
         this.subscriptionDAO = subscriptionDAO;
+    }
+    
+    public ClassesSubscription getClassesById(int id) {
+        return getClassesSubscriptionDAO().getClassesSubscriptionById(id);
     }
 }
