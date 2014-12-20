@@ -38,10 +38,10 @@
                     <td>${classeSubscription.classes.activity.end}</td>
 
                     <td>
-                        <c:when test="${classesSubscription.payment.status == 'pending'}">
-                            <a href="${pageContext.request.contextPath}/Activity/confirmPayamentSubscription" onclick="return alert('Pagamento realizado com sucesso!')">Pagar</a>
-                            <!--colocar o pago no banco-->
-                        </c:when>
+                        <c:if test="${classesSubscription.payment.status == 'pending'}">
+                            <a href="${pageContext.request.contextPath}/Activity/payamentSubscription">Pagar</a>
+                        </c:if>
+                        <c:if test="${classesSubscription.payment.status == 'paid'}">Pago</c:if>
                         </td>
                     </tr>
             </c:forEach>
