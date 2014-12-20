@@ -7,14 +7,14 @@ package org.consultjr.mvc.core.config;
 
 import java.util.Properties;
 import javax.annotation.Resource;
-import org.consultjr.mvc.service.ActivityTypeFormatter;
-import org.consultjr.mvc.service.AuthenticationInterceptor;
-import org.consultjr.mvc.service.DateFormatter;
-import org.consultjr.mvc.service.UserFormatter;
+import org.consultjr.mvc.core.formatters.ActivityTypeFormatter;
+import org.consultjr.mvc.core.formatters.DateFormatter;
+import org.consultjr.mvc.core.formatters.UserFormatter;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
@@ -28,7 +28,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.mvc.ParameterizableViewController;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
@@ -41,7 +40,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @ComponentScan("org.consultjr.mvc")
 @PropertySource("classpath:jdbc.properties")
 @EnableWebMvc
-//@Import({ApplicationSecurityConfig.class})
+@Import({ApplicationSecurityConfig.class})
 public class ApplicationConfig extends WebMvcConfigurerAdapter {
 
     @Resource
@@ -59,7 +58,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthenticationInterceptor());
+        //registry.addInterceptor(new AuthenticationInterceptor());
     }
 
     @Override

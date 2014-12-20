@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,22 +27,22 @@ public class ClassesSubscription extends ApplicationModel implements Serializabl
     private static final long serialVersionUID = 1L;
 
     @Id
-    @ManyToOne(targetEntity = Classes.class)
+    @ManyToOne(targetEntity = Classes.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "class_id")
     private Classes classes;
 
     @Id
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Id
-    @ManyToOne(targetEntity = SubscriptionProfile.class)
+    @ManyToOne(targetEntity = SubscriptionProfile.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "profile_id")
     private SubscriptionProfile subscriptionProfile;
     
     @Id
-    @ManyToOne(targetEntity = Payment.class)
+    @ManyToOne(targetEntity = Payment.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "payment_id")
     private Payment payment;
     

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,11 +36,11 @@ public class Activity extends ApplicationModel implements Serializable {
     @Column(name = "activity_id")
     private int id;
 
-    @ManyToOne(targetEntity = Event.class)
+    @ManyToOne(targetEntity = Event.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "event_id")
     private Event event;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "activity")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "activity", fetch = FetchType.EAGER)
     private List<Classes> classes;
 
     @Column()
@@ -48,7 +49,7 @@ public class Activity extends ApplicationModel implements Serializable {
     @Column()
     private String description;
 
-    @ManyToOne(targetEntity = ActivityType.class)
+    @ManyToOne(targetEntity = ActivityType.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "type")
     private ActivityType type;
     

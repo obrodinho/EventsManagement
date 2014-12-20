@@ -22,7 +22,7 @@
 </div>
 <div class="row">
     <div class="well col-md-4 col-md-offset-4">
-        <form:form method="POST" commandName="login" action="${pageContext.request.contextPath}/doLogin">
+        <form:form method="POST" commandName="login" action="${pageContext.request.contextPath}/login">
             <div class="form-group">              
                 <label>Username:</label>
                 <form:input path="username" id="username" class="form-control" />

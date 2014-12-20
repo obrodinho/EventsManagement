@@ -7,9 +7,11 @@ package org.consultjr.mvc.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -84,7 +86,7 @@ public class User extends ApplicationModel implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
 
-    @OneToMany(mappedBy = "user", targetEntity = UserSystemProfile.class)
+    @OneToMany(mappedBy = "user", targetEntity = UserSystemProfile.class, fetch = FetchType.EAGER)
     private List<UserSystemProfile> profiles;
 
     @Transient
@@ -159,12 +161,12 @@ public class User extends ApplicationModel implements Serializable {
         return deleted;
     }
 
-    public Boolean isDeleted() {
-        return deleted.booleanValue();
+    public boolean isDeleted() {
+        return deleted == null ? false : deleted.booleanValue();
     }
 
-    public Boolean isEnabled() {
-        return !deleted.booleanValue();
+    public boolean isEnabled() {
+        return !isDeleted();
     }
 
     public void setDeleted(Boolean deleted) {
@@ -189,7 +191,6 @@ public class User extends ApplicationModel implements Serializable {
         this.username = username;
         this.password = password;
         this.created = new Date();
-
     }
 
     @Override
@@ -201,7 +202,7 @@ public class User extends ApplicationModel implements Serializable {
         User other = (User) object;
         if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
             return false;
-    }
+        }
         return true;
     }
 
@@ -215,5 +216,21 @@ public class User extends ApplicationModel implements Serializable {
         int hash = 0;
         hash += (id != 0 ? this.hashCode() : 0);
         return hash;
+    }
+
+    public boolean hasRole(String roleName) {
+        getLogger().info("Role: ", roleName);
+
+        Iterator<UserSystemProfile> it = this.profiles.iterator();
+
+        while (it.hasNext()) {
+            UserSystemProfile usp = it.next();
+            getLogger().info("User Role: ", usp.getSystemProfile().getShortname());
+            if (usp.getSystemProfile().getShortname().equals(roleName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

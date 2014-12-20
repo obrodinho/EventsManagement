@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +43,7 @@ public class SystemProfile extends ApplicationModel implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
     
-    @OneToMany(mappedBy = "profile", targetEntity = UserSystemProfile.class)
+    @OneToMany(mappedBy = "profile", targetEntity = UserSystemProfile.class, fetch = FetchType.EAGER)
     private List<UserSystemProfile> users;
 
     public int getId() {

@@ -7,17 +7,13 @@ package org.consultjr.mvc.controller;
 
 import java.util.List;
 import org.consultjr.mvc.core.base.ApplicationController;
-import org.consultjr.mvc.core.base.CRUDable;
 import org.consultjr.mvc.model.ClassesSubscription;
-import org.consultjr.mvc.model.SubscriptionProfile;
-import org.consultjr.mvc.model.Type;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.service.ClassesService;
 import org.consultjr.mvc.service.ClassesSubscriptionService;
 import org.consultjr.mvc.service.SubscriptionProfileService;
 import org.consultjr.mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;

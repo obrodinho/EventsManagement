@@ -12,11 +12,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.AntPathRequestMatcher;
 
 /**
  *
@@ -72,14 +74,30 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 //                 .csrf();
 //                //.permitAll();
 
-        http.authorizeRequests().antMatchers("/admin/**")
-                .access("hasRole('admin')").and().formLogin()
-                .loginPage("/login").failureUrl("/login?error")
+        http.authorizeRequests()
+                .antMatchers("/signup", "/about", "/System/install", "/login", "/Client/**").permitAll()
+                .antMatchers("/admin/**", "/System/**").hasRole("admin")
+                .and()
+                .formLogin().loginPage("/login").failureUrl("/login?error")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .and().logout().logoutSuccessUrl("/login?logout")
-                .and().csrf()
-                .and().exceptionHandling().accessDeniedPage("/403");
+                .and()
+                .logout()
+                //.logoutRequestMatcher(new org.springframework.security.web.util.matcher.AntPathRequestMatcher("/logout"))
+                //.logoutUrl("/logout")
+                //.invalidateHttpSession(true)
+                .logoutSuccessUrl("/login?logout")
+                .and()
+                .csrf()
+                .and()
+                .exceptionHandling().accessDeniedPage("/403");
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/resources/**"); // #3
     }
 
     @Bean

@@ -36,7 +36,7 @@ public class Classes extends ApplicationModel implements Serializable {
     @Column(name = "class_id")
     private int id;
 
-    @ManyToOne(targetEntity = Activity.class)
+    @ManyToOne(targetEntity = Activity.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "activity_id")
     private Activity activity;
 

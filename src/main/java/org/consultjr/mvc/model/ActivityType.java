@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ public class ActivityType extends ApplicationModel implements Serializable {
     @Column(name = "activity_type_id")
     private int id;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "type")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "type", fetch = FetchType.EAGER)
     private List<Activity> activities;
 
     @Column(unique = true)
