@@ -86,7 +86,7 @@ public class User extends ApplicationModel implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
 
-    @OneToMany(mappedBy = "user", targetEntity = UserSystemProfile.class, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", targetEntity = UserSystemProfile.class)
     private List<UserSystemProfile> profiles;
 
     @Transient

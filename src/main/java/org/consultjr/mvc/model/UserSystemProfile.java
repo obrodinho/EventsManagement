@@ -24,12 +24,12 @@ import org.consultjr.mvc.core.base.ApplicationModel;
 public class UserSystemProfile extends ApplicationModel implements Serializable {
 
     @Id
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Id
-    @ManyToOne(targetEntity = SystemProfile.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = SystemProfile.class)
     @JoinColumn(name = "profile_id")
     private SystemProfile profile;
 

@@ -51,7 +51,7 @@ public class Event implements Serializable {
     @Transient
     private String dateEnd;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = User.class)
     @JoinColumn(name="owner")
     private User owner;
     
@@ -67,7 +67,7 @@ public class Event implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
 
-    @OneToMany(mappedBy = "event", targetEntity = Activity.class, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "event", targetEntity = Activity.class)
     private List<Event> activities;
 
     public Event() {

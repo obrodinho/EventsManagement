@@ -62,7 +62,7 @@ public class Payment implements Serializable {
     /**
      *
      */
-    @OneToMany(mappedBy = "payment", targetEntity = ClassesSubscription.class, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "payment", targetEntity = ClassesSubscription.class)
     private List<ClassesSubscription> classes;
 
     public List<ClassesSubscription> getClasses() {

@@ -75,7 +75,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 //                //.permitAll();
 
         http.authorizeRequests()
-                .antMatchers("/signup", "/about", "/System/install", "/login", "/Client/**").permitAll()
+                .antMatchers("/signup/**", "/about/**", "/System/install", "/login/**", "/Client/**").permitAll()
                 .antMatchers("/admin/**", "/System/**").hasRole("admin")
                 .and()
                 .formLogin().loginPage("/login").failureUrl("/login?error")
@@ -89,8 +89,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 .and()
                 .csrf()
-                .and()
-                .exceptionHandling().accessDeniedPage("/403");
+//                .and()
+//                .exceptionHandling().accessDeniedPage("/403")
+                ;
     }
 
     @Override

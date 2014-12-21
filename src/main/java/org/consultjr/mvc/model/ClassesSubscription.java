@@ -27,22 +27,22 @@ public class ClassesSubscription extends ApplicationModel implements Serializabl
     private static final long serialVersionUID = 1L;
 
     @Id
-    @ManyToOne(targetEntity = Classes.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Classes.class)
     @JoinColumn(name = "class_id")
     private Classes classes;
 
     @Id
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Id
-    @ManyToOne(targetEntity = SubscriptionProfile.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = SubscriptionProfile.class)
     @JoinColumn(name = "profile_id")
     private SubscriptionProfile subscriptionProfile;
     
     @Id
-    @ManyToOne(targetEntity = Payment.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Payment.class)
     @JoinColumn(name = "payment_id")
     private Payment payment;
     

@@ -36,11 +36,11 @@ public class Activity extends ApplicationModel implements Serializable {
     @Column(name = "activity_id")
     private int id;
 
-    @ManyToOne(targetEntity = Event.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Event.class)
     @JoinColumn(name = "event_id")
     private Event event;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "activity", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "activity")
     private List<Classes> classes;
 
     @Column()
@@ -49,7 +49,7 @@ public class Activity extends ApplicationModel implements Serializable {
     @Column()
     private String description;
 
-    @ManyToOne(targetEntity = ActivityType.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = ActivityType.class)
     @JoinColumn(name = "type")
     private ActivityType type;
     

@@ -32,7 +32,7 @@ public class ActivityType extends ApplicationModel implements Serializable {
     @Column(name = "activity_type_id")
     private int id;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "type", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "type")
     private List<Activity> activities;
 
     @Column(unique = true)

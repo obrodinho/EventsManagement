@@ -43,7 +43,7 @@ public class SystemProfile extends ApplicationModel implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
     
-    @OneToMany(mappedBy = "profile", targetEntity = UserSystemProfile.class, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "profile", targetEntity = UserSystemProfile.class)
     private List<UserSystemProfile> users;
 
     public int getId() {
