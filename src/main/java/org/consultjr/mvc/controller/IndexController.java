@@ -5,6 +5,7 @@
  */
 package org.consultjr.mvc.controller;
 
+import java.security.Principal;
 import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.model.UserSystemProfile;
@@ -13,7 +14,7 @@ import org.consultjr.mvc.service.UserService;
 import org.consultjr.mvc.service.UserSystemProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,10 +33,12 @@ public class IndexController extends ApplicationController {
     private SystemProfileService spService;
 
     @RequestMapping("/")
-    public ModelAndView index() {
+    public ModelAndView index(Principal principal) {
+        ModelAndView indexView = new ModelAndView("index");        
         return new ModelAndView("index");
     }
-
+    
+    @PreAuthorize("hasRole('admin')")
     @RequestMapping("/about")
     public ModelAndView about() {
         return new ModelAndView("about");

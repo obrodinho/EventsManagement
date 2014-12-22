@@ -1,13 +1,10 @@
-<%
-    // already defined in header!
-    //String resourcesPath = pageContext.getRequest().getServletContext().getContextPath() + "/WEB-INF/resources/";
-%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <footer class="footer">
     <div class="row">
-        <p><a href="${pageContext.request.contextPath}">Project Home Page</a></p>
+        <hr/>
+        <p><a href="${pageContext.request.contextPath}">Home Page</a></p>
     </div>
 </footer>
-<%@ page pageEncoding="UTF-8" %>
 
 </div><!-- end .col-lg/md/xs-10 -->
 </div><!-- end .container -->
