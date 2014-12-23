@@ -77,7 +77,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 //                //.permitAll();
 
         http.authorizeRequests()
-                .antMatchers("/signup/**", "/about/**", "/System/install", "/login/**", "/Client/**").permitAll()
+                .antMatchers("/", "/signup/**", "/about/**", "/System/install", "/login/**", "/Client/**").permitAll()
                 .antMatchers("/admin/**", "/System/**", "/User/**").hasRole("admin")
                 .and()
                 .formLogin().loginPage("/login").failureUrl("/login?error")

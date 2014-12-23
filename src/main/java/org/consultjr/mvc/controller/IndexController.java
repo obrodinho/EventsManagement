@@ -15,6 +15,9 @@ import org.consultjr.mvc.service.UserSystemProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,11 +37,18 @@ public class IndexController extends ApplicationController {
 
     @RequestMapping("/")
     public ModelAndView index(Principal principal) {
-        ModelAndView indexView = new ModelAndView("index");        
+        ModelAndView indexView = new ModelAndView("index");
+        SecurityContext sc = SecurityContextHolder.getContext();
+        Authentication auth = sc.getAuthentication();
+        getLogger().info(auth.getAuthorities().toString());
+        if (principal != null) {
+            getLogger().info(getLoggedUser().toString());
+            getLogger().info(String.valueOf(getLoggedUser().hasRole("admin")));
+        }
+
         return new ModelAndView("index");
     }
-    
-    @PreAuthorize("hasRole('admin')")
+
     @RequestMapping("/about")
     public ModelAndView about() {
         return new ModelAndView("about");

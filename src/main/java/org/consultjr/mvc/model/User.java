@@ -86,7 +86,7 @@ public class User extends ApplicationModel implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
 
-    @OneToMany(mappedBy = "user", targetEntity = UserSystemProfile.class)
+    @OneToMany(mappedBy = "user", targetEntity = UserSystemProfile.class, fetch = FetchType.EAGER)
     private List<UserSystemProfile> profiles;
 
     @Transient
@@ -219,13 +219,13 @@ public class User extends ApplicationModel implements Serializable {
     }
 
     public boolean hasRole(String roleName) {
-        getLogger().info("Role: ", roleName);
+        getLogger().info("Role: {}", roleName);
 
-        Iterator<UserSystemProfile> it = this.profiles.iterator();
+        Iterator<UserSystemProfile> it = this.getProfiles().iterator();
 
         while (it.hasNext()) {
             UserSystemProfile usp = it.next();
-            getLogger().info("User Role: ", usp.getSystemProfile().getShortname());
+            getLogger().info("User Role: {}", usp.getSystemProfile().getShortname());
             if (usp.getSystemProfile().getShortname().equals(roleName)) {
                 return true;
             }
