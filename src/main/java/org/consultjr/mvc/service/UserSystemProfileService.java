@@ -5,6 +5,7 @@
  */
 package org.consultjr.mvc.service;
 
+import java.util.Iterator;
 import java.util.List;
 import org.consultjr.mvc.core.base.ApplicationService;
 import org.consultjr.mvc.dao.UserSystemProfileDAO;
@@ -65,6 +66,23 @@ public class UserSystemProfileService extends ApplicationService {
     @Transactional
     public List<User> getUsersOfSystemProfile(int profileID) {
         return uspDAO.getUsersOfSystemProfile(profileID);
+    }
+    
+    @Transactional
+    public boolean userHasRole(int userID, String roleName) {
+        getLogger().info("User: {} | Role: {}", userID,  roleName);
+
+        Iterator<SystemProfile> it = this.getSystemProfilesOfUser(userID).iterator();
+
+        while (it.hasNext()) {
+            SystemProfile sp = it.next();
+            getLogger().info("User Role: {}", sp.getShortname());
+            if (sp.getShortname().equals(roleName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

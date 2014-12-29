@@ -43,7 +43,7 @@ public class IndexController extends ApplicationController {
         getLogger().info(auth.getAuthorities().toString());
         if (principal != null) {
             getLogger().info(getLoggedUser().toString());
-            getLogger().info(String.valueOf(getLoggedUser().hasRole("admin")));
+            getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
         }
 
         return new ModelAndView("index");
