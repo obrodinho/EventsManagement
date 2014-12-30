@@ -51,7 +51,7 @@ public class IndexController extends ApplicationController {
     }
 
     @RequestMapping("/about")
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("isAuthenticated()")
     public ModelAndView about() {
         return new ModelAndView("about");
     }
