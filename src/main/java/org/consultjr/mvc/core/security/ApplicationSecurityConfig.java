@@ -5,8 +5,6 @@
  */
 package org.consultjr.mvc.core.security;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +14,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.security.access.AccessDecisionVoter;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
-import org.springframework.security.access.vote.AffirmativeBased;
-import org.springframework.security.access.vote.AuthenticatedVoter;
-import org.springframework.security.access.vote.RoleHierarchyVoter;
-import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,8 +23,6 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
-import org.springframework.security.web.access.expression.WebExpressionVoter;
 
 /**
  *
@@ -62,52 +51,13 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**"); // #3
+                .antMatchers("/resources/**");
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder;
-    }
-
-    @Bean
-    public RoleHierarchy roleHierarchy() {
-        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        roleHierarchy.setHierarchy(environment.getProperty("security.rolesHierarchy"));
-
-        logger.info("Roles Hierarchy: {}", environment.getProperty("security.rolesHierarchy"));
-
-        return roleHierarchy;
-    }
-
-    @Bean
-    public RoleVoter roleVoter() {
-        RoleVoter roleVoter = new ApplicationRoleVoter(roleHierarchy());
-
-        roleVoter.setRolePrefix("");
-        logger.info("Executing roleVoter: {}", roleVoter.toString());
-
-        return roleVoter;
-    }
-
-    @Bean
-    public DefaultWebSecurityExpressionHandler expressionHandler() {
-        DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
-        expressionHandler.setRoleHierarchy(roleHierarchy());
-        return expressionHandler;
-    }
-
-    @Bean
-    public AffirmativeBased accessDecisionVoter() {
-        List<AccessDecisionVoter> decisionVoters = new ArrayList<AccessDecisionVoter>();
-        WebExpressionVoter webExpressionVoter = new WebExpressionVoter();
-        webExpressionVoter.setExpressionHandler(expressionHandler());
-        decisionVoters.add(roleVoter());
-        decisionVoters.add(webExpressionVoter);
-        logger.info("Executing accessDecisionManager: {}", decisionVoters.toString());
-
-        return new AffirmativeBased(decisionVoters);
     }
 
     @Autowired
@@ -121,10 +71,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                //.expressionHandler(expressionHandler())
-                //.accessDecisionManager(accessDecisionVoter())
-                .antMatchers("/", "/signup/**", "/about/**", "/System/install", "/login/**", "/Client/**").permitAll()
-                .antMatchers("/admin/**", "/System/**", "/User/**").hasRole("admin")
+                .antMatchers("/System/install/**", "/User/panel/**").permitAll()
+                .antMatchers("/admin/**", "/System/**", "/User/**").hasAuthority("admin")
                 .and()
                 .formLogin().loginPage("/login").failureUrl("/login?error")
                 .usernameParameter("username")

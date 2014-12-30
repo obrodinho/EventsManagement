@@ -36,6 +36,7 @@ public class IndexController extends ApplicationController {
     private SystemProfileService spService;
 
     @RequestMapping("/")
+    @PreAuthorize("hasAnyRole('admin','client')")
     public ModelAndView index(Principal principal) {
         ModelAndView indexView = new ModelAndView("index");
         SecurityContext sc = SecurityContextHolder.getContext();
@@ -50,7 +51,7 @@ public class IndexController extends ApplicationController {
     }
 
     @RequestMapping("/about")
-    @PreAuthorize("hasRole('user')")
+    @PreAuthorize("hasRole('admin')")
     public ModelAndView about() {
         return new ModelAndView("about");
     }
@@ -74,7 +75,7 @@ public class IndexController extends ApplicationController {
             indexView.addObject("user", user);
         } else {
             userService.addUser(user);
-            uspService.addUserSystemProfile(new UserSystemProfile(user, spService.getSystemProfileByShortname("user")));
+            uspService.addUserSystemProfile(new UserSystemProfile(user, spService.getSystemProfileByShortname("client")));
             indexView.addObject("message", "Registration successfull!");
             return new ModelAndView("forward:/login");
         }

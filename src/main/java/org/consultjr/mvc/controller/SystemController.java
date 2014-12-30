@@ -73,9 +73,9 @@ public class SystemController extends ApplicationController {
         return new ModelAndView("redirect:/System/admin");
     }
 
-    @RequestMapping("admin")
+    @RequestMapping("settings")
     public ModelAndView admin() {
-        ModelAndView sysView = new ModelAndView("System/admin");
+        ModelAndView sysView = new ModelAndView("System/settings");
         sysView.addObject("configs", systemConfigService.getConfigs());
         return sysView;
     }
@@ -89,7 +89,7 @@ public class SystemController extends ApplicationController {
             SystemProfile adminProfile = new SystemProfile("admin", "Administrador do Sistema");
             spService.addSystemProfile(adminProfile);
 
-            SystemProfile userProfile = new SystemProfile("user", "Usuario Final");
+            SystemProfile userProfile = new SystemProfile("client", "Usuario Final");
             spService.addSystemProfile(userProfile);
             
             SystemProfile guestProfile = new SystemProfile("guest", "Convidado");
@@ -116,7 +116,7 @@ public class SystemController extends ApplicationController {
 
             subsProfileService.addSubscriptionProfile(new SubscriptionProfile("Participante", "participante"));
             subsProfileService.addSubscriptionProfile(new SubscriptionProfile("Palestrante", "palestrante"));
-            subsProfileService.addSubscriptionProfile(new SubscriptionProfile("Monitor", "Monitor"));
+            subsProfileService.addSubscriptionProfile(new SubscriptionProfile("Monitor", "monitor"));
 
             systemConfigService.addConfig(new SystemConfig("_installed", "yes"));
             systemConfigService.addConfig(new SystemConfig("_configuredAt", new Date().toString()));

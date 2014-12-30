@@ -49,6 +49,10 @@ public class ApplicationController {
     }
 
     public User getLoggedUser() {
+        getLogger().info("Principal: {}", getAuth().getPrincipal());
+        if (!(getAuth().getPrincipal() instanceof org.springframework.security.core.userdetails.User)) {
+            return null;
+        }
         org.springframework.security.core.userdetails.User u = (org.springframework.security.core.userdetails.User) getAuth().getPrincipal();
         if (u != null) {
             return userService.getUserByUsername(u.getUsername());

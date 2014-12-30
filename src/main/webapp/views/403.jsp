@@ -18,7 +18,7 @@
         You're not authorized to see this page. How did you got here?
     </p>
     <p>
-        Please come backhome, or try to use one of the menus on navbar.
+        Please come back home, or try to use one of the menus on navbar.
     </p>
     <p>
         <a href="${pageContext.request.contextPath}" class="btn btn-embossed btn-large btn-primary"><span class="fui-home"></span> HOME</a>

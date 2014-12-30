@@ -5,6 +5,7 @@
  */
 package org.consultjr.mvc.controller;
 
+import java.security.Principal;
 import javax.servlet.http.HttpSession;
 import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.model.Login;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -30,8 +30,20 @@ public class LoginController extends ApplicationController {
     private UserService userService;
 
     @RequestMapping(value = "/login")
-    public ModelAndView login() {
-        return new ModelAndView("login-form", "login", new Login());
+    public ModelAndView login(Principal principal) {
+        ModelAndView index = new ModelAndView();
+
+        getLogger().info("Principal: {}", principal);
+
+        if (principal != null || getLoggedUser() != null) {
+            index.setViewName("redirect:/");
+            getLogger().info("User: {}", getLoggedUser().getUsername());
+        } else {
+            index.setViewName("login-form");
+            index.addObject("login", new Login());
+        }
+
+        return index;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -43,11 +55,11 @@ public class LoginController extends ApplicationController {
             return modelAndView;
         } else {
             BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-                       
+
             if (pe.matches(login.getPassword(), user.getPassword())) {
                 session.setAttribute("usuarioLogado", user);
                 modelAndView = new ModelAndView("forward:/");
-                modelAndView.addObject("message", "Welcome, " + user.getFirstname() + " " + user.getLastname()  + "!");
+                modelAndView.addObject("message", "Welcome, " + user.getFirstname() + " " + user.getLastname() + "!");
                 return modelAndView;
             } else {
                 modelAndView.addObject("message", "Incorrect password");
@@ -55,7 +67,7 @@ public class LoginController extends ApplicationController {
             }
         }
     }
-        
+
     @RequestMapping(value = "/403")
     public ModelAndView accessDenied() {
         return new ModelAndView("/403");
