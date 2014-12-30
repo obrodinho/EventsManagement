@@ -63,4 +63,8 @@ public class ClassesSubscriptionService extends ApplicationService {
     public ClassesSubscription getClassesById(int id) {
         return getClassesSubscriptionDAO().getClassesSubscriptionById(id);
     }
+    
+    public ClassesSubscription getClassesSubscriptionByIdPayment(int idPayment) {
+        return getClassesSubscriptionDAO().getClassesSubscriptionByIdPayment(idPayment);
+    }
 }

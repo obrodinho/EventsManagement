@@ -41,5 +41,9 @@
         <li><a href="${pageContext.request.contextPath}/Activity/all">List</a></li> 
         <li><a href="${pageContext.request.contextPath}/Activity/add">Create</a></li>
     </ol>
+    <h2>Subscription</h2>
+    <ol>
+        <li><a href="${pageContext.request.contextPath}/Activity/subscription">Subscription Client</a></li>
+    </ol>
 </div>
 <%@include file="../templates/footer.jspf" %>

@@ -1,5 +1,6 @@
 package org.consultjr.mvc.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,11 @@ import org.consultjr.mvc.service.ClassesSubscriptionService;
 import org.consultjr.mvc.service.EventService;
 import org.consultjr.mvc.service.PaymentService;
 import org.consultjr.mvc.service.SubscriptionProfileService;
+import org.consultjr.mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -51,6 +56,8 @@ public class ActivityController extends ApplicationController {
     private ClassesSubscriptionService classeSubscriptionService;
     @Autowired
     private PaymentService paymentService;
+    @Autowired
+    private UserService userService;
 
     public void setActivityService(final ActivityService activityService) {
         this.activityService = activityService;
@@ -142,7 +149,7 @@ public class ActivityController extends ApplicationController {
     }
     
     @RequestMapping(value = "/subscription")
-    public ModelAndView subscriptonActivity() {
+    public ModelAndView subscriptonActivity(Principal principal) {
         ModelAndView modelAndView = new ModelAndView("Client/_subscripton");
         List<Activity> activities = activityService.getActivities();
         modelAndView.addObject("activities", activities);
@@ -150,13 +157,13 @@ public class ActivityController extends ApplicationController {
     }
 
     @RequestMapping(value = "/addSubscription", method = RequestMethod.POST)
-    public ModelAndView addSubscriptionActivity(HttpServletRequest request) {
+    public ModelAndView addSubscriptionActivity(HttpServletRequest request, Principal principal) {
         ModelAndView modelAndView = new ModelAndView("forward:/Activity/paymentSubscription");
-        List<ClassesSubscription> classesSubscription = new ArrayList<ClassesSubscription>();
+        List<ClassesSubscription> classesSubscription = new ArrayList<>();
         String activityIDS[] = request.getParameterValues("subscribeActivities");
-        User user = (User) request.getSession().getAttribute("usuarioLogado");
-        for (int i=0; i<activityIDS.length; i++){
-            Classes classDefault = classesService.getFirstClassOfActivity(Integer.parseInt(activityIDS[i]));
+        User user = userService.getUserByUsername(principal.getName());
+        for (String activityIDSaux : activityIDS) {
+            Classes classDefault = classesService.getFirstClassOfActivity(Integer.parseInt(activityIDSaux));
             Payment payment = new Payment("pending", 1);
             paymentService.addPayment(payment);
             ClassesSubscription cs = new ClassesSubscription(classDefault, user, subscriptionProfileService.getSubscriptionProfileByShortname("participante"), payment);
@@ -168,25 +175,49 @@ public class ActivityController extends ApplicationController {
     }
     
     @RequestMapping(value = "/paymentSubscription")
-    public ModelAndView payamentSubscriptionActivity(HttpServletRequest request) {
+    public ModelAndView payamentSubscriptionActivity(HttpServletRequest request, Principal principal) {
         ModelAndView modelAndView = new ModelAndView("Client/_paymentSubscription");
-        User user = (User) request.getSession().getAttribute("usuarioLogado");
+        User user = userService.getUserByUsername(principal.getName());
+        List<ClassesSubscription> classesSubscriptionPaymentPending = new ArrayList<>();
+        List<ClassesSubscription> classesSubscriptionPaymentPaid = new ArrayList<>();
         List<ClassesSubscription> classesSubscription = classeSubscriptionService.getClassesSubscriptionByUser(user.getId());
+        for (int i=0; i<classesSubscription.size(); i++){
+            if(classesSubscription.get(i).getPayment().getStatus().equals("paid")){
+                classesSubscriptionPaymentPaid.add(classesSubscription.get(i));
+            } else if(classesSubscription.get(i).getPayment().getStatus().equals("pending")){
+                classesSubscriptionPaymentPending.add(classesSubscription.get(i));
+            }
+        }
         String message = "Activity registration succesfull.";
-        modelAndView.addObject("classesSubscription", classesSubscription);
+        modelAndView.addObject("classesSubscriptionPaymentPending", classesSubscriptionPaymentPending);
+        modelAndView.addObject("classesSubscriptionPaymentPaid", classesSubscriptionPaymentPaid);
         modelAndView.addObject("message", message);
         return modelAndView;
     }
     
     @RequestMapping(value = "/confirmPayamentSubscription/{id}", method = RequestMethod.GET)
-    public ModelAndView confirmPayamentSubscriptionActivity(@PathVariable Integer id, HttpServletRequest request) {
+    public ModelAndView confirmPayamentSubscriptionActivity(@PathVariable Integer id, HttpServletRequest request, Principal principal) {
         ModelAndView modelAndView = new ModelAndView("Client/_paymentSubscription");
-        User user = (User) request.getSession().getAttribute("usuarioLogado");
-        ClassesSubscription classeSubscription = classeSubscriptionService.getClassesById(id);
-        classeSubscription.getPayment().setStatus("paid");
+        
+        Payment payment = paymentService.getPaymentById(id);
+        payment.setStatus("paid");
+        payment.setPaid(new Date());
+        paymentService.updatePayment(payment, id);
+        
+        User user = userService.getUserByUsername(principal.getName());
+        List<ClassesSubscription> classesSubscriptionPaymentPending = new ArrayList<>();
+        List<ClassesSubscription> classesSubscriptionPaymentPaid = new ArrayList<>();
         List<ClassesSubscription> classesSubscription = classeSubscriptionService.getClassesSubscriptionByUser(user.getId());
-        String message = "test.";
-        modelAndView.addObject("classesSubscription", classesSubscription);
+        for (int i=0; i<classesSubscription.size(); i++){
+            if(classesSubscription.get(i).getPayment().getStatus().equals("paid")){
+                classesSubscriptionPaymentPaid.add(classesSubscription.get(i));
+            } else if(classesSubscription.get(i).getPayment().getStatus().equals("pending")){
+                classesSubscriptionPaymentPending.add(classesSubscription.get(i));
+            }
+        }
+        String message = "Subscription paid succesfull.";
+        modelAndView.addObject("classesSubscriptionPaymentPending", classesSubscriptionPaymentPending);
+        modelAndView.addObject("classesSubscriptionPaymentPaid", classesSubscriptionPaymentPaid);
         modelAndView.addObject("message", message);
         return modelAndView;
     }
