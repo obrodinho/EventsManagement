@@ -89,7 +89,17 @@ public class ClassesSubscriptionDAO extends ApplicationDAO {
         List list = getSessionFactory().getCurrentSession()
                 .createQuery("from ClassesSubscription where id=?")
                 .setParameter(0, id).list();
-
+        if (list.isEmpty()) {
+            return null;
+        }
+        return (ClassesSubscription) list.get(0);
+    }
+    
+    @Transactional
+    public ClassesSubscription getClassesSubscriptionByIdPayment(int idPayment) {
+        List list = getSessionFactory().getCurrentSession()
+                .createQuery("from ClassesSubscription where payment_id=?")
+                .setParameter(0, idPayment).list();
         if (list.isEmpty()) {
             return null;
         }

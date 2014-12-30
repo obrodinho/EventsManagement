@@ -18,6 +18,11 @@
     <table class="table table-bordered table-condensed table-hover">
         <thead>
             <tr>
+                <th width="">Pending Subscriptions</th>
+            </tr>
+        </thead>
+        <thead>
+            <tr>
                 <th width="">Title</th>
                 <th width="">Description</th>
                 <th width="">Type</th>
@@ -28,22 +33,47 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="classeSubscription" items="${classesSubscription}">
+            <c:forEach var="classesSubscriptionPaymentPending" items="${classesSubscriptionPaymentPending}">
                 <tr>
-                    <td>${classeSubscription.classes.activity.title}</td>
-                    <td>${classeSubscription.classes.activity.description}</td>
-                    <td>${classeSubscription.classes.activity.type.title}</td>
-                    <td>${classeSubscription.classes.activity.workload}</td>
-                    <td>${classeSubscription.classes.activity.start}</td>
-                    <td>${classeSubscription.classes.activity.end}</td>
-
-                    <td>
-                        <c:if test="${classesSubscription.payment.status == 'pending'}">
-                            <a href="${pageContext.request.contextPath}/Activity/payamentSubscription">Pagar</a>
-                        </c:if>
-                        <c:if test="${classesSubscription.payment.status == 'paid'}">Pago</c:if>
-                        </td>
-                    </tr>
+                    <td>${classesSubscriptionPaymentPending.classes.activity.title}</td>
+                    <td>${classesSubscriptionPaymentPending.classes.activity.description}</td>
+                    <td>${classesSubscriptionPaymentPending.classes.activity.type.title}</td>
+                    <td>${classesSubscriptionPaymentPending.classes.activity.workload}</td>
+                    <td>${classesSubscriptionPaymentPending.classes.activity.start}</td>
+                    <td>${classesSubscriptionPaymentPending.classes.activity.end}</td>
+                    <td><a href="<c:url value="/Activity/confirmPayamentSubscription/${classesSubscriptionPaymentPending.payment.id}"/>">Pay</a></td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th width="">Paid Subscriptions</th>
+            </tr>
+        </thead>
+        <thead>
+            <tr>
+                <th width="">Title</th>
+                <th width="">Description</th>
+                <th width="">Type</th>
+                <th width="">Workload</th>
+                <th width="">Start</th>
+                <th width="">End</th>
+                <th width="">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="classesSubscriptionPaymentPaid" items="${classesSubscriptionPaymentPaid}">
+                <tr>
+                    <td>${classesSubscriptionPaymentPaid.classes.activity.title}</td>
+                    <td>${classesSubscriptionPaymentPaid.classes.activity.description}</td>
+                    <td>${classesSubscriptionPaymentPaid.classes.activity.type.title}</td>
+                    <td>${classesSubscriptionPaymentPaid.classes.activity.workload}</td>
+                    <td>${classesSubscriptionPaymentPaid.classes.activity.start}</td>
+                    <td>${classesSubscriptionPaymentPaid.classes.activity.end}</td>
+                    <td>Paid</td>
+                </tr>
             </c:forEach>
         </tbody>
     </table>

@@ -62,16 +62,16 @@ public class Payment implements Serializable {
     /**
      *
      */
-    @OneToMany(mappedBy = "payment", targetEntity = ClassesSubscription.class)
-    private List<ClassesSubscription> classes;
-
-    public List<ClassesSubscription> getClasses() {
-        return classes;
-    }
-
-    public void setClasses(List<ClassesSubscription> classes) {
-        this.classes = classes;
-    }
+//    @OneToMany(mappedBy = "payment", targetEntity = ClassesSubscription.class)
+//    private List<ClassesSubscription> classes;
+//
+//    public List<ClassesSubscription> getClasses() {
+//        return classes;
+//    }
+//
+//    public void setClasses(List<ClassesSubscription> classes) {
+//        this.classes = classes;
+//    }
 
     @Override
     public boolean equals(Object object) {
