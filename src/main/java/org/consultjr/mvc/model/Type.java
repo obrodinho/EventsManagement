@@ -12,5 +12,5 @@ package org.consultjr.mvc.model;
 public enum Type {
     CLIENT,
     SPONSOR,
-    ADMIN,
+    admin,
 }

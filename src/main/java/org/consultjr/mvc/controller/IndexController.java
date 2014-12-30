@@ -50,6 +50,7 @@ public class IndexController extends ApplicationController {
     }
 
     @RequestMapping("/about")
+    @PreAuthorize("hasRole('user')")
     public ModelAndView about() {
         return new ModelAndView("about");
     }
@@ -73,7 +74,7 @@ public class IndexController extends ApplicationController {
             indexView.addObject("user", user);
         } else {
             userService.addUser(user);
-            uspService.addUserSystemProfile(new UserSystemProfile(user, spService.getSystemProfileByShortname("client")));
+            uspService.addUserSystemProfile(new UserSystemProfile(user, spService.getSystemProfileByShortname("user")));
             indexView.addObject("message", "Registration successfull!");
             return new ModelAndView("forward:/login");
         }

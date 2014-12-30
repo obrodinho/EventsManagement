@@ -20,7 +20,7 @@ public class ApplicationProperties {
     private static ApplicationProperties instance;
 
     private ApplicationProperties() {
-        /* JDBC.PROPERTIES FILE
+        /* application.properties FILE
          # MYSQL JDBC
          jdbc.driverClassName = com.mysql.jdbc.Driver
          jdbc.url = jdbc:mysql://localhost:3306/events_management
@@ -55,7 +55,7 @@ public class ApplicationProperties {
         }
 
         if (null == fileStream) {
-            System.err.println("property file '" + filename + "' not found in the classpath");
+            System.err.println("property file '" + filename + "' not found in the classpath!");
         }
 
         return properties;

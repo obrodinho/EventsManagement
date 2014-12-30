@@ -8,7 +8,7 @@ package org.consultjr.mvc.service;
 import java.util.Date;
 import java.util.List;
 import org.consultjr.mvc.core.base.ApplicationService;
-import org.consultjr.mvc.core.components.AppUtils;
+import org.consultjr.mvc.core.components.ApplicationUtils;
 import org.consultjr.mvc.dao.SystemProfileDAO;
 import org.consultjr.mvc.model.SystemProfile;
 import org.consultjr.mvc.model.Event;

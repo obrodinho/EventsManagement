@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.consultjr.mvc.core.base.ApplicationController;
-import org.consultjr.mvc.core.components.AppUtils;
+import org.consultjr.mvc.core.components.ApplicationUtils;
 import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.model.ClassesSubscription;
@@ -101,8 +101,8 @@ public class ActivityController extends ApplicationController {
         ModelAndView modelAndView = new ModelAndView("Activity/_form");
         Activity activity = activityService.getActivityById(id);
 
-        activity.setDateStart(AppUtils.FormatDate(activity.getStart()));
-        activity.setDateEnd(AppUtils.FormatDate(activity.getEnd()));
+        activity.setDateStart(ApplicationUtils.FormatDate(activity.getStart()));
+        activity.setDateEnd(ApplicationUtils.FormatDate(activity.getEnd()));
 
         modelAndView.addObject("activity", activity);
         modelAndView.addObject("action", "edit");

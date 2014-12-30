@@ -3,7 +3,7 @@ package org.consultjr.mvc.service;
 import java.util.Date;
 import java.util.List;
 import org.consultjr.mvc.core.base.ApplicationService;
-import org.consultjr.mvc.core.components.AppUtils;
+import org.consultjr.mvc.core.components.ApplicationUtils;
 import org.consultjr.mvc.dao.ActivityDAO;
 import org.consultjr.mvc.model.Activity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +32,11 @@ public class ActivityService  extends ApplicationService {
         // create all strategies for assigning the event. 
         
         if (activity.getDateStart() != null) {
-            activity.setStart(AppUtils.StringToDate(activity.getDateStart()));
+            activity.setStart(ApplicationUtils.StringToDate(activity.getDateStart()));
         }
 
         if (activity.getDateEnd() != null) {
-            activity.setEnd(AppUtils.StringToDate(activity.getDateEnd()));
+            activity.setEnd(ApplicationUtils.StringToDate(activity.getDateEnd()));
         }
 
         getActivityDAO().addActivity(activity);
@@ -55,8 +55,8 @@ public class ActivityService  extends ApplicationService {
         activityBD.setDescription(activityView.getDescription());
         activityBD.setType(activityView.getType());
         activityBD.setWorkload(activityView.getWorkload());
-        activityBD.setStart(AppUtils.StringToDate(activityView.getDateStart()));
-        activityBD.setEnd(AppUtils.StringToDate(activityView.getDateEnd()));
+        activityBD.setStart(ApplicationUtils.StringToDate(activityView.getDateStart()));
+        activityBD.setEnd(ApplicationUtils.StringToDate(activityView.getDateEnd()));
 
         activityBD.setUpdated(new Date());
 

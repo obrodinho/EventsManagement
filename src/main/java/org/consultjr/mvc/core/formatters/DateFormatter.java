@@ -5,7 +5,7 @@
  */
 package org.consultjr.mvc.core.formatters;
 
-import org.consultjr.mvc.core.components.AppUtils;
+import org.consultjr.mvc.core.components.ApplicationUtils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,7 +27,7 @@ public class DateFormatter implements Formatter<Date> {
         try {
             return formatter.format(object).toString();
         } catch (Exception ex) {
-            Logger.getLogger(AppUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ApplicationUtils.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
@@ -39,7 +39,7 @@ public class DateFormatter implements Formatter<Date> {
         try {
             return formatter.parse(srtDateFormated);
         } catch (ParseException ex) {
-            Logger.getLogger(AppUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ApplicationUtils.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }

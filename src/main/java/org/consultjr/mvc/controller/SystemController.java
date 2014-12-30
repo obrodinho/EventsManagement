@@ -7,7 +7,7 @@ package org.consultjr.mvc.controller;
 
 import java.util.Date;
 import org.consultjr.mvc.core.base.ApplicationController;
-import org.consultjr.mvc.core.components.AppUtils;
+import org.consultjr.mvc.core.components.ApplicationUtils;
 import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.ActivityType;
 import org.consultjr.mvc.model.Classes;
@@ -89,8 +89,11 @@ public class SystemController extends ApplicationController {
             SystemProfile adminProfile = new SystemProfile("admin", "Administrador do Sistema");
             spService.addSystemProfile(adminProfile);
 
-            SystemProfile userProfile = new SystemProfile("client", "Usuario Final");
+            SystemProfile userProfile = new SystemProfile("user", "Usuario Final");
             spService.addSystemProfile(userProfile);
+            
+            SystemProfile guestProfile = new SystemProfile("guest", "Convidado");
+            spService.addSystemProfile(guestProfile);
             
             User defaultUser = new User("Administrador", "do Sistema", "admin", "admin@LPS");
             userService.addUser(defaultUser);

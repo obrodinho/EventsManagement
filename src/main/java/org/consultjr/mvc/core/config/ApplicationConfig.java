@@ -5,11 +5,13 @@
  */
 package org.consultjr.mvc.core.config;
 
+import org.consultjr.mvc.core.security.ApplicationSecurityConfig;
 import java.util.Properties;
 import javax.annotation.Resource;
 import org.consultjr.mvc.core.formatters.ActivityTypeFormatter;
 import org.consultjr.mvc.core.formatters.DateFormatter;
 import org.consultjr.mvc.core.formatters.UserFormatter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -38,17 +40,18 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @Configuration //Marks this class as configuration
 @EnableTransactionManagement
 @ComponentScan("org.consultjr.mvc")
-@PropertySource("classpath:jdbc.properties")
+@PropertySource("classpath:application.properties")
 @EnableWebMvc
 @Import({ApplicationSecurityConfig.class})
 public class ApplicationConfig extends WebMvcConfigurerAdapter {
 
-    @Resource
-    private Environment env;
+    @Autowired
+    private Environment environment;
+    
     private Properties properties = new Properties();
 
     public ApplicationConfig() {
-        properties = ApplicationProperties.load("jdbc.properties");
+        properties = ApplicationProperties.load("application.properties");
     }
 
     @Override

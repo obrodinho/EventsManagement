@@ -5,6 +5,7 @@
  */
 package org.consultjr.mvc.core.config;
 
+import org.consultjr.mvc.core.security.ApplicationSecurityConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;

@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  *
  * @author Kal Lenon
  */
-public class AppUtils {
+public class ApplicationUtils {
 
     public static String FormatDate(Date date) {
         Calendar cal = Calendar.getInstance();
@@ -37,7 +37,7 @@ public class AppUtils {
         try {
             return formatter.parse(srtDateFormated);
         } catch (ParseException ex) {
-            Logger.getLogger(AppUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ApplicationUtils.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
@@ -47,7 +47,7 @@ public class AppUtils {
         try {
             return formatter.format(date);
         } catch (Exception ex) {
-            Logger.getLogger(AppUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ApplicationUtils.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }

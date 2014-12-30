@@ -9,6 +9,6 @@ package org.consultjr.mvc.core.components;
  *
  * @author rgcs
  */
-public class AppAlerts {
+public class ApplicationMenu {
     
 }
