@@ -9,6 +9,7 @@ import java.security.Principal;
 import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.model.UserSystemProfile;
+import org.consultjr.mvc.service.SystemConfigService;
 import org.consultjr.mvc.service.SystemProfileService;
 import org.consultjr.mvc.service.UserService;
 import org.consultjr.mvc.service.UserSystemProfileService;
@@ -34,6 +35,8 @@ public class IndexController extends ApplicationController {
     private UserSystemProfileService uspService;
     @Autowired
     private SystemProfileService spService;
+    @Autowired
+    private SystemConfigService sysService;
 
     @RequestMapping("/")
     @PreAuthorize("hasAnyRole('admin','client')")
@@ -44,10 +47,42 @@ public class IndexController extends ApplicationController {
         getLogger().info(auth.getAuthorities().toString());
         if (principal != null) {
             getLogger().info(getLoggedUser().toString());
-            getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
+            if ( sysService.getConfigByKey("_productType").getValue().equals("monoevento")){
+                if (uspService.userHasRole(getLoggedUser().getId(), "admin")){
+                    getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
+                    ModelAndView modelAndView = new ModelAndView("index-admin-mono");
+                    modelAndView.addObject("tipo", sysService.getConfigByKey("_productType").getValue());
+                    return modelAndView;
+                }
+                if (uspService.userHasRole(getLoggedUser().getId(), "client")){
+                    getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
+                    ModelAndView modelAndView = new ModelAndView("index-client-mono");
+                    modelAndView.addObject("tipo", sysService.getConfigByKey("_productType").getValue());
+                    return modelAndView;
+                }
+                
+            }
+            if ( sysService.getConfigByKey("_productType").getValue().equals("multievento")){
+                if (uspService.userHasRole(getLoggedUser().getId(), "admin")){
+                    getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
+                    ModelAndView modelAndView = new ModelAndView("index-admin-multi");
+                    modelAndView.addObject("tipo", sysService.getConfigByKey("_productType").getValue());
+                    return modelAndView;
+                }
+                if (uspService.userHasRole(getLoggedUser().getId(), "client")){
+                    getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
+                    ModelAndView modelAndView = new ModelAndView("index-client-multi");
+                    modelAndView.addObject("tipo", sysService.getConfigByKey("_productType").getValue());
+                    return modelAndView;
+                }
+                
+            }
+           
         }
-
-        return new ModelAndView("index");
+        if ( sysService.getConfigByKey("_productType").getValue().equals("multievento")){
+            return new ModelAndView("index-multi");
+        }
+        return new ModelAndView("index-mono");
     }
 
     @RequestMapping("/about")

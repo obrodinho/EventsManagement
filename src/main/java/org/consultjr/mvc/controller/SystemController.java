@@ -120,6 +120,7 @@ public class SystemController extends ApplicationController {
 
             systemConfigService.addConfig(new SystemConfig("_installed", "yes"));
             systemConfigService.addConfig(new SystemConfig("_configuredAt", new Date().toString()));
+            systemConfigService.addConfig(new SystemConfig("_productType", "monoevento"));
 
             sysView.addObject("message", "Initial database objects has been created.");
 
