@@ -39,7 +39,6 @@ public class IndexController extends ApplicationController {
     private SystemConfigService sysService;
 
     @RequestMapping("/")
-    @PreAuthorize("hasAnyRole('admin','client')")
     public ModelAndView index(Principal principal) {
         ModelAndView indexView = new ModelAndView("index");
         SecurityContext sc = SecurityContextHolder.getContext();
@@ -79,14 +78,13 @@ public class IndexController extends ApplicationController {
             }
            
         }
-        if ( sysService.getConfigByKey("_productType").getValue().equals("multievento")){
+        if ( sysService.getConfigByKey("_productType") != null && sysService.getConfigByKey("_productType").getValue().equals("multievento")){
             return new ModelAndView("index-multi");
         }
         return new ModelAndView("index-mono");
     }
 
     @RequestMapping("/about")
-    @PreAuthorize("isAuthenticated()")
     public ModelAndView about() {
         return new ModelAndView("about");
     }
