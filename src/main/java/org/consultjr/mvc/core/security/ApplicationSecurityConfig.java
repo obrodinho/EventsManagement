@@ -71,8 +71,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/System/install/**", "/User/panel/**").permitAll()
-                .antMatchers("/admin/**", "/System/**", "/User/**").hasAuthority("admin")
+                .antMatchers("/User/panel/**").permitAll()
+                .antMatchers("/admin/**", "/User/**").hasAuthority("admin")
                 .and()
                 .formLogin().loginPage("/login").failureUrl("/login?error")
                 .usernameParameter("username")

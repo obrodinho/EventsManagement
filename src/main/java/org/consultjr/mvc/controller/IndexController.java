@@ -40,13 +40,20 @@ public class IndexController extends ApplicationController {
 
     @RequestMapping("/")
     public ModelAndView index(Principal principal) {
+        
+        /* It should be done by an Interceptor or an Aspect*/
+        if (sysService.getConfigByKey("_installed") == null) {
+            return new ModelAndView("redirect:/System/install");
+        }
+        
+        
         ModelAndView indexView = new ModelAndView("index");
         SecurityContext sc = SecurityContextHolder.getContext();
         Authentication auth = sc.getAuthentication();
         getLogger().info(auth.getAuthorities().toString());
         if (principal != null) {
             getLogger().info(getLoggedUser().toString());
-            if ( sysService.getConfigByKey("_productType").getValue().equals("monoevento")){
+            if ( sysService.getConfigByKey("_productType").getValue().equals("singleEvent")){
                 if (uspService.userHasRole(getLoggedUser().getId(), "admin")){
                     getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
                     ModelAndView modelAndView = new ModelAndView("index-admin-mono");
@@ -61,7 +68,7 @@ public class IndexController extends ApplicationController {
                 }
                 
             }
-            if ( sysService.getConfigByKey("_productType").getValue().equals("multievento")){
+            if ( sysService.getConfigByKey("_productType").getValue().equals("multiEvents")){
                 if (uspService.userHasRole(getLoggedUser().getId(), "admin")){
                     getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
                     ModelAndView modelAndView = new ModelAndView("index-admin-multi");
@@ -78,7 +85,7 @@ public class IndexController extends ApplicationController {
             }
            
         }
-        if ( sysService.getConfigByKey("_productType") != null && sysService.getConfigByKey("_productType").getValue().equals("multievento")){
+        if ( sysService.getConfigByKey("_productType") != null && sysService.getConfigByKey("_productType").getValue().equals("multiEvents")){
             return new ModelAndView("index-multi");
         }
         return new ModelAndView("index-mono");
