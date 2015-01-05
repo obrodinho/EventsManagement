@@ -45,5 +45,13 @@ public class ActivityDAO extends ApplicationDAO {
         List list = getSessionFactory().getCurrentSession().createQuery("from Activity").list();
         return list;
     }
+    
+    @Transactional
+    public List<Activity> getActivitiesByEventId(int idEvent) {
+        List list = getSessionFactory().getCurrentSession()
+                .createQuery("from Activity where event_id=?")
+                .setParameter(0, idEvent).list();
+        return list;
+    }
 
 }

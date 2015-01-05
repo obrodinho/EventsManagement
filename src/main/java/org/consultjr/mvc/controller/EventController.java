@@ -3,7 +3,9 @@ package org.consultjr.mvc.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.consultjr.mvc.core.base.ApplicationController;
+import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.Event;
+import org.consultjr.mvc.service.ActivityService;
 import org.consultjr.mvc.service.EventService;
 import org.consultjr.mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +31,11 @@ public class EventController extends ApplicationController {
 
     @Autowired
     private EventService eventService;
-
     @Autowired
     private UserService userService;
+    @Autowired
+    private ActivityService activityService;
 
-//    private ClassesService classesService;
-//    @Autowired
     public void setEventService(final EventService eventService) {
         this.eventService = eventService;
     }
@@ -103,6 +104,22 @@ public class EventController extends ApplicationController {
         modelAndView.addObject("events", events);
         String message = "Event was successfully deleted.";
         modelAndView.addObject("message", message);
+        return modelAndView;
+    }
+    
+    @RequestMapping(value = "/subscription")
+    public ModelAndView subscriptionEvent() {
+        ModelAndView modelAndView = new ModelAndView("Event/_subscription");
+        List<Event> events = eventService.getEvents();
+        modelAndView.addObject("events", events);
+        return modelAndView;
+    }
+    
+    @RequestMapping(value = "{id}/Activity/subscription", method = RequestMethod.GET)
+    public ModelAndView subscriptionActivityMultiEvent(@PathVariable Integer id) {
+        ModelAndView modelAndView = new ModelAndView("Client/_subscription");
+        List<Activity> activities = activityService.getActivitiesByEventId(id);
+        modelAndView.addObject("activities", activities);
         return modelAndView;
     }
 

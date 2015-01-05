@@ -70,6 +70,10 @@ public class ActivityService  extends ApplicationService {
     public List<Activity> getActivities() {
         return getActivityDAO().getActivities();
     }
+    
+    public List<Activity> getActivitiesByEventId(int idEvent) {
+        return getActivityDAO().getActivitiesByEventId(idEvent);
+    }
 
     public ActivityDAO getActivityDAO() {
         return activityDAO == null ? new ActivityDAO() : activityDAO;

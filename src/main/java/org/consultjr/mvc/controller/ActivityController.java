@@ -19,6 +19,7 @@ import org.consultjr.mvc.service.ClassesSubscriptionService;
 import org.consultjr.mvc.service.EventService;
 import org.consultjr.mvc.service.PaymentService;
 import org.consultjr.mvc.service.SubscriptionProfileService;
+import org.consultjr.mvc.service.SystemConfigService;
 import org.consultjr.mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -58,6 +59,8 @@ public class ActivityController extends ApplicationController {
     private PaymentService paymentService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private SystemConfigService sysService;
 
     public void setActivityService(final ActivityService activityService) {
         this.activityService = activityService;
@@ -149,13 +152,13 @@ public class ActivityController extends ApplicationController {
     }
     
     @RequestMapping(value = "/subscription")
-    public ModelAndView subscriptonActivity(Principal principal) {
-        ModelAndView modelAndView = new ModelAndView("Client/_subscripton");
-        List<Activity> activities = activityService.getActivities();
+    public ModelAndView subscriptionActivityMonoEvent() {
+        ModelAndView modelAndView = new ModelAndView("Client/_subscription");
+        List<Activity> activities = activityService.getActivitiesByEventId(1);
         modelAndView.addObject("activities", activities);
         return modelAndView;
     }
-
+    
     @RequestMapping(value = "/addSubscription", method = RequestMethod.POST)
     public ModelAndView addSubscriptionActivity(HttpServletRequest request, Principal principal) {
         ModelAndView modelAndView = new ModelAndView("forward:/Activity/paymentSubscription");
@@ -175,7 +178,7 @@ public class ActivityController extends ApplicationController {
     }
     
     @RequestMapping(value = "/paymentSubscription")
-    public ModelAndView payamentSubscriptionActivity(HttpServletRequest request, Principal principal) {
+    public ModelAndView payamentSubscriptionActivity(Principal principal) {
         ModelAndView modelAndView = new ModelAndView("Client/_paymentSubscription");
         User user = userService.getUserByUsername(principal.getName());
         List<ClassesSubscription> classesSubscriptionPaymentPending = new ArrayList<>();
