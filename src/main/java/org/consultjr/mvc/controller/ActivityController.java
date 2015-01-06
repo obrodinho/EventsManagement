@@ -19,11 +19,10 @@ import org.consultjr.mvc.service.ClassesSubscriptionService;
 import org.consultjr.mvc.service.EventService;
 import org.consultjr.mvc.service.PaymentService;
 import org.consultjr.mvc.service.SubscriptionProfileService;
+import org.consultjr.mvc.service.SystemConfigService;
 import org.consultjr.mvc.service.UserService;
+import org.consultjr.mvc.service.UserSystemProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,6 +41,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("Activity")
 public class ActivityController extends ApplicationController {
 
+    Principal principal;
+    
     @Autowired
     private ActivityService activityService;
     @Autowired
@@ -58,6 +59,10 @@ public class ActivityController extends ApplicationController {
     private PaymentService paymentService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private SystemConfigService sysService;
+    @Autowired
+    private UserSystemProfileService uspService;
 
     public void setActivityService(final ActivityService activityService) {
         this.activityService = activityService;
@@ -65,7 +70,7 @@ public class ActivityController extends ApplicationController {
 
     @RequestMapping("") // Index Method: => /PROJECT/Activity
     public ModelAndView index() {
-        return this.allActivities();
+        return this.allActivities(principal);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET) // GET: /PROJECT/Activity/add
@@ -87,6 +92,44 @@ public class ActivityController extends ApplicationController {
 
         if (activity.getEvent() == null && eventService.getEvents().size() > 0) {
             activity.setEvent(eventService.getEvents().get(0));
+        }
+        activityService.addActivity(activity);
+
+        Classes standardClasses = new Classes();
+        standardClasses.setActivity(activity);
+        standardClasses.setStandard(true);
+        standardClasses.setDescription("Turma Padrão");
+        standardClasses.setCreated(new Date());
+        standardClasses.setTitle("Turma Padrao");
+        classesService.addClasses(standardClasses);
+
+        String message = "Activity was succesfully added";
+        modelAndView.addObject("message", message);
+        return modelAndView;
+    }
+    
+    @RequestMapping(value = "/add/{eventId}", method = RequestMethod.GET) // GET: /PROJECT/Activity/add
+    public ModelAndView add(@PathVariable Integer eventId) {
+        ModelAndView modelAndView = new ModelAndView("Activity/_form");
+        modelAndView.addObject("activity", new Activity());
+        modelAndView.addObject("action", "add");
+        modelAndView.addObject("activityID", null);
+        modelAndView.addObject("eventID", eventId);
+        modelAndView.addObject("activityTypes", activityTypeService.getActivityTypes());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/add/{eventId}", method = RequestMethod.POST) // Save Method: POST /PROJECT/Activity/add
+    public ModelAndView addActivity(@PathVariable Integer eventId ,@ModelAttribute Activity activity, BindingResult errors, HttpServletRequest request) {
+        if (errors.hasErrors()) {
+            getLogger().info("Binding Error");
+        }
+        ModelAndView modelAndView = new ModelAndView("forward:/Activity/all");
+
+        if (activity.getEvent() == null && eventService.getEvents().size() > 1) {
+           activity.setEvent(eventService.getEventById(eventId));
+        }else{
+           activity.setEvent(eventService.getEvents().get(0)); 
         }
         activityService.addActivity(activity);
 
@@ -141,21 +184,43 @@ public class ActivityController extends ApplicationController {
     }
 
     @RequestMapping(value = "/all")
-    public ModelAndView allActivities() {
-        ModelAndView modelAndView = new ModelAndView("Activity/_list");
-        List<Activity> activities = activityService.getActivities();
+    public ModelAndView allActivities(Principal principal) {
+        ModelAndView modelAndView = new ModelAndView("Activity/_list-client");
+        List<Activity> activities = activityService.getActivitiesByEventId(1);
+        
+        if (principal != null) {
+            if (uspService.userHasRole(getLoggedUser().getId(), "admin")){
+                getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
+                 modelAndView = new ModelAndView("Activity/_list-admin");
+            }
+            if (uspService.userHasRole(getLoggedUser().getId(), "client")){
+                getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
+                modelAndView = new ModelAndView("Activity/_list-client");
+            }
+        }
+        
         modelAndView.addObject("activities", activities);
         return modelAndView;
     }
     
-    @RequestMapping(value = "/subscription")
-    public ModelAndView subscriptonActivity(Principal principal) {
-        ModelAndView modelAndView = new ModelAndView("Client/_subscripton");
-        List<Activity> activities = activityService.getActivities();
-        modelAndView.addObject("activities", activities);
+    @RequestMapping(value = "/all/{eventId}")
+    public ModelAndView allActivities(@PathVariable Integer eventId) {
+        ModelAndView modelAndView = new ModelAndView("Activity/_list");
+        List<Activity> manyActivities = activityService.getActivitiesByEventId(eventId);
+
+        modelAndView.addObject("activities", manyActivities);
         return modelAndView;
     }
 
+    
+    @RequestMapping(value = "/subscription")
+    public ModelAndView subscriptionActivityMonoEvent() {
+        ModelAndView modelAndView = new ModelAndView("Client/_subscription");
+        List<Activity> activities = activityService.getActivitiesByEventId(1);
+        modelAndView.addObject("activities", activities);
+        return modelAndView;
+    }
+    
     @RequestMapping(value = "/addSubscription", method = RequestMethod.POST)
     public ModelAndView addSubscriptionActivity(HttpServletRequest request, Principal principal) {
         ModelAndView modelAndView = new ModelAndView("forward:/Activity/paymentSubscription");
@@ -175,7 +240,7 @@ public class ActivityController extends ApplicationController {
     }
     
     @RequestMapping(value = "/paymentSubscription")
-    public ModelAndView payamentSubscriptionActivity(HttpServletRequest request, Principal principal) {
+    public ModelAndView payamentSubscriptionActivity(Principal principal) {
         ModelAndView modelAndView = new ModelAndView("Client/_paymentSubscription");
         User user = userService.getUserByUsername(principal.getName());
         List<ClassesSubscription> classesSubscriptionPaymentPending = new ArrayList<>();
