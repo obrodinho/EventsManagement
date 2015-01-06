@@ -13,7 +13,7 @@
     ${message}
 </div>
 <div class="row">
-    System: ${tipo}
+    System: ${productType}
     <h2>Menu</h2>
     <h3>Users</h3>
     <ol>
