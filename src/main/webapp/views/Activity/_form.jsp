@@ -16,7 +16,7 @@
     ${message}
 
 </div>
-    <form:form method="POST" commandName="activity" modelAttribute="activity" action="${pageContext.request.contextPath}/Activity/${empty activityID ? action : action.concat('/').concat(activityID)}">
+    <form:form method="POST" commandName="activity" modelAttribute="activity" action="${pageContext.request.contextPath}/Activity/${empty activityID ? action.concat('/').concat(eventID) : action.concat('/').concat(activityID)}">
     <input type="hidden" name="activityID" value="${activityID}" >
     <table>
         <tbody>
