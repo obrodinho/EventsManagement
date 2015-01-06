@@ -7,7 +7,7 @@ package org.consultjr.mvc.core.config;
 
 import org.consultjr.mvc.core.security.ApplicationSecurityConfig;
 import java.util.Properties;
-import javax.annotation.Resource;
+import org.consultjr.mvc.core.components.ApplicationInterceptor;
 import org.consultjr.mvc.core.formatters.ActivityTypeFormatter;
 import org.consultjr.mvc.core.formatters.DateFormatter;
 import org.consultjr.mvc.core.formatters.UserFormatter;
@@ -61,7 +61,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //registry.addInterceptor(new AuthenticationInterceptor());
+        registry.addInterceptor(new ApplicationInterceptor());
     }
 
     @Override
