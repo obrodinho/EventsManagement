@@ -102,6 +102,44 @@ public class ActivityController extends ApplicationController {
         modelAndView.addObject("message", message);
         return modelAndView;
     }
+    
+    @RequestMapping(value = "/add/{eventId}", method = RequestMethod.GET) // GET: /PROJECT/Activity/add
+    public ModelAndView add(@PathVariable Integer eventId) {
+        ModelAndView modelAndView = new ModelAndView("Activity/_form");
+        modelAndView.addObject("activity", new Activity());
+        modelAndView.addObject("action", "add");
+        modelAndView.addObject("activityID", null);
+        modelAndView.addObject("eventID", eventId);
+        modelAndView.addObject("activityTypes", activityTypeService.getActivityTypes());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/add/{eventId}", method = RequestMethod.POST) // Save Method: POST /PROJECT/Activity/add
+    public ModelAndView addActivity(@PathVariable Integer eventId ,@ModelAttribute Activity activity, BindingResult errors, HttpServletRequest request) {
+        if (errors.hasErrors()) {
+            getLogger().info("Binding Error");
+        }
+        ModelAndView modelAndView = new ModelAndView("forward:/Activity/all");
+
+        if (activity.getEvent() == null && eventService.getEvents().size() > 1) {
+           activity.setEvent(eventService.getEventById(eventId));
+        }else{
+           activity.setEvent(eventService.getEvents().get(0)); 
+        }
+        activityService.addActivity(activity);
+
+        Classes standardClasses = new Classes();
+        standardClasses.setActivity(activity);
+        standardClasses.setStandard(true);
+        standardClasses.setDescription("Turma Padrão");
+        standardClasses.setCreated(new Date());
+        standardClasses.setTitle("Turma Padrao");
+        classesService.addClasses(standardClasses);
+
+        String message = "Activity was succesfully added";
+        modelAndView.addObject("message", message);
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public ModelAndView update(@PathVariable Integer id) {
@@ -147,6 +185,16 @@ public class ActivityController extends ApplicationController {
         modelAndView.addObject("activities", activities);
         return modelAndView;
     }
+    
+    @RequestMapping(value = "/all/{eventId}")
+    public ModelAndView allActivities(@PathVariable Integer eventId) {
+        ModelAndView modelAndView = new ModelAndView("Activity/_list");
+        List<Activity> manyActivities = activityService.getActivitiesByEventId(eventId);
+
+        modelAndView.addObject("activities", manyActivities);
+        return modelAndView;
+    }
+
     
     @RequestMapping(value = "/subscription")
     public ModelAndView subscriptionActivityMonoEvent() {
