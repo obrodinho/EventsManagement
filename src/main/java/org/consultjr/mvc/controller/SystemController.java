@@ -84,7 +84,7 @@ public class SystemController extends ApplicationController {
             return sysView;
         }
 
-        sysView.addObject("install", new Object());
+        //sysView.addObject("install", new Object());
         return sysView;
     }
 
@@ -96,7 +96,7 @@ public class SystemController extends ApplicationController {
             @RequestParam(value = "adminPassword", required = false) String adminPassword
     ) {
 
-        ModelAndView setupView = new ModelAndView("forward:/");
+        ModelAndView setupView = new ModelAndView("forward:/login");
         /* TODO make it on a hash
          KEY COULD BE LIKE XXXX-XXXX-9999-9999
          Where:  XXXX-XXXX = 2 hex groups from a hash string
@@ -145,7 +145,7 @@ public class SystemController extends ApplicationController {
             }
         } else {
             setupView.addObject("message", "Invalid KEY. Please inform us a valid one.");
-            setupView.setViewName("System/install");
+            setupView.setViewName("forward:/System/install");
             return setupView;
         }
 
@@ -204,6 +204,11 @@ public class SystemController extends ApplicationController {
             systemConfigService.addConfig(new SystemConfig("_productType", productType));
             
             /*
+                App Key
+            */
+            systemConfigService.addConfig(new SystemConfig("_productkey", installKey));
+            
+            /*
                 App Title
             */
             appTitle = (!appTitle.isEmpty() ? appTitle : "Events Management");
@@ -214,7 +219,7 @@ public class SystemController extends ApplicationController {
 
         } else {
             setupView.addObject("message", "Installation failed. Check your product KEY or try contacting support.");
-            setupView.setViewName("forward:/");
+            setupView.setViewName("forward:/System/install");
         }
 
         return setupView;
