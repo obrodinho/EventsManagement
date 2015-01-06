@@ -21,6 +21,7 @@ import org.consultjr.mvc.service.PaymentService;
 import org.consultjr.mvc.service.SubscriptionProfileService;
 import org.consultjr.mvc.service.SystemConfigService;
 import org.consultjr.mvc.service.UserService;
+import org.consultjr.mvc.service.UserSystemProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -40,6 +41,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("Activity")
 public class ActivityController extends ApplicationController {
 
+    Principal principal;
+    
     @Autowired
     private ActivityService activityService;
     @Autowired
@@ -58,6 +61,8 @@ public class ActivityController extends ApplicationController {
     private UserService userService;
     @Autowired
     private SystemConfigService sysService;
+    @Autowired
+    private UserSystemProfileService uspService;
 
     public void setActivityService(final ActivityService activityService) {
         this.activityService = activityService;
@@ -65,7 +70,7 @@ public class ActivityController extends ApplicationController {
 
     @RequestMapping("") // Index Method: => /PROJECT/Activity
     public ModelAndView index() {
-        return this.allActivities();
+        return this.allActivities(principal);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET) // GET: /PROJECT/Activity/add
@@ -179,9 +184,21 @@ public class ActivityController extends ApplicationController {
     }
 
     @RequestMapping(value = "/all")
-    public ModelAndView allActivities() {
-        ModelAndView modelAndView = new ModelAndView("Activity/_list");
-        List<Activity> activities = activityService.getActivities();
+    public ModelAndView allActivities(Principal principal) {
+        ModelAndView modelAndView = new ModelAndView("Activity/_list-client");
+        List<Activity> activities = activityService.getActivitiesByEventId(1);
+        
+        if (principal != null) {
+            if (uspService.userHasRole(getLoggedUser().getId(), "admin")){
+                getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
+                 modelAndView = new ModelAndView("Activity/_list-admin");
+            }
+            if (uspService.userHasRole(getLoggedUser().getId(), "client")){
+                getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
+                modelAndView = new ModelAndView("Activity/_list-client");
+            }
+        }
+        
         modelAndView.addObject("activities", activities);
         return modelAndView;
     }

@@ -13,25 +13,23 @@
     ${message}
 </div>
 <div class="row">
-    <h2>Configurações do Sistema</h2>
+    System: ${tipo}
+    <h2>Menu</h2>
+    <h3>User</h3>
     <ol>
-        ${tipo}
+        <li>Panel (ainda falta implementar)</li>
     </ol>
-    <h2>User</h2>
-    <ol>
-        <li><a href="${pageContext.request.contextPath}/menu">Menu</a></li>
-    </ol>
-    <h2>Event</h2>
+    <h3>Events</h3>
     <ol>
         <li><a href="${pageContext.request.contextPath}/Event/all">List</a></li>
     </ol>
-    <h2>Classes</h2>
-    <ol>
-        <li><a href="${pageContext.request.contextPath}/Classes/all">List</a></li> 
-    </ol>
-    <h2>Activity</h2>
+    <h3>Activities</h3>
     <ol>
         <li><a href="${pageContext.request.contextPath}/Activity/all">List</a></li> 
+    </ol>
+    <h3>Payments (variance)</h3>
+    <ol>
+        <li><a href="${pageContext.request.contextPath}/Activity/paymentSubscription">List</a></li>
     </ol>
 </div>
 <%@include file="../templates/footer.jspf" %>

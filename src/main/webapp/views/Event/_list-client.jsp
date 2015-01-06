@@ -35,7 +35,7 @@
                     <td>${event.end}</td>
                     <td>${event.owner.username}</td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/Activity/all/${event.id}">List Activities</a>
+                        <a href="${pageContext.request.contextPath}/Event/${event.id}/Activity/subscription">Subscription</a>
                     </td>
                 </tr>
             </c:forEach>

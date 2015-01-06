@@ -37,8 +37,10 @@
                     <td>
                         <a href="${pageContext.request.contextPath}/Event/edit/${event.id}">Edit</a> | 
                         <a href="${pageContext.request.contextPath}/Event/delete/${event.id}">Delete</a> | 
-                        <a href="${pageContext.request.contextPath}/Activity/all/${event.id}">List Activities</a> |
-                        <a href="${pageContext.request.contextPath}/Activity/add/${event.id}">Add Activity</a>
+                        <a href="${pageContext.request.contextPath}/Activity/add/${event.id}">Add Activity</a> | 
+                        <a href="${pageContext.request.contextPath}/Activity/all/${event.id}">List Activities</a> | 
+                        <a href="${pageContext.request.contextPath}/Event/${event.id}/Activity/subscription">Subscription</a>
+                        
                     </td>
                 </tr>
             </c:forEach>

@@ -13,35 +13,33 @@
     ${message}
 </div>
 <div class="row">
-    <h2>Configurações do Sistema</h2>
+    System: ${tipo}
+    <h2>Menu</h2>
+    <h3>Users</h3>
     <ol>
-        ${tipo}
-    </ol>
-    <h2>User</h2>
-    <ol>
+        <li>Panel (ainda falta implementar)</li>
         <li><a href="${pageContext.request.contextPath}/User/all">List</a></li> 
         <li><a href="${pageContext.request.contextPath}/User/add">Create</a></li>
-        <li><a href="${pageContext.request.contextPath}/login">Login</a></li>
-        <li><a href="${pageContext.request.contextPath}/menu">Menu</a></li>
     </ol>
-    <h2>Event</h2>
+    <h3>Event</h3>
     <ol>
-        <li><a href="${pageContext.request.contextPath}/Event/all">List</a></li>
-        <li> Ou talvez um botao apenas para editar o evento </li>
+        <li><a href="${pageContext.request.contextPath}/Event/all">View</a></li>
+        <li><a href="${pageContext.request.contextPath}/Event/edit/1">Edit</a></li>
+        <li><a href="${pageContext.request.contextPath}/Activity/subscription">Subscription</a></li>
     </ol>
-    <h2>Classes</h2>
+    <h3>Activity Type</h3>
     <ol>
-        <li><a href="${pageContext.request.contextPath}/Classes/all">List</a></li> 
-    </ol>
-    <h2>Activity Type</h2>
-    <ol>
-        <li><a href="${pageContext.request.contextPath}/ActivityType/all">List</a></li> 
         <li><a href="${pageContext.request.contextPath}/ActivityType/add">Create</a></li>
+        <li><a href="${pageContext.request.contextPath}/ActivityType/all">List</a></li> 
     </ol>
-    <h2>Activity</h2>
+    <h3>Activities</h3>
     <ol>
-        <li><a href="${pageContext.request.contextPath}/Activity/all">List</a></li> 
         <li><a href="${pageContext.request.contextPath}/Activity/add">Create</a></li>
+        <li><a href="${pageContext.request.contextPath}/Activity/all">List</a></li> 
+    </ol>
+    <h3>Payments (variance)</h3>
+    <ol>
+        <li><a href="${pageContext.request.contextPath}/Activity/paymentSubscription">List</a></li>
     </ol>
 </div>
 <%@include file="../templates/footer.jspf" %>
