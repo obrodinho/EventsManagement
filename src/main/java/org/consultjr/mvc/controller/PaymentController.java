@@ -27,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
  * @author rss
  */
 @Controller
-@Scope("request")
 @RequestMapping("/Payment")
 public class PaymentController extends ApplicationController implements CRUDable {
 

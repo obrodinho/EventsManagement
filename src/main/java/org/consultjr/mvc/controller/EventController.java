@@ -27,12 +27,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
- * Activity Service
- *
  * @author kallenon
  */
 @Controller
-@Scope("request")
 @RequestMapping("/Event")
 public class EventController extends ApplicationController {
 

@@ -39,7 +39,6 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Rafael
  */
 @Controller
-@Scope("request")
 @RequestMapping("System")
 public class SystemController extends ApplicationController {
 

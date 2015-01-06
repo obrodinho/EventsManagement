@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@Scope("request")
 public class IndexController extends ApplicationController {
 
     @Autowired
@@ -62,13 +61,11 @@ public class IndexController extends ApplicationController {
                 if (uspService.userHasRole(getLoggedUser().getId(), "admin")) {
                     getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
                     ModelAndView modelAndView = new ModelAndView("index-admin-mono");
-                    modelAndView.addObject("tipo", sysService.getConfigByKey("_productType").getValue());
                     return modelAndView;
                 }
                 if (uspService.userHasRole(getLoggedUser().getId(), "client")) {
                     getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
                     ModelAndView modelAndView = new ModelAndView("index-client-mono");
-                    modelAndView.addObject("tipo", sysService.getConfigByKey("_productType").getValue());
                     return modelAndView;
                 }
 
@@ -77,13 +74,11 @@ public class IndexController extends ApplicationController {
                 if (uspService.userHasRole(getLoggedUser().getId(), "admin")) {
                     getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
                     ModelAndView modelAndView = new ModelAndView("index-admin-multi");
-                    modelAndView.addObject("tipo", sysService.getConfigByKey("_productType").getValue());
                     return modelAndView;
                 }
                 if (uspService.userHasRole(getLoggedUser().getId(), "client")) {
                     getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
                     ModelAndView modelAndView = new ModelAndView("index-client-multi");
-                    modelAndView.addObject("tipo", sysService.getConfigByKey("_productType").getValue());
                     return modelAndView;
                 }
 
