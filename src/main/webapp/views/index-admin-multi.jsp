@@ -9,13 +9,13 @@
 <div class="page-header">
     <h2>Project Base Actions</h2>
 </div>
-<div class="row">
+<div class="row message">
     ${message}
 </div>
 <div class="row">
         <h2>Configurações do Sistema</h2>
     <ol>
-        ${tipo}
+        ${productType} | ${loggedUser.username}
     </ol>
     <h2>User</h2>
     <ol>

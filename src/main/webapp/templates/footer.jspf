@@ -1,11 +1,14 @@
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
-<footer class="footer">
-    <div class="row">
-        <hr/>
-        <p><a href="${pageContext.request.contextPath}">Home Page</a></p>
-    </div>
-</footer>
-
+<c:if test="${not hideFooter or not hideAll}">
+    <footer class="footer">
+        <div class="row">
+            <hr/>
+            <p><a href="${pageContext.request.contextPath}">Home Page</a></p>
+        </div>
+    </footer>
+</c:if>
 </div><!-- end .col-lg/md/xs-10 -->
 </div><!-- end .container -->
 

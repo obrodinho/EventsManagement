@@ -15,7 +15,7 @@
 <div class="row">
     <h2>Configurações do Sistema</h2>
     <ol>
-        ${tipo}
+        ${productType}
     </ol>
     <h2>User</h2>
     <ol>

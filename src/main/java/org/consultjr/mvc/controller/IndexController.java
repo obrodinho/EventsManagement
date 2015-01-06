@@ -40,52 +40,57 @@ public class IndexController extends ApplicationController {
 
     @RequestMapping("/")
     public ModelAndView index(Principal principal) {
-        
+
         /* It should be done by an Interceptor or an Aspect*/
         if (sysService.getConfigByKey("_installed") == null) {
-            return new ModelAndView("redirect:/System/install");
+            ModelAndView indexView = new ModelAndView("forward:/System/install");
+
+            indexView.addObject("hideNav", (true));
+            indexView.addObject("hideFooter", (true));
+
+            //indexView.addObject("hideAll", (true)); // hide header is useless.
+            return indexView;
         }
-        
-        
+
         ModelAndView indexView = new ModelAndView("index");
         SecurityContext sc = SecurityContextHolder.getContext();
         Authentication auth = sc.getAuthentication();
         getLogger().info(auth.getAuthorities().toString());
         if (principal != null) {
             getLogger().info(getLoggedUser().toString());
-            if ( sysService.getConfigByKey("_productType").getValue().equals("singleEvent")){
-                if (uspService.userHasRole(getLoggedUser().getId(), "admin")){
+            if (sysService.getConfigByKey("_productType").getValue().equals("singleEvent")) {
+                if (uspService.userHasRole(getLoggedUser().getId(), "admin")) {
                     getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
                     ModelAndView modelAndView = new ModelAndView("index-admin-mono");
                     modelAndView.addObject("tipo", sysService.getConfigByKey("_productType").getValue());
                     return modelAndView;
                 }
-                if (uspService.userHasRole(getLoggedUser().getId(), "client")){
+                if (uspService.userHasRole(getLoggedUser().getId(), "client")) {
                     getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
                     ModelAndView modelAndView = new ModelAndView("index-client-mono");
                     modelAndView.addObject("tipo", sysService.getConfigByKey("_productType").getValue());
                     return modelAndView;
                 }
-                
+
             }
-            if ( sysService.getConfigByKey("_productType").getValue().equals("multiEvents")){
-                if (uspService.userHasRole(getLoggedUser().getId(), "admin")){
+            if (sysService.getConfigByKey("_productType").getValue().equals("multiEvents")) {
+                if (uspService.userHasRole(getLoggedUser().getId(), "admin")) {
                     getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
                     ModelAndView modelAndView = new ModelAndView("index-admin-multi");
                     modelAndView.addObject("tipo", sysService.getConfigByKey("_productType").getValue());
                     return modelAndView;
                 }
-                if (uspService.userHasRole(getLoggedUser().getId(), "client")){
+                if (uspService.userHasRole(getLoggedUser().getId(), "client")) {
                     getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
                     ModelAndView modelAndView = new ModelAndView("index-client-multi");
                     modelAndView.addObject("tipo", sysService.getConfigByKey("_productType").getValue());
                     return modelAndView;
                 }
-                
+
             }
-           
+
         }
-        if ( sysService.getConfigByKey("_productType") != null && sysService.getConfigByKey("_productType").getValue().equals("multiEvents")){
+        if (sysService.getConfigByKey("_productType") != null && sysService.getConfigByKey("_productType").getValue().equals("multiEvents")) {
             return new ModelAndView("index-multi");
         }
         return new ModelAndView("index-mono");

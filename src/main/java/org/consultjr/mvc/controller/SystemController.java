@@ -91,6 +91,7 @@ public class SystemController extends ApplicationController {
     @RequestMapping(value = "install", method = RequestMethod.POST)
     public ModelAndView setup(
             @RequestParam(value = "installKey", required = true) String installKey,
+            @RequestParam(value = "appTitle", required = false) String appTitle,
             @RequestParam(value = "adminUsername", required = false) String adminUsername,
             @RequestParam(value = "adminPassword", required = false) String adminPassword
     ) {
@@ -201,6 +202,13 @@ public class SystemController extends ApplicationController {
             systemConfigService.addConfig(new SystemConfig("_configuredAt", new Date().toString()));
 
             systemConfigService.addConfig(new SystemConfig("_productType", productType));
+            
+            /*
+                App Title
+            */
+            appTitle = (!appTitle.isEmpty() ? appTitle : "Events Management");
+            systemConfigService.addConfig(new SystemConfig("_appTitle", appTitle));
+            
 
             setupView.addObject("message", "Initial database objects has been created.");
 

@@ -54,6 +54,21 @@
             </p>
         </div>
     </fieldset>
+    
+    <fieldset>
+        <legend>
+            Application data
+        </legend>
+
+        <label>Do you wanna define an application-wide title?</label>
+        <div class="form-group-hg">
+            <input autocomplete="on" maxlength="128" name="appTitle" id="appTitle" class="form-control" placeholder="MyApp? TestSubject01? LOL?" /> 
+            <p class="help-block">
+                Leave blank if you like to use the standard title. It's <strong>org.consultjr.EventsManagement</strong>. We limit it to 128 characters. We use this title on 
+            </p>
+        </div>
+
+    </fieldset>
 
     <hr />
     <div class="row footer">

@@ -1,32 +1,38 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>${empty title ? "org.consultjr.EventsManagement": title}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<c:if test="${not hideAll}">
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>${empty title ? "org.consultjr.EventsManagement": title}</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- Loading Bootstrap -->
-        <link href="${pageContext.request.contextPath}/resources/dist/css/vendor/bootstrap.min.css" rel="stylesheet">
+            <!-- Loading Bootstrap -->
+            <link href="${pageContext.request.contextPath}/resources/dist/css/vendor/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Loading Flat UI Pro -->
-        <link href="${pageContext.request.contextPath}/resources/dist/css/flat-ui-pro.min.css" rel="stylesheet">
+            <!-- Loading Flat UI Pro -->
+            <link href="${pageContext.request.contextPath}/resources/dist/css/flat-ui-pro.min.css" rel="stylesheet">
 
-        <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico">
-        
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="${pageContext.request.contextPath}/resources/js/vendor/html5shiv.js"></script>
-          <script src="${pageContext.request.contextPath}/resources/js/vendor/respond.min.js"></script>
-        <![endif]-->
-        <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
-        <script src="${pageContext.request.contextPath}/resources/dist/js/vendor/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/dist/js/vendor/video.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="${pageContext.request.contextPath}/resources/dist/js/flat-ui-pro.min.js"></script>
-    </head>
-    <body>
-        <%@include file="nav.jspf" %>
-        <div class="container">
-            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+            <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico">
+
+            <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+            <!--[if lt IE 9]>
+              <script src="${pageContext.request.contextPath}/resources/js/vendor/html5shiv.js"></script>
+              <script src="${pageContext.request.contextPath}/resources/js/vendor/respond.min.js"></script>
+            <![endif]-->
+            <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+            <script src="${pageContext.request.contextPath}/resources/dist/js/vendor/jquery.min.js"></script>
+            <script src="${pageContext.request.contextPath}/resources/dist/js/vendor/video.js"></script>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="${pageContext.request.contextPath}/resources/dist/js/flat-ui-pro.min.js"></script>
+        </head>
+        <body>
+            <c:if test="${not hideNav}">
+                <%@include file="nav.jspf" %>
+            </c:if>
+            <div class="container">
+                <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+</c:if>
