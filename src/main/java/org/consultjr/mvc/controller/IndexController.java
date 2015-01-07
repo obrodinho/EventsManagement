@@ -39,24 +39,23 @@ public class IndexController extends ApplicationController {
 
     @RequestMapping("/")
     public ModelAndView index(Principal principal) {
-
-        /* It should be done by an Interceptor or an Aspect*/
-        if (sysService.getConfigByKey("_installed") == null) {
-            ModelAndView indexView = new ModelAndView("forward:/System/install");
-
-            indexView.addObject("hideNav", (true));
-            indexView.addObject("hideFooter", (true));
-
-            //indexView.addObject("hideAll", (true)); // hide header is useless.
-            return indexView;
-        }
-
         ModelAndView indexView = new ModelAndView("index");
+
+        getLogger().info("The system is Installed? {}", getApplicationObject().isInstalled());
+        /* It should be done by an Interceptor or an Aspect*/
+        if (!getApplicationObject().isInstalled() /*&& null == principal*/) {
+            indexView.setViewName("redirect:/System/install");
+            return indexView;
+        } /*else if (null != principal || null != getLoggedUser()) {
+         indexView.addObject("message", "Hey, " + principal.getName() + "! The system has already been installed.");
+         return indexView;
+        }*/
+
         SecurityContext sc = SecurityContextHolder.getContext();
         Authentication auth = sc.getAuthentication();
-        getLogger().info(auth.getAuthorities().toString());
-        if (principal != null) {
-            getLogger().info(getLoggedUser().toString());
+        //getLogger().info(auth.getAuthorities().toString());
+        getLogger().info("getLoggedUser {}", getLoggedUser());
+        if (null != getLoggedUser()) {
             if (sysService.getConfigByKey("_productType").getValue().equals("singleEvent")) {
                 if (uspService.userHasRole(getLoggedUser().getId(), "admin")) {
                     getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
@@ -116,8 +115,8 @@ public class IndexController extends ApplicationController {
         } else {
             userService.addUser(user);
             uspService.addUserSystemProfile(new UserSystemProfile(user, spService.getSystemProfileByShortname("client")));
-            indexView.addObject("message", "Registration successfull!");
-            return new ModelAndView("forward:/login");
+            //indexView.addObject("message", "Registration successfull!");
+            return new ModelAndView("redirect:/login");
         }
 
         return indexView;
