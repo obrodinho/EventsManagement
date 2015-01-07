@@ -258,10 +258,12 @@ public class ActivityController extends ApplicationController {
         List<ClassesSubscription> classesSubscriptionPaymentPaid = new ArrayList<>();
         List<ClassesSubscription> classesSubscription = classeSubscriptionService.getClassesSubscriptionByUser(user.getId());
         for (int i=0; i<classesSubscription.size(); i++){
-            if(classesSubscription.get(i).getPayment().getStatus().equals("paid")){
-                classesSubscriptionPaymentPaid.add(classesSubscription.get(i));
-            } else if(classesSubscription.get(i).getPayment().getStatus().equals("pending")){
-                classesSubscriptionPaymentPending.add(classesSubscription.get(i));
+            if (classesSubscription.get(i).getPayment() != null){
+                if(classesSubscription.get(i).getPayment().getStatus().equals("paid")){
+                    classesSubscriptionPaymentPaid.add(classesSubscription.get(i));
+                } else if(classesSubscription.get(i).getPayment().getStatus().equals("pending")){
+                    classesSubscriptionPaymentPending.add(classesSubscription.get(i));
+                }
             }
         }
         String message = "Activity registration succesfull.";

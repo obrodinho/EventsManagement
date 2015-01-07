@@ -59,6 +59,5 @@
 </form:form>
 </div>
 </div>
-<p><a href="${pageContext.request.contextPath}">Home page</a></p>
 <%@include file="../../templates/footer.jspf" %>
 
