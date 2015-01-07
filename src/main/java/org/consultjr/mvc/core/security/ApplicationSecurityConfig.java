@@ -90,6 +90,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/about/**",
                         "/support/**",
                         "/contact/**",
+                        "/System/install/**",
                         "/User/edit/**",
                         "/User/panel/**").permitAll()
                 .antMatchers(
