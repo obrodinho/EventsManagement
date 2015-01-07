@@ -71,11 +71,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                //.anyRequest().authenticated()
-                .antMatchers("/","/login/**","/signup/**","/about/**","/support/**","/contact/**","/User/edit/**","/User/panel/**").permitAll()
-                .antMatchers("/admin/**", "/User/**").hasAuthority("admin")
-                .and()
                 .formLogin().loginPage("/login").failureUrl("/login?error")
                 .usernameParameter("username")
                 .passwordParameter("password")
@@ -85,6 +80,21 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf()
                 .and()
-                .exceptionHandling().accessDeniedPage("/403");
+                .exceptionHandling().accessDeniedPage("/403")
+                .and()
+                .authorizeRequests()
+                .antMatchers(
+                        "/",
+                        "/login/**",
+                        "/signup/**",
+                        "/about/**",
+                        "/support/**",
+                        "/contact/**",
+                        "/User/edit/**",
+                        "/User/panel/**").permitAll()
+                .antMatchers(
+                        "/admin/**",
+                        "/User/**").hasAuthority("admin")
+                .anyRequest().authenticated();
     }
 }
