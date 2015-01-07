@@ -150,31 +150,33 @@ public class UserController extends ApplicationController {
         int cont = 0;
         
         List<Event> eventsList = new ArrayList<>();
-        if(getProductType().equals("multiEvents")){
+//        if(getProductType().equals("multiEvents")){
             List<Event> events = eventService.getEvents();
-            if(events != null && events.size() > 1){
+            if(events != null && getProductType().equals("multiEvents")){
                 for (int i=events.size()-1; i >= 0; i--){
                     if (cont < 4){
                         eventsList.add(events.get(i));
                         cont++;
                     }
                 }
-            } else if (events != null && events.size() == 1){
+            } else if (events != null && getProductType().equals("singleEvent")){
                 Event event = new Event();
                 event.setId(-1);
                 eventsList.add(event);
             }
-        }
+//        }
         
         User user = userService.getUserByUsername(principal.getName());
         List<ClassesSubscription> classesSubscriptionPaymentPending = new ArrayList<>();
         cont = 0;
         List<ClassesSubscription> classesSubscription = classeSubscriptionService.getClassesSubscriptionByUser(user.getId());
         for (int i=classesSubscription.size()-1; i >= 0; i--){
-            if (cont < 4){
-                if(classesSubscription.get(i).getPayment().getStatus().equals("pending")){
-                    classesSubscriptionPaymentPending.add(classesSubscription.get(i));
-                    cont++;
+            if(classesSubscription.get(i).getPayment() != null){
+                if (cont < 4){
+                    if(classesSubscription.get(i).getPayment().getStatus().equals("pending")){
+                        classesSubscriptionPaymentPending.add(classesSubscription.get(i));
+                        cont++;
+                    }
                 }
             }
         }
