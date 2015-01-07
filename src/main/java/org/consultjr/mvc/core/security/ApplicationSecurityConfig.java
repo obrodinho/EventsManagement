@@ -47,12 +47,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("UDService")
     private UserDetailsService userDetailsService;
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("/resources/**");
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -68,12 +62,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/resources/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/User/panel/**").permitAll()
-                .antMatchers("/admin/**", "/User/**").hasAuthority("admin")
-                .and()
                 .formLogin().loginPage("/login").failureUrl("/login?error")
                 .usernameParameter("username")
                 .passwordParameter("password")
@@ -83,6 +80,22 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf()
                 .and()
-                .exceptionHandling().accessDeniedPage("/403");
+                .exceptionHandling().accessDeniedPage("/403")
+                .and()
+                .authorizeRequests()
+                .antMatchers(
+                        "/",
+                        "/login/**",
+                        "/signup/**",
+                        "/about/**",
+                        "/support/**",
+                        "/contact/**",
+                        "/System/install/**",
+                        "/User/edit/**",
+                        "/User/panel/**").permitAll()
+                .antMatchers(
+                        "/admin/**",
+                        "/User/**").hasAuthority("admin")
+                .anyRequest().authenticated();
     }
 }

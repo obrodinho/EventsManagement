@@ -5,6 +5,7 @@
  */
 package org.consultjr.mvc.core.base;
 
+import org.consultjr.mvc.model.Application;
 import org.consultjr.mvc.model.SystemConfig;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.service.SystemConfigService;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
  * @author rgcs
  */
 public class ApplicationController {
+    
+    private Application app;
 
     private final Logger logger;
     /**
@@ -44,6 +47,7 @@ public class ApplicationController {
         this.logger = LoggerFactory.getLogger(this.getClass());
         SecurityContext secutiryContext = SecurityContextHolder.getContext();
         this.auth = secutiryContext.getAuthentication();
+        //this.app = this.getApplicationDatabaseObject();
     }
 
     public Authentication getAuth() {
@@ -68,7 +72,7 @@ public class ApplicationController {
 
     public void setSysConfigService(SystemConfigService sysConfigService) {
         this.sysConfigService = sysConfigService;
-    }
+    }    
 
     @ModelAttribute("loggedUser")
     public User getLoggedUser() {
@@ -90,7 +94,7 @@ public class ApplicationController {
     }
     
     private String getConfig(String configKey) {
-        SystemConfig sc = sysConfigService.getConfigByKey(configKey);
+        SystemConfig sc = sysConfigService.get(configKey);
 
         if (null == sc) {
             return null;
@@ -98,7 +102,6 @@ public class ApplicationController {
 
         return sc.getValue();
     }
-
 
     @ModelAttribute("productType")
     public String getProductType() {
@@ -109,5 +112,21 @@ public class ApplicationController {
     public String getPageTitle() {
         return getConfig("_appTitle");
     }
-
+        
+    public Application getApplicationDatabaseObject() {
+        Application app = (Application) sysConfigService.getJson("_app", Application.class);
+        this.app = (app != null ? app : new Application("_INVALID_"));
+        return this.app;
+    }
+    
+    @ModelAttribute("app")
+    public Application getApplicationObject() {
+        return (this.app == null || this.app.getProductKey().equals("_INVALID_") ? this.getApplicationDatabaseObject() : this.app);
+    }
+    
+    protected void updateApplication(Application newerObject) {
+        this.app = newerObject;
+    }
+    
+    
 }

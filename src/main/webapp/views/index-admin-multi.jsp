@@ -13,8 +13,10 @@
     ${message}
 </div>
 <div class="row">
-    System: ${productType}
-    <h2>Menu</h2>
+    <p>System: ${productType} 
+    <p>Logged User: ${loggedUser.username}
+    <p>ProductKey: ${app.productKey}
+    <p>System Capabilities: ${app.productCapabilities}
     <h3>Users</h3>
     <ol>
         <li>Panel (ainda falta implementar)</li>

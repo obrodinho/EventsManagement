@@ -15,6 +15,16 @@
         You have been logged out.
     </p>
 </c:if>
+<c:if test="${param.alreadyInstalled != null}">       
+    <p>
+        The system already was installed.
+    </p>
+</c:if>
+<c:if test="${param.installed != null}">       
+    <p>
+        The system was installed. Please Login.
+    </p>
+</c:if> 
 <div class="row">
     <div>
         ${message}

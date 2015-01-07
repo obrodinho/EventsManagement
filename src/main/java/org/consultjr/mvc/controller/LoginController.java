@@ -30,7 +30,7 @@ public class LoginController extends ApplicationController {
     private UserService userService;
 
     @RequestMapping(value = "/login")
-    public ModelAndView login(Principal principal) {
+    public ModelAndView loginForm(Principal principal) {
         ModelAndView index = new ModelAndView();
 
         getLogger().info("Principal: {}", principal);
@@ -44,28 +44,6 @@ public class LoginController extends ApplicationController {
         }
 
         return index;
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView doLogin(@ModelAttribute Login login, HttpSession session) {
-        ModelAndView modelAndView = new ModelAndView("login-form");
-        User user = userService.getUserByUsername(login.getUsername());
-        if (user == null) {
-            modelAndView.addObject("message", "User " + login.getUsername() + " doesn't exists");
-            return modelAndView;
-        } else {
-            BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
-
-            if (pe.matches(login.getPassword(), user.getPassword())) {
-                session.setAttribute("usuarioLogado", user);
-                modelAndView = new ModelAndView("forward:/");
-                modelAndView.addObject("message", "Welcome, " + user.getFirstname() + " " + user.getLastname() + "!");
-                return modelAndView;
-            } else {
-                modelAndView.addObject("message", "Incorrect password");
-                return modelAndView;
-            }
-        }
     }
 
     @RequestMapping(value = "/403")

@@ -5,14 +5,19 @@
  */
 package org.consultjr.mvc.controller;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.model.ClassesSubscription;
+import org.consultjr.mvc.model.Event;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.service.ClassesService;
 import org.consultjr.mvc.service.ClassesSubscriptionService;
+import org.consultjr.mvc.service.EventService;
 import org.consultjr.mvc.service.SubscriptionProfileService;
 import org.consultjr.mvc.service.UserService;
+import org.consultjr.mvc.service.UserSystemProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,6 +42,12 @@ public class UserController extends ApplicationController {
     private ClassesService classesService;
     @Autowired
     private SubscriptionProfileService subscriptionProfileService;
+    @Autowired
+    private ClassesSubscriptionService classeSubscriptionService;
+    @Autowired
+    private EventService eventService;
+    @Autowired
+    private UserSystemProfileService uspService;
 
     @RequestMapping("") // Index Method: => /PROJECT/User
     public ModelAndView index() {
@@ -74,6 +85,9 @@ public class UserController extends ApplicationController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView updateUser(@ModelAttribute User user, @PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView("forward:/User/all");
+        if (uspService.userHasRole(getLoggedUser().getId(), "client")){
+            modelAndView = new ModelAndView("forward:/User/panel");
+        }
         userService.updateUser(user, id);
         String message = "User was successfully edited.";
         modelAndView.addObject("message", message);
@@ -127,6 +141,49 @@ public class UserController extends ApplicationController {
         modelAndView.addObject("classId", classId); 
         modelAndView.addObject("profiles", subscriptionProfileService.getSubscriptionProfiles());
         modelAndView.addObject("message", "Congratulations! The system works");
+        return modelAndView;
+    }
+    
+    @RequestMapping(value = "/panel")
+    public ModelAndView payamentSubscriptionActivity(Principal principal) {
+        ModelAndView modelAndView = new ModelAndView("Client/control-panel");
+        int cont = 0;
+        
+        List<Event> eventsList = new ArrayList<>();
+//        if(getProductType().equals("multiEvents")){
+            List<Event> events = eventService.getEvents();
+            if(events != null && getProductType().equals("multiEvents")){
+                for (int i=events.size()-1; i >= 0; i--){
+                    if (cont < 4){
+                        eventsList.add(events.get(i));
+                        cont++;
+                    }
+                }
+            } else if (events != null && getProductType().equals("singleEvent")){
+                Event event = new Event();
+                event.setId(-1);
+                eventsList.add(event);
+            }
+//        }
+        
+        User user = userService.getUserByUsername(principal.getName());
+        List<ClassesSubscription> classesSubscriptionPaymentPending = new ArrayList<>();
+        cont = 0;
+        List<ClassesSubscription> classesSubscription = classeSubscriptionService.getClassesSubscriptionByUser(user.getId());
+        for (int i=classesSubscription.size()-1; i >= 0; i--){
+            if(classesSubscription.get(i).getPayment() != null){
+                if (cont < 4){
+                    if(classesSubscription.get(i).getPayment().getStatus().equals("pending")){
+                        classesSubscriptionPaymentPending.add(classesSubscription.get(i));
+                        cont++;
+                    }
+                }
+            }
+        }
+        
+        modelAndView.addObject("eventsList", eventsList);
+        modelAndView.addObject("classesSubscriptionPaymentPending", classesSubscriptionPaymentPending);
+        modelAndView.addObject("user", user);
         return modelAndView;
     }
 

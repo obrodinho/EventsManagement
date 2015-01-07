@@ -41,8 +41,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("Activity")
 public class ActivityController extends ApplicationController {
 
-    Principal principal;
-    
     @Autowired
     private ActivityService activityService;
     @Autowired
@@ -69,7 +67,7 @@ public class ActivityController extends ApplicationController {
     }
 
     @RequestMapping("") // Index Method: => /PROJECT/Activity
-    public ModelAndView index() {
+    public ModelAndView index(Principal principal) {
         return this.allActivities(principal);
     }
 
@@ -124,7 +122,7 @@ public class ActivityController extends ApplicationController {
         if (errors.hasErrors()) {
             getLogger().info("Binding Error");
         }
-        ModelAndView modelAndView = new ModelAndView("forward:/Activity/all");
+        ModelAndView modelAndView = new ModelAndView("forward:/Activity/all/"+eventId);
 
         if (activity.getEvent() == null && eventService.getEvents().size() > 1) {
            activity.setEvent(eventService.getEventById(eventId));
@@ -198,20 +196,27 @@ public class ActivityController extends ApplicationController {
                 modelAndView = new ModelAndView("Activity/_list-client");
             }
         }
-        
         modelAndView.addObject("activities", activities);
         return modelAndView;
     }
     
     @RequestMapping(value = "/all/{eventId}")
-    public ModelAndView allActivities(@PathVariable Integer eventId) {
-        ModelAndView modelAndView = new ModelAndView("Activity/_list");
-        List<Activity> manyActivities = activityService.getActivitiesByEventId(eventId);
-
-        modelAndView.addObject("activities", manyActivities);
+    public ModelAndView allActivities(@PathVariable Integer eventId, Principal principal) {
+        ModelAndView modelAndView = new ModelAndView("Activity/_list-client");
+        List<Activity> activities = activityService.getActivitiesByEventId(eventId);
+        if (principal != null) {
+            if (uspService.userHasRole(getLoggedUser().getId(), "admin")){
+                getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
+                 modelAndView = new ModelAndView("Activity/_list-admin");
+            }
+            if (uspService.userHasRole(getLoggedUser().getId(), "client")){
+                getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
+                modelAndView = new ModelAndView("Activity/_list-client");
+            }
+        }
+        modelAndView.addObject("activities", activities);
         return modelAndView;
     }
-
     
     @RequestMapping(value = "/subscription")
     public ModelAndView subscriptionActivityMonoEvent() {
@@ -224,7 +229,7 @@ public class ActivityController extends ApplicationController {
     @RequestMapping(value = "/addSubscription", method = RequestMethod.POST)
     public ModelAndView addSubscriptionActivity(HttpServletRequest request, Principal principal) {
         ModelAndView modelAndView = new ModelAndView("forward:/Activity/paymentSubscription");
-        List<ClassesSubscription> classesSubscription = new ArrayList<>();
+        List<ClassesSubscription> classesSubscriptionPaymentPending = new ArrayList<>();
         String activityIDS[] = request.getParameterValues("subscribeActivities");
         User user = userService.getUserByUsername(principal.getName());
         for (String activityIDSaux : activityIDS) {
@@ -233,9 +238,15 @@ public class ActivityController extends ApplicationController {
             paymentService.addPayment(payment);
             ClassesSubscription cs = new ClassesSubscription(classDefault, user, subscriptionProfileService.getSubscriptionProfileByShortname("participante"), payment);
             classeSubscriptionService.addClassesSubscription(cs);
-            classesSubscription.add(cs);
+            classesSubscriptionPaymentPending.add(cs);
         }
-        modelAndView.addObject("classesSubscription", classesSubscription);
+        if(getApplicationObject().suports("Payments") == false){
+            modelAndView = new ModelAndView("forward:/");
+            String message = "Activity registration succesfull.";
+            modelAndView.addObject("message", message);
+        }
+        modelAndView.addObject("classesSubscriptionPaymentPending", classesSubscriptionPaymentPending);
+        modelAndView.addObject("classesSubscriptionPaymentPaid", null);
         return modelAndView;
     }
     

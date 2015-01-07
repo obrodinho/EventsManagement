@@ -5,10 +5,12 @@
  */
 package org.consultjr.mvc.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.ActivityType;
+import org.consultjr.mvc.model.Application;
 import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.model.Event;
 import org.consultjr.mvc.model.SubscriptionProfile;
@@ -26,7 +28,6 @@ import org.consultjr.mvc.service.SystemProfileService;
 import org.consultjr.mvc.service.UserService;
 import org.consultjr.mvc.service.UserSystemProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -77,13 +78,17 @@ public class SystemController extends ApplicationController {
     public ModelAndView install() {
         ModelAndView sysView = new ModelAndView("System/install");
 
-        if (null != systemConfigService.getConfigByKey("_installed")) {
-            sysView.addObject("message", "The system already was installed.");
-            sysView.setViewName("forward:/login");
+        sysView.addObject("hideNav", (true));
+        sysView.addObject("hideFooter", (true));
+
+        //sysView.addObject("hideAll", (true)); // hide header is useless.
+        getLogger().info("The system is Installed? {}", getApplicationObject().isInstalled());
+        if (getApplicationObject().isInstalled()) {
+            sysView = new ModelAndView("redirect:/login?alreadyInstalled");
+            //sysView.addObject("message", "The system already was installed.");
             return sysView;
         }
 
-        //sysView.addObject("install", new Object());
         return sysView;
     }
 
@@ -95,7 +100,8 @@ public class SystemController extends ApplicationController {
             @RequestParam(value = "adminPassword", required = false) String adminPassword
     ) {
 
-        ModelAndView setupView = new ModelAndView("forward:/login");
+        Application app = new Application();
+        ModelAndView setupView = new ModelAndView("redirect:/login?installed");
         /* TODO make it on a hash
          KEY COULD BE LIKE XXXX-XXXX-9999-9999
          Where:  XXXX-XXXX = 2 hex groups from a hash string
@@ -131,16 +137,26 @@ public class SystemController extends ApplicationController {
         getLogger().info(String.valueOf(installKey.length()));
 
         if (19 == installKey.length()) {
+            app.setProductKey(installKey);
+            ArrayList<String> productCapabilities = new ArrayList<String>();
             String[] keyParts = installKey.split("-");
             if (null != keyParts[0]) {
                 switch (keyParts[0]) {
                     case "88B5":
                         productType = "multiEvents";
+                        app.setProductType(productType);
+                        productCapabilities.add("Events");
+                        productCapabilities.add("Payments");
+                        productCapabilities.add("Support");
                         break;
                     case "83FF":
                         productType = "singleEvent";
+                        app.setProductType(productType);
+                        productCapabilities.add("Support");
                         break;
                 }
+
+                app.setProductCapabilities(productCapabilities);
             }
         } else {
             setupView.addObject("message", "Invalid KEY. Please inform us a valid one.");
@@ -197,24 +213,29 @@ public class SystemController extends ApplicationController {
             subsProfileService.addSubscriptionProfile(new SubscriptionProfile("Palestrante", "palestrante"));
             subsProfileService.addSubscriptionProfile(new SubscriptionProfile("Monitor", "monitor"));
 
-            systemConfigService.addConfig(new SystemConfig("_installed", "yes"));
-            systemConfigService.addConfig(new SystemConfig("_configuredAt", new Date().toString()));
-
             systemConfigService.addConfig(new SystemConfig("_productType", productType));
-            
+
             /*
-                App Key
-            */
+             App Key
+             */
             systemConfigService.addConfig(new SystemConfig("_productkey", installKey));
-            
+
             /*
-                App Title
-            */
+             App Title
+             */
             appTitle = (!appTitle.isEmpty() ? appTitle : "Events Management");
             systemConfigService.addConfig(new SystemConfig("_appTitle", appTitle));
-            
 
-            setupView.addObject("message", "Initial database objects has been created.");
+            systemConfigService.addConfig(new SystemConfig("_installed", "yes"));
+            systemConfigService.addConfig(new SystemConfig("_configuredAt", app.getInstallationDate().toString()));
+
+            app.setInstalled(true);
+
+            systemConfigService.saveJson("_app", app);
+            
+            //this.updateApplication(app);
+
+            //setupView.addObject("message", "Initial database objects has been created.");
 
         } else {
             setupView.addObject("message", "Installation failed. Check your product KEY or try contacting support.");
