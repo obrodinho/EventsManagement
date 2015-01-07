@@ -16,9 +16,10 @@
 </div>
 <form:form method="POST" action="${pageContext.request.contextPath}/Activity/payamentSubscription">
     <table class="table table-bordered table-condensed table-hover">
+        <c:if test="${not empty classesSubscriptionPaymentPending}">
         <thead>
             <tr>
-                <th width="">Pending Subscriptions</th>
+                <th colspan="7">Pending Subscriptions</th>
             </tr>
         </thead>
         <thead>
@@ -45,11 +46,19 @@
                 </tr>
             </c:forEach>
         </tbody>
+        </c:if>
+        <c:if test="${empty classesSubscriptionPaymentPending or classesSubscriptionPaymentPending == null}">
+            <tr>
+                <th width="">Pending Subscriptions</th>
+            </tr>
+            <td align="center"><b>Not exists pending payments!</b></td>
+        </c:if>
     </table>
     <table class="table table-bordered table-condensed table-hover">
+        <c:if test="${not empty classesSubscriptionPaymentPaid}">
         <thead>
             <tr>
-                <th width="">Paid Subscriptions</th>
+                <th colspan="7">Paid Subscriptions</th>
             </tr>
         </thead>
         <thead>
@@ -76,6 +85,13 @@
                 </tr>
             </c:forEach>
         </tbody>
+        </c:if>
+        <c:if test="${empty classesSubscriptionPaymentPaid or classesSubscriptionPaymentPaid == null}">
+            <tr>
+                <th width="">Paid Subscriptions</th>
+            </tr>
+            <td align="center"><b>Not exists paid subscriptions!</b></td>
+        </c:if>
     </table>
 </form:form>
 

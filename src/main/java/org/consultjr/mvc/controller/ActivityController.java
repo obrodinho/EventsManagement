@@ -229,7 +229,7 @@ public class ActivityController extends ApplicationController {
     @RequestMapping(value = "/addSubscription", method = RequestMethod.POST)
     public ModelAndView addSubscriptionActivity(HttpServletRequest request, Principal principal) {
         ModelAndView modelAndView = new ModelAndView("forward:/Activity/paymentSubscription");
-        List<ClassesSubscription> classesSubscription = new ArrayList<>();
+        List<ClassesSubscription> classesSubscriptionPaymentPending = new ArrayList<>();
         String activityIDS[] = request.getParameterValues("subscribeActivities");
         User user = userService.getUserByUsername(principal.getName());
         for (String activityIDSaux : activityIDS) {
@@ -238,9 +238,15 @@ public class ActivityController extends ApplicationController {
             paymentService.addPayment(payment);
             ClassesSubscription cs = new ClassesSubscription(classDefault, user, subscriptionProfileService.getSubscriptionProfileByShortname("participante"), payment);
             classeSubscriptionService.addClassesSubscription(cs);
-            classesSubscription.add(cs);
+            classesSubscriptionPaymentPending.add(cs);
         }
-        modelAndView.addObject("classesSubscription", classesSubscription);
+        if(getApplicationObject().suports("Payments") == false){
+            modelAndView = new ModelAndView("forward:/");
+            String message = "Activity registration succesfull.";
+            modelAndView.addObject("message", message);
+        }
+        modelAndView.addObject("classesSubscriptionPaymentPending", classesSubscriptionPaymentPending);
+        modelAndView.addObject("classesSubscriptionPaymentPaid", null);
         return modelAndView;
     }
     

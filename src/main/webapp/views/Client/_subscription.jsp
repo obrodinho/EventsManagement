@@ -44,14 +44,9 @@
                 </tr>
             </c:forEach>
         </tbody>
-        <tfoot>
-            <tr>
-                <td>
-                    <input type="submit" value="Register" class="btn btn-default btn-primary btn-embossed">
-                </td>
-            </tr>
-        </tfoot>
     </table>
+    <input type="submit" value="Register" class="btn btn-default btn-primary btn-embossed">
+    
 </form:form>
 
 <script>
