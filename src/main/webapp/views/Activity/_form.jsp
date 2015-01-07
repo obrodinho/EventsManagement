@@ -38,7 +38,7 @@
                         cssClass="form-control" 
                         items="${activityTypes}" 
                         itemLabel="title" 
-                        itemValue="id" cssClass="form-control"/>
+                        itemValue="id" />
                 </div>
             </div>
             <div class="form-group">

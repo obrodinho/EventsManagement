@@ -32,7 +32,7 @@
         <div class="form-group">
                 <label>Description:</label>
                 <div ><form:input path="description" cssClass="form-control"/></div>
-        </div>>
+        </div>
             <input type="submit" value="${empty activityTypeID ? "Add" : "Save"}" class="btn btn-default btn-embossed btn-primary"/>
             
 </form:form>

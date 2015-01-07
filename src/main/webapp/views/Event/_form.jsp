@@ -46,7 +46,7 @@
                         style="height: 35px; width: 197px"
                         items="${users}" 
                         itemLabel="username" 
-                        itemValue="id" cssClass="form-control"/>
+                        itemValue="id" />
                 </div>
             </div>
             <input type="submit" value="${empty eventID ? "Add" : "Save"}" class="btn btn-default btn-embossed btn-primary"/>
