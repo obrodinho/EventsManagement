@@ -14,32 +14,29 @@
 <div>
     ${message}
 </div>
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
 <form:form method="POST" commandName="user" action="${pageContext.request.contextPath}/User/${empty userID ? action : action.concat('/').concat(userID)}">
     <input type="hidden" name="userID" value="${userID}" >
-    <table>
-        <tbody>
-            <tr>
-                <td>First name:</td>
-                <td><form:input path="firstname" /></td>
-            </tr>
-            <tr>
-                <td>Last name:</td>
-                <td><form:input path="lastname" /></td>
-            </tr>
-            <tr>
-                <td>Username:</td>
-                <td><form:input path="username" /></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><form:input path="password" /></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="${empty userID ? "Add" : "Save"}" /></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="form-group">
+                <label>First name:</label>
+                <div ><form:input path="firstname" cssClass="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <label>Last name:</label>
+                <div ><form:input path="lastname" cssClass="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <label>Username:</label>
+                <div ><form:input path="username" cssClass="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <label>Password:</label>
+                <div ><form:input path="password" cssClass="form-control"/></div>
+            </div>
+            <input type="submit" value="${empty userID ? "Add" : "Save"}" class="btn btn-default btn-embossed btn-primary"/>
+            
 </form:form>
-
-
+    </div>
+</div>
 <%@include file="../../templates/footer.jspf" %>

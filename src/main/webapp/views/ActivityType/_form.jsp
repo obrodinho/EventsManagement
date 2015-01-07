@@ -14,29 +14,30 @@
     ${message}
 
 </div>
+    
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
+
 <form:form method="POST" commandName="activityType" action="${pageContext.request.contextPath}/ActivityType/${empty activityTypeID ? action : action.concat('/').concat(activityTypeID)}">
     <input type="hidden" name="activityTypeID" value="${activityTypeID}" >
-    <table>
-        <tbody>
-            <tr>
-                <td>Short name:</td>
-                <td><form:input path="shortname" /></td>
-            </tr>
-            <tr>
-                <td>Title:</td>
-                <td><form:input path="title" /></td>
-            </tr>
-            <tr>
-                <td>Description:</td>
-                <td><form:input path="description" /></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="${empty activityTypeID ? "Add" : "Save"}" /></td>
-            </tr>
-        </tbody>
-    </table>
+        
+    <div class="form-group">
+            <label>Short name:</label>
+            <div ><form:input path="shortname" cssClass="form-control"/></div>
+        </div>
+        <div class="form-group">
+                <label>Title:</label>
+                <div ><form:input path="title" cssClass="form-control"/></div>
+        </div>
+        <div class="form-group">
+                <label>Description:</label>
+                <div ><form:input path="description" cssClass="form-control"/></div>
+        </div>>
+            <input type="submit" value="${empty activityTypeID ? "Add" : "Save"}" class="btn btn-default btn-embossed btn-primary"/>
+            
 </form:form>
-
+</div>
+</div>
 <p><a href="${pageContext.request.contextPath}">Home page</a></p>
 <%@include file="../../templates/footer.jspf" %>
 

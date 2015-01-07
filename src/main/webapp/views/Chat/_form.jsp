@@ -14,32 +14,33 @@
 <div>
     ${message}
 </div>
+
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
+    
 <form:form method="POST" commandName="chat" action="${pageContext.request.contextPath}/Chat/${empty chatID ? action : action.concat('/').concat(chatID)}">
     <input type="hidden" name="chatID" value="${chatID}" >
-    <table>
-        <tbody>
-            <tr>
-                <td>Name:</td>
-                <td><form:input path="name" /></td>
-            </tr>
-            <tr>
-                <td>E-mail:</td>
-                <td><form:input path="email" /></td>
-            </tr>
-            <tr>
-                <td>Subject:</td>
-                <td><form:input path="subject" /></td>
-            </tr>
-            <tr>
-                <td>Doudt:</td>
-                <td><form:input path="doudt" /></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="${empty chatID ? "Enter" : "Cancel"}" /></td>
-            </tr>
-        </tbody>
-    </table>
+    
+    <div class="form-group">
+                <label>Name:</label>
+                <div ><form:input path="name" cssClass="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <label>E-mail:</label>
+                <div ><form:input path="email" cssClass="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <label>Subject:</label>
+                <div ><form:input path="subject" cssClass="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <label>Doudt:</label>
+                <div ><form:input path="doudt" cssClass="form-control"/></div>
+            </div>
+                <td><input type="submit" value="${empty chatID ? "Enter" : "Cancel"}" class="btn btn-default btn-embossed btn-primary"/>
+            
 </form:form>
-
+</div>
+</div>
 <%@include file="../../templates/footer.jspf" %>
 

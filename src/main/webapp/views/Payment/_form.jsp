@@ -14,23 +14,23 @@
 <div>
     ${message}
 </div>
-<form:form method="POST" commandName="payment" action="${pageContext.request.contextPath}/Payment/${empty paymentID ? action : action.concat('/').concat(paymentID)}">
-    <input type="hidden" name="paymentID" value="${paymentID}" >
-    <table>
-        <tbody>
-            <tr>
-                <td>Status:</td>
-                <td><form:input path="status" /></td>
-            </tr>
-            <tr>
-                <td>Type:</td>
-                <td><form:input path="type" /></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="${empty paymentID ? "Add" : "Save"}" /></td>
-            </tr>
-        </tbody>
-    </table>
-</form:form>
 
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
+
+    <form:form method="POST" commandName="payment" action="${pageContext.request.contextPath}/Payment/${empty paymentID ? action : action.concat('/').concat(paymentID)}">
+    <input type="hidden" name="paymentID" value="${paymentID}" >
+    <div class="form-group">
+                <label>Status:</label>
+                <div ><form:input path="status" cssClass="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <label>Type:</label>
+                <div ><form:input path="type" cssClass="form-control"/></div>
+            </div>
+            <input type="submit" value="${empty paymentID ? "Add" : "Save"}" class="btn btn-default btn-embossed btn-primary"/>
+            
+</form:form>
+    </div>
+</div>
 <%@include file="../../templates/footer.jspf" %>

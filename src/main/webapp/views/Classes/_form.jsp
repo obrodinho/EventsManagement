@@ -12,26 +12,25 @@
 </div>        <div>
             ${message}
         </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+
         <form:form method="POST" commandName="classes" action="${pageContext.request.contextPath}/Classes/${empty classesID ? action.concat('/').concat(activityID) : action.concat('/').concat(classesID)}">
             <input type="hidden" name="classesID" value="${classesID}" >
             <pre>${classes}</pre>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Title:</td>
-                        <td><form:input path="title" /></td>
-                    </tr>
-                    <tr>
-                        <td>Description:</td>
-                        <td><form:input path="description" /></td>
-                    </tr>
-                    <tr>
-                        <td><input type="submit" value="${empty classesID ? "Add" : "Save"}" /></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="form-group">
+                        <label>Title:</label>
+                        <div ><form:input path="title" cssClass="form-control"/></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <div ><form:input path="description" cssClass="form-control"/></div>
+                    </div>
+                    <input type="submit" value="${empty classesID ? "Add" : "Save"}" class="btn btn-default btn-embossed btn-primary"/>
+                    
         </form:form>
-
+        </div>
+</div>
         
 <%@include file="../../templates/footer.jspf" %>
 

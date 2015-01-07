@@ -14,29 +14,31 @@
 <div>
     ${message}
 </div>
-<form:form method="POST" commandName="event" action="${pageContext.request.contextPath}/Event/${empty eventID ? action : action.concat('/').concat(eventID)}">
+
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
+
+    <form:form method="POST" commandName="event" action="${pageContext.request.contextPath}/Event/${empty eventID ? action : action.concat('/').concat(eventID)}">
     <input type="hidden" name="eventID" value="${eventID}" >
-    <table>
-        <tbody>
-            <tr>
-                <td>Title:</td>
-                <td><form:input path="title" /></td>
-            </tr>
-            <tr>
-                <td>Description:</td>
-                <td><form:input path="description" /></td>
-            </tr>
-            <tr>
-                <td>Start:</td>
-                <td><form:input path="start" /> Ex: dd-mm-yyyy hh:mm:ss</td>
-            </tr>
-            <tr>
-                <td>End:</td>
-                <td><form:input path="end" /> Ex: dd-mm-yyyy hh:mm:ss</td>
-            </tr>
-            <tr>
-                <td>Owner:</td>
-                <td>
+    <div class="form-group">
+                <label>Title:</label>
+                <div ><form:input path="title" cssClass="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <label>Description:</label>
+                <div ><form:input path="description" cssClass="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <label>Start:</label>
+                <div ><form:input path="start" cssClass="form-control"/> Ex: dd-mm-yyyy hh:mm:ss</div>
+            </div>
+            <div class="form-group">
+                <label>End:</label>
+                <div ><form:input path="end" cssClass="form-control"/> Ex: dd-mm-yyyy hh:mm:ss</div>
+            </div>
+            <div class="form-group">
+                <label>Owner:</label>
+                <div >
                     <form:select 
                         path="owner" 
                         name="owner"
@@ -44,15 +46,12 @@
                         style="height: 35px; width: 197px"
                         items="${users}" 
                         itemLabel="username" 
-                        itemValue="id" />
-                </td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="${empty eventID ? "Add" : "Save"}" /></td>
-            </tr>
-        </tbody>
-    </table>
+                        itemValue="id" cssClass="form-control"/>
+                </div>
+            </div>
+            <input type="submit" value="${empty eventID ? "Add" : "Save"}" class="btn btn-default btn-embossed btn-primary"/>
 </form:form>
-
+    </div>
+</div>
 <%@include file="../../templates/footer.jspf" %>
 
