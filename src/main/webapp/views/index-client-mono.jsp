@@ -15,13 +15,8 @@
 <div class="row">
     System: ${productType}
     <h2>Menu</h2>
-    <h3>User</h3>
-    <ol>
-        <li>Panel (ainda falta implementar)</li>
-    </ol>
     <h3>Event</h3>
     <ol>
-        <li>Descrição do evento</li>
         <li><a href="${pageContext.request.contextPath}/Activity/subscription">Subscription</a></li>
     </ol>
     <h3>Activities</h3>
@@ -31,6 +26,10 @@
     <h3>Payments (variance)</h3>
     <ol>
         <li><a href="${pageContext.request.contextPath}/Activity/paymentSubscription">List</a></li>
+    </ol>
+    <h3>Contact (variance)</h3>
+    <ol>
+        <li><a href="${pageContext.request.contextPath}/contact">View</a></li>
     </ol>
 </div>
 <%@include file="../templates/footer.jspf" %>

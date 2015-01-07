@@ -19,7 +19,6 @@
     <p>System Capabilities: ${app.productCapabilities}
     <h3>Users</h3>
     <ol>
-        <li>Panel (ainda falta implementar)</li>
         <li><a href="${pageContext.request.contextPath}/User/add">Create</a></li>
         <li><a href="${pageContext.request.contextPath}/User/all">List</a></li>
     </ol>
@@ -40,6 +39,10 @@
     <h3>Payments (variance)</h3>
     <ol>
         <li><a href="${pageContext.request.contextPath}/Activity/paymentSubscription">List</a></li>
+    </ol>
+    <h3>Contact (variance)</h3>
+    <ol>
+        <li><a href="${pageContext.request.contextPath}/contact">View</a></li>
     </ol>
 </div>
 <%@include file="../templates/footer.jspf" %>

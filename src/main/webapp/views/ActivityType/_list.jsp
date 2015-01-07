@@ -31,12 +31,9 @@
                 <td>${activityType.title}</td>
                 <td>${activityType.description}</td>
                 <td>
-                    <a href="${pageContext.request.contextPath}/ActivityType/edit/${activityType.id}">
-                        <button class="btn btn-default btn-warning btn-embossed">Edit</button>
-                    </a> | 
-                    <a href="${pageContext.request.contextPath}/ActivityType/delete/${activityType.id}">
-                        <button class="btn btn-default btn-embossed">Delete
-                    </a>
+                    <a href="${pageContext.request.contextPath}/ActivityType/edit/${activityType.id}">Edit</a> | 
+                    <a href="${pageContext.request.contextPath}/ActivityType/delete/${activityType.id}">Delete</a>
+                    
                 </td>
             </tr>
         </c:forEach>

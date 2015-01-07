@@ -7,7 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@include file="../../templates/header.jspf" %>
-
 <div class="page-header">
     <h2>Users</h2>
 </div>

@@ -110,7 +110,6 @@ public class UserController extends ApplicationController {
     public ModelAndView allUsers() {
         ModelAndView modelAndView = new ModelAndView("User/_list");
         List<User> users = userService.getUsers();
-        modelAndView.addObject("title", "All Users :D");
         modelAndView.addObject("users", users);
         return modelAndView;
     }
