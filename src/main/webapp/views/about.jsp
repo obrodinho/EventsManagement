@@ -19,16 +19,19 @@
             We made a software that has variance over configurations. Like most commercial and Startup-like solutions, we present you an piece of study. An software that changes its features over configurations. Possibling rapid transition and adaptation to generated-distinct-products approaches, applied generally on Software Factories.
         </p>
         <p>
-            We sincerely hope that you enjoy.
+            We sincerely hope that you enjoy. Navigate through the docs to know more about our development.
         </p>
     </div>
 </div>
 <div class="row">
     <h2>Staff</h2>
+    <h4>Students</h4>
     <div>Mário Bortoli</div>
     <div>Kal Lenon</div>
     <div>Rafael Guimarães</div>
     <div>Raylan Souza</div>
+    <h2>Professor</h2>
+    <div>Ana Patrícia Fontes Magalhães</div>
 </div>
 <%@include file="../templates/footer.jspf" %>
 

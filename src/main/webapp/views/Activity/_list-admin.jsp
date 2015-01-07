@@ -37,8 +37,8 @@
                         <td>${activity.start}</td>
                         <td>${activity.end}</td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/Activity/edit/${activity.id}">Edit</a> | 
-                            <a href="${pageContext.request.contextPath}/Activity/delete/${activity.id}">Delete</a>
+                            <a href="${pageContext.request.contextPath}/Activity/edit/${activity.id}" class="btn btn-primary btn-embossed">Edit</a> | 
+                            <a href="${pageContext.request.contextPath}/Activity/delete/${activity.id}" class="btn btn-default btn-danger btn-embossed">Delete</a>
                         </td>
                     </tr>
                 </c:forEach>

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.consultjr.mvc.model;
+package org.consultjr.mvc.core.components;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -17,13 +17,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes("app")
 public class Application implements Serializable {
 
+    private String title;
     private String productKey;
     private String productType;
-    private ArrayList<String> productCapabilities;
+    private List<String> productCapabilities;
     private boolean installed = false;
     private Date installationDate;
     private Date upgradeDate;
     private Date expirationDate;
+    private String contextPath;
 
     public Application() {
         installationDate = new Date();
@@ -35,6 +37,14 @@ public class Application implements Serializable {
         this.productKey = productKey;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
     public String getProductKey() {
         return productKey;
     }
@@ -51,11 +61,11 @@ public class Application implements Serializable {
         this.productType = productType;
     }
 
-    public ArrayList<String> getProductCapabilities() {
+    public List<String> getProductCapabilities() {
         return productCapabilities;
     }
 
-    public void setProductCapabilities(ArrayList<String> productCapabilities) {
+    public void setProductCapabilities(List<String> productCapabilities) {
         this.productCapabilities = productCapabilities;
     }
 
@@ -91,8 +101,15 @@ public class Application implements Serializable {
         this.expirationDate = expirationDate;
     }
     
-    public boolean suports(String capability) {    
+    public boolean supports(String capability) {    
         return this.productCapabilities.contains(capability);
     }
-    
+
+    public String getContextPath() {
+        return contextPath;
+    }
+
+    public void setContextPath(String contextPath) {
+        this.contextPath = contextPath;
+    }
 }

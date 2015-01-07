@@ -18,8 +18,8 @@
     
     <div class="col-md-6 col-md-offset-3 well">
         <div class="row">
-            <div class="col-md-12" style="min-height: 200px; background: white">
-                <p class="well thumbnail small">
+            <div class="col-md-12" style="min-height: 400px; padding: 10px; background: white">
+                <p class="well small">
                     Please wait until we reach you...
                 </p>
             </div>
@@ -28,12 +28,12 @@
         <div class="row">
         
             <form>
-                <div class="col-md-8">
-                    <textarea class="col-md-12" placeholder="Write your message here..." disabled="disabled">
+                <div class="col-md-9">
+                    <textarea class="col-md-12 form-control" placeholder="Write your message here..." disabled="disabled">
                         
                     </textarea>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <input type="submit" class="btn btn-default btn-embossed btn-primary btn-hg" disabled="disabled" value="Send"/>
                 </div>
                     

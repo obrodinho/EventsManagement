@@ -5,14 +5,17 @@
  */
 package org.consultjr.mvc.core.base;
 
-import org.consultjr.mvc.model.Application;
+import org.consultjr.mvc.core.components.ApplicationNav;
+import org.consultjr.mvc.core.components.Application;
 import org.consultjr.mvc.model.SystemConfig;
 import org.consultjr.mvc.model.User;
 import org.consultjr.mvc.service.SystemConfigService;
 import org.consultjr.mvc.service.UserService;
+import org.consultjr.mvc.service.UserSystemProfileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,9 +26,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
  *
  * @author rgcs
  */
+@Scope("request")
 public class ApplicationController {
-    
+
     private Application app;
+
+    private ApplicationNav nav;
 
     private final Logger logger;
     /**
@@ -39,6 +45,9 @@ public class ApplicationController {
     @Autowired
     private SystemConfigService sysConfigService;
 
+    @Autowired
+    private UserSystemProfileService uspService;
+
     public Logger getLogger() {
         return logger;
     }
@@ -47,7 +56,6 @@ public class ApplicationController {
         this.logger = LoggerFactory.getLogger(this.getClass());
         SecurityContext secutiryContext = SecurityContextHolder.getContext();
         this.auth = secutiryContext.getAuthentication();
-        //this.app = this.getApplicationDatabaseObject();
     }
 
     public Authentication getAuth() {
@@ -72,7 +80,7 @@ public class ApplicationController {
 
     public void setSysConfigService(SystemConfigService sysConfigService) {
         this.sysConfigService = sysConfigService;
-    }    
+    }
 
     @ModelAttribute("loggedUser")
     public User getLoggedUser() {
@@ -92,7 +100,7 @@ public class ApplicationController {
 
         return null;
     }
-    
+
     private String getConfig(String configKey) {
         SystemConfig sc = sysConfigService.get(configKey);
 
@@ -105,28 +113,46 @@ public class ApplicationController {
 
     @ModelAttribute("productType")
     public String getProductType() {
-        return getConfig("_productType");
+        return getApplicationObject().getProductType();
     }
 
     @ModelAttribute("title")
     public String getPageTitle() {
         return getConfig("_appTitle");
     }
-        
-    public Application getApplicationDatabaseObject() {
+
+    private Application getApplicationDatabaseObject() {
         Application app = (Application) sysConfigService.getJson("_app", Application.class);
         this.app = (app != null ? app : new Application("_INVALID_"));
         return this.app;
     }
-    
+
     @ModelAttribute("app")
     public Application getApplicationObject() {
-        return (this.app == null || this.app.getProductKey().equals("_INVALID_") ? this.getApplicationDatabaseObject() : this.app);
+        return this.getApplicationDatabaseObject();
     }
-    
+
     protected void updateApplication(Application newerObject) {
         this.app = newerObject;
     }
-    
-    
+
+    private ApplicationNav prepareMenu() {
+
+        User loggedUser = getLoggedUser();
+
+        if (null == loggedUser) {
+            return null;
+        }
+
+        String productType = app.getProductType();
+        int userID = getLoggedUser().getId();
+        this.nav = new ApplicationNav();
+        return nav.prepare(app.getContextPath(), app, uspService.getRolesOfUser(userID));
+    }
+
+    @ModelAttribute("nav")
+    public ApplicationNav getNavigation() {
+        return prepareMenu();
+    }
+
 }

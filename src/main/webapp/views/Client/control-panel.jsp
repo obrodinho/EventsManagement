@@ -15,7 +15,7 @@
 <div class="row">
     System: ${productType}
     <h2>Panel</h2>
-    <c:if test="${productType eq 'multiEvents'}">
+    <c:if test="${app.supports('Events')}">
     <h3>Last Events</h3>
     <table class="table table-bordered table-condensed">
         <tbody>
@@ -38,7 +38,7 @@
             <tr>
                 <c:if test="${not empty classesSubscriptionPaymentPending}">
                     <c:forEach var="classesSubscriptionPaymentPending" items="${classesSubscriptionPaymentPending}">
-                        <td width="25%" align="center"><b>${classesSubscriptionPaymentPending.classes.activity.title}</b><br>${classesSubscriptionPaymentPending.classes.activity.description}<br><a href="${pageContext.request.contextPath}/Activity/confirmPayamentSubscription/${classesSubscriptionPaymentPending.payment.id}">Pay</a></td>
+                        <td width="25%" align="center"><b>${classesSubscriptionPaymentPending.classes.title}</b><br>${classesSubscriptionPaymentPending.classes.activity.description}<br><a href="${pageContext.request.contextPath}/Activity/confirmPayamentSubscription/${classesSubscriptionPaymentPending.payment.id}">Pay</a></td>
                     </c:forEach>
                 </c:if>
                 <c:if test="${empty classesSubscriptionPaymentPending}">

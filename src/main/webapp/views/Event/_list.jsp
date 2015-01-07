@@ -35,8 +35,8 @@
                     <td>${event.end}</td>
                     <td>${event.owner.username}</td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/Event/edit/${event.id}">Edit</a> | 
-                        <a href="${pageContext.request.contextPath}/Event/delete/${event.id}">Delete</a>
+                        <a href="${pageContext.request.contextPath}/Event/edit/${event.id}" class="btn btn-primary btn-embossed">Edit</a> | 
+                        <a href="${pageContext.request.contextPath}/Event/delete/${event.id}" class="btn btn-default btn-danger btn-embossed">Delete</a>
                     </td>
                 </tr>
             </c:forEach>

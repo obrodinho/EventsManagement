@@ -17,7 +17,7 @@ public class SupportController extends ApplicationController {
 
         ModelAndView supportView = new ModelAndView("support");
 
-        if (!getApplicationObject().suports("Support")) {
+        if (!getApplicationObject().supports("Support")) {
             supportView.setViewName("forward:/contact");
             supportView.addObject("message", "Hey, pirate! This solution is not supported by your Product. Contact us!");
         }

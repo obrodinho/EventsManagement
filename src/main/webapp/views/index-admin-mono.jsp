@@ -23,7 +23,7 @@
     <h3>Event</h3>
     <ol>
         <li><a href="${pageContext.request.contextPath}/Event/all">View</a></li>
-        <li><a href="${pageContext.request.contextPath}/Event/edit/1">Edit</a></li>
+        <li><a href="${pageContext.request.contextPath}/Event/edit/1" class="btn btn-primary btn-embossed">Edit</a></li>
         <li><a href="${pageContext.request.contextPath}/Activity/subscription">Subscription</a></li>
     </ol>
     <h3>Activity Type</h3>

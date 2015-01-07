@@ -11,27 +11,8 @@
         </button>
         <a class="navbar-brand" href="${cp}">${title}</a>
     </div>
-    <div class="collapse navbar-collapse" id="navbar-collapse">
-        <!-- aqui um mecanismo de geração de menu, iria interpretar a requisão, o usuário, e carregar seus menus. --> 
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="${cp}/about">About</a></li>
-            <li><a href="${cp}/support">Support</a></li>
-            <li><a href="${cp}/contact">Contact</a></li>
-        </ul>
-        <!-- aqui, carregaríamos o form de login caso o user não esteja logado. Ou informaríamos seu usuário, caso contrário -->
-        <!--
-    <form class="navbar-form navbar-right" action="#" role="login">
-            <div class="form-group">
-                <div class="input-group">
-                    <input class="form-control" id="username" name="username" type="text" placeholder="Username">
-                    <input class="form-control" id="password" name="password" type="text" placeholder="Password">
-                    <span class="input-group-btn">
-                        <button type="submit" class="btn"><span class="fui-check"></span> Login</button>
-                    </span>
-                </div>
-            </div>
-    </form>
-        -->
+    <div class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="navbar-collapse">
+        ${nav.html}
         <span class="pull-right">
             <sec:authentication var="user" property="principal" />
 

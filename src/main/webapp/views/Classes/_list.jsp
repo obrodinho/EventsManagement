@@ -30,8 +30,8 @@
                 <td>${classes.title}</td>
                 <td>${classes.description}</td>
                 <td>
-                    <a href="${pageContext.request.contextPath}/Classes/edit/${classes.id}">Edit</a> | 
-                    <a href="${pageContext.request.contextPath}/Classes/delete/${classes.id}">Delete</a> |
+                    <a href="${pageContext.request.contextPath}/Classes/edit/${classes.id}" class="btn btn-primary btn-embossed">Edit</a> | 
+                    <a href="${pageContext.request.contextPath}/Classes/delete/${classes.id}" class="btn btn-default btn-danger btn-embossed">Delete</a> |
                     <a href="${pageContext.request.contextPath}/User/all/${classes.id}">Inscrever Usuário</a>
                 </td>
             </tr>

@@ -29,8 +29,8 @@
                 <td>${payment.status}</td>
                 <td>${payment.type}</td>
                 <td>
-                    <a href="${pageContext.request.contextPath}/Payment/edit/${payment.id}">Edit</a> | 
-                    <a href="${pageContext.request.contextPath}/Payment/delete/${payment.id}">Delete</a>
+                    <a href="${pageContext.request.contextPath}/Payment/edit/${payment.id}" class="btn btn-primary btn-embossed">Edit</a> | 
+                    <a href="${pageContext.request.contextPath}/Payment/delete/${payment.id}" class="btn btn-default btn-danger btn-embossed">Delete</a>
                 </td>
             </tr>
         </c:forEach>

@@ -31,8 +31,8 @@
                 <td>${activityType.title}</td>
                 <td>${activityType.description}</td>
                 <td>
-                    <a href="${pageContext.request.contextPath}/ActivityType/edit/${activityType.id}">Edit</a> | 
-                    <a href="${pageContext.request.contextPath}/ActivityType/delete/${activityType.id}">Delete</a>
+                    <a href="${pageContext.request.contextPath}/ActivityType/edit/${activityType.id}" class="btn btn-primary btn-embossed">Edit</a> | 
+                    <a href="${pageContext.request.contextPath}/ActivityType/delete/${activityType.id}" class="btn btn-default btn-danger btn-embossed">Delete</a>
                     
                 </td>
             </tr>

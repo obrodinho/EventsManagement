@@ -35,11 +35,11 @@
                     <td>${event.end}</td>
                     <td>${event.owner.username}</td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/Event/edit/${event.id}">Edit</a> | 
-                        <a href="${pageContext.request.contextPath}/Event/delete/${event.id}">Delete</a> | 
-                        <a href="${pageContext.request.contextPath}/Activity/add/${event.id}">Add Activity</a> | 
-                        <a href="${pageContext.request.contextPath}/Activity/all/${event.id}">List Activities</a> | 
-                        <a href="${pageContext.request.contextPath}/Event/${event.id}/Activity/subscription">Subscription</a>
+                        <a href="${pageContext.request.contextPath}/Event/edit/${event.id}" class="btn btn-primary btn-embossed">Edit</a> | 
+                        <a href="${pageContext.request.contextPath}/Event/delete/${event.id}" class="btn btn-default btn-danger btn-embossed">Delete</a> | 
+                        <a href="${pageContext.request.contextPath}/Activity/add/${event.id}" class="btn btn-primary btn-embossed">Add Activity</a> | 
+                        <a href="${pageContext.request.contextPath}/Activity/all/${event.id}" class="btn btn-primary btn-embossed">List Activities</a> | 
+                        <a href="${pageContext.request.contextPath}/Event/${event.id}/Activity/subscription" class="btn btn-primary btn-embossed">Subscription</a>
                         
                     </td>
                 </tr>

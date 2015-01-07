@@ -49,14 +49,12 @@ public class IndexController extends ApplicationController {
         } /*else if (null != principal || null != getLoggedUser()) {
          indexView.addObject("message", "Hey, " + principal.getName() + "! The system has already been installed.");
          return indexView;
-        }*/
+         }*/
 
         SecurityContext sc = SecurityContextHolder.getContext();
         Authentication auth = sc.getAuthentication();
-        //getLogger().info(auth.getAuthorities().toString());
-        getLogger().info("getLoggedUser {}", getLoggedUser());
         if (null != getLoggedUser()) {
-            if (sysService.getConfigByKey("_productType").getValue().equals("singleEvent")) {
+            if (!getApplicationObject().supports("Events")) {
                 if (uspService.userHasRole(getLoggedUser().getId(), "admin")) {
                     getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
                     ModelAndView modelAndView = new ModelAndView("index-admin-mono");
@@ -68,8 +66,7 @@ public class IndexController extends ApplicationController {
                     return modelAndView;
                 }
 
-            }
-            if (sysService.getConfigByKey("_productType").getValue().equals("multiEvents")) {
+            } else {
                 if (uspService.userHasRole(getLoggedUser().getId(), "admin")) {
                     getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
                     ModelAndView modelAndView = new ModelAndView("index-admin-multi");
@@ -84,7 +81,7 @@ public class IndexController extends ApplicationController {
             }
 
         }
-        if (sysService.getConfigByKey("_productType") != null && sysService.getConfigByKey("_productType").getValue().equals("multiEvents")) {
+        if (getApplicationObject().supports("Events")) {
             return new ModelAndView("index-multi");
         }
         return new ModelAndView("index-mono");

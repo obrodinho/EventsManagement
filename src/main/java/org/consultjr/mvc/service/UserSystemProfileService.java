@@ -5,6 +5,7 @@
  */
 package org.consultjr.mvc.service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.consultjr.mvc.core.base.ApplicationService;
@@ -67,10 +68,10 @@ public class UserSystemProfileService extends ApplicationService {
     public List<User> getUsersOfSystemProfile(int profileID) {
         return uspDAO.getUsersOfSystemProfile(profileID);
     }
-    
+
     @Transactional
     public boolean userHasRole(int userID, String roleName) {
-        getLogger().info("User: {} | Role: {}", userID,  roleName);
+        getLogger().info("User: {} | Role: {}", userID, roleName);
 
         Iterator<SystemProfile> it = this.getSystemProfilesOfUser(userID).iterator();
 
@@ -83,6 +84,18 @@ public class UserSystemProfileService extends ApplicationService {
         }
 
         return false;
+    }
+
+    @Transactional
+    public List<String> getRolesOfUser(int userID) {
+        List<SystemProfile> list = uspDAO.getSystemProfilesOfUser(userID);
+        Iterator<SystemProfile> it = list.listIterator();
+        List<String> roles = new ArrayList<>();
+        while (it.hasNext()) {
+            SystemProfile sp = it.next();
+            roles.add(sp.getShortname());
+        }
+        return roles;
     }
 
 }

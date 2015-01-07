@@ -7,10 +7,12 @@ package org.consultjr.mvc.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.consultjr.mvc.core.base.ApplicationController;
 import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.ActivityType;
-import org.consultjr.mvc.model.Application;
+import org.consultjr.mvc.core.components.Application;
 import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.model.Event;
 import org.consultjr.mvc.model.SubscriptionProfile;
@@ -97,10 +99,12 @@ public class SystemController extends ApplicationController {
             @RequestParam(value = "installKey", required = true) String installKey,
             @RequestParam(value = "appTitle", required = false) String appTitle,
             @RequestParam(value = "adminUsername", required = false) String adminUsername,
-            @RequestParam(value = "adminPassword", required = false) String adminPassword
+            @RequestParam(value = "adminPassword", required = false) String adminPassword,
+            HttpServletRequest request
     ) {
 
         Application app = new Application();
+        app.setContextPath(request.getContextPath());
         ModelAndView setupView = new ModelAndView("redirect:/login?installed");
         /* TODO make it on a hash
          KEY COULD BE LIKE XXXX-XXXX-9999-9999
@@ -137,22 +141,33 @@ public class SystemController extends ApplicationController {
         getLogger().info(String.valueOf(installKey.length()));
 
         if (19 == installKey.length()) {
-            app.setProductKey(installKey);
-            ArrayList<String> productCapabilities = new ArrayList<String>();
+            List<String> productCapabilities = new ArrayList<String>();
+            
             String[] keyParts = installKey.split("-");
+            
             if (null != keyParts[0]) {
                 switch (keyParts[0]) {
                     case "88B5":
-                        productType = "multiEvents";
+                        productType = "88B5-FULL";
                         app.setProductType(productType);
                         productCapabilities.add("Events");
                         productCapabilities.add("Payments");
                         productCapabilities.add("Support");
                         break;
                     case "83FF":
-                        productType = "singleEvent";
+                        productType = "83FF-ONLY_SUPPORT";
                         app.setProductType(productType);
                         productCapabilities.add("Support");
+                        break;
+                    case "8888":
+                        productType = "8888-ONLY_PAYMENTS";
+                        app.setProductType(productType);
+                        productCapabilities.add("Payments");
+                        break;
+                    case "MKRR":
+                        productType = "MKRR-ONLY_EVENTS";
+                        app.setProductType(productType);
+                        productCapabilities.add("Events");
                         break;
                 }
 
@@ -213,30 +228,25 @@ public class SystemController extends ApplicationController {
             subsProfileService.addSubscriptionProfile(new SubscriptionProfile("Palestrante", "palestrante"));
             subsProfileService.addSubscriptionProfile(new SubscriptionProfile("Monitor", "monitor"));
 
-            systemConfigService.addConfig(new SystemConfig("_productType", productType));
-
             /*
              App Key
              */
-            systemConfigService.addConfig(new SystemConfig("_productkey", installKey));
-
+            app.setProductKey(installKey);
+            
             /*
              App Title
              */
             appTitle = (!appTitle.isEmpty() ? appTitle : "Events Management");
             systemConfigService.addConfig(new SystemConfig("_appTitle", appTitle));
-
-            systemConfigService.addConfig(new SystemConfig("_installed", "yes"));
-            systemConfigService.addConfig(new SystemConfig("_configuredAt", app.getInstallationDate().toString()));
-
+            app.setTitle(appTitle);
+            
+            
             app.setInstalled(true);
 
             systemConfigService.saveJson("_app", app);
-            
+
             //this.updateApplication(app);
-
             //setupView.addObject("message", "Initial database objects has been created.");
-
         } else {
             setupView.addObject("message", "Installation failed. Check your product KEY or try contacting support.");
             setupView.setViewName("forward:/System/install");

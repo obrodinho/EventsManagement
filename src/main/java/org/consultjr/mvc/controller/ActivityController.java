@@ -240,7 +240,7 @@ public class ActivityController extends ApplicationController {
             classeSubscriptionService.addClassesSubscription(cs);
             classesSubscriptionPaymentPending.add(cs);
         }
-        if(getApplicationObject().suports("Payments") == false){
+        if(getApplicationObject().supports("Payments") == false){
             modelAndView = new ModelAndView("forward:/");
             String message = "Activity registration succesfull.";
             modelAndView.addObject("message", message);
