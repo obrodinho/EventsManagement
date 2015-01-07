@@ -15,6 +15,7 @@
         <!-- aqui um mecanismo de geração de menu, iria interpretar a requisão, o usuário, e carregar seus menus. --> 
         <ul class="nav navbar-nav">
             <li class="active"><a href="${cp}/about">About</a></li>
+            <li><a href="${cp}/support">Support</a></li>
             <li><a href="${cp}/contact">Contact</a></li>
         </ul>
         <!-- aqui, carregaríamos o form de login caso o user não esteja logado. Ou informaríamos seu usuário, caso contrário -->

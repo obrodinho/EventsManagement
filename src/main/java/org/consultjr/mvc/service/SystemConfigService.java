@@ -5,6 +5,7 @@
  */
 package org.consultjr.mvc.service;
 
+import com.google.gson.Gson;
 import java.util.Date;
 import java.util.List;
 import org.consultjr.mvc.core.base.ApplicationService;
@@ -83,13 +84,33 @@ public class SystemConfigService extends ApplicationService {
             sys.setValue(value);
             sys.setUpdated(new Date());
             updateConfig(sys, sys.getId());
-        } 
-        /* else if (value.equals("")) {
-            deleteConfig(getConfigByKey(key));
-        }*/ 
-        else {
+        } /* else if (value.equals("")) {
+         deleteConfig(getConfigByKey(key));
+         }*/ else {
             addConfig(new SystemConfig(key, value));
         }
+    }
+
+    @Transactional
+    public void saveJson(String key, Object o) {
+        Gson gson = new Gson();
+
+        String jsonSerializedObject = gson.toJson(o);
+
+        this.set(key, jsonSerializedObject);
+    }
+    
+    @Transactional
+    public Object getJson(String key, Class targetClass) {
+        Gson gson = new Gson();
+        Object o = null;
+        SystemConfig sc = this.get(key);
+        
+        if (null != sc) {
+            o = gson.fromJson(sc.getValue(), targetClass);
+        }
+        
+        return o;
     }
 
 }
