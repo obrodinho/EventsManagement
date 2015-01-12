@@ -42,23 +42,14 @@ public class Event implements Serializable {
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date start;
-    
-    @Transient
-    private String dateStart;
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date end;
-    
-    @Transient
-    private String dateEnd;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name="owner")
     private User owner;
     
-    @Transient
-    private int userID;
-
     @Column
     private boolean deleted;
 
@@ -100,30 +91,6 @@ public class Event implements Serializable {
         this.id = id;
     }
 
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-    public String getDateStart() {
-        return dateStart;
-    }
-
-    public void setDateStart(String dateStart) {
-        this.dateStart = dateStart;
-    }
-
-    public String getDateEnd() {
-        return dateEnd;
-    }
-
-    public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd;
-    }
-
     public List<Event> getActivities() {
         return activities;
     }
@@ -133,29 +100,32 @@ public class Event implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Event{" + "id=" + id + ", title=" + title + ", description=" + description + ", start=" + start + ", end=" + end + ", owner=" + owner + ", deleted=" + deleted + ", created=" + created + ", updated=" + updated + ", activities=" + activities + '}';
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
+        int hash = 7;
+        hash = 17 * hash + this.id;
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof Event)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Event other = (Event) object;
-        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Event other = (Event) obj;
+        if (this.id != other.id) {
             return false;
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "org.consultjr.mvc.model.Event[ id=" + id + " ]";
-    }
-
+    
     public String getTitle() {
         return title;
     }

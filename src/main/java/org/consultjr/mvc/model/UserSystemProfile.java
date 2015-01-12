@@ -7,6 +7,7 @@ package org.consultjr.mvc.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -70,28 +71,34 @@ public class UserSystemProfile extends ApplicationModel implements Serializable 
     }
 
     @Override
+    public String toString() {
+        return "UserSystemProfile{" + "user=" + user + ", profile=" + profile + ", associated=" + associated + '}';
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (this.profile.getId()*10 + this.user.getId() != 0 ? this.hashCode() : 0);
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.user);
+        hash = 53 * hash + Objects.hashCode(this.profile);
         return hash;
     }
 
     @Override
-    public String toString() {
-        return this.getClass() + "[ " + user.getUsername() + ", " + profile.getShortname() + " ]";
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserSystemProfile)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        UserSystemProfile other = (UserSystemProfile) object;
-        if ((this.user.getId() != other.user.getId()) || (this.profile.getId() != other.profile.getId())) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final UserSystemProfile other = (UserSystemProfile) obj;
+        if (!Objects.equals(this.user, other.user)) {
+            return false;
+        }
+        if (!Objects.equals(this.profile, other.profile)) {
             return false;
         }
         return true;
-    }
+    }  
 
 }

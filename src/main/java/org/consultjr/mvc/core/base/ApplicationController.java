@@ -20,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * Base Controller Operations
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
  * @author rgcs
  */
 @Scope("request")
+@SessionAttributes("runningApp")
 public class ApplicationController {
 
     private Application app;
@@ -88,7 +90,7 @@ public class ApplicationController {
             return null;
         }
 
-        getLogger().info("Principal: {}", getAuth().getPrincipal());
+        getLogger().debug("Principal: {}", getAuth().getPrincipal());
         if (!(getAuth().getPrincipal() instanceof org.springframework.security.core.userdetails.User)) {
             return null;
         }
@@ -137,6 +139,7 @@ public class ApplicationController {
     }
 
     private ApplicationNav prepareMenu() {
+        this.app = this.getApplicationObject();
 
         User loggedUser = getLoggedUser();
 
@@ -144,7 +147,6 @@ public class ApplicationController {
             return null;
         }
 
-        String productType = app.getProductType();
         int userID = getLoggedUser().getId();
         this.nav = new ApplicationNav();
         return nav.prepare(app.getContextPath(), app, uspService.getRolesOfUser(userID));
@@ -154,5 +156,12 @@ public class ApplicationController {
     public ApplicationNav getNavigation() {
         return prepareMenu();
     }
+
+    @Override
+    public String toString() {
+        return this.getClass() + "{" + "app=" + app + ", nav=" + nav + ", logger=" + logger + ", auth=" + auth + '}';
+    }
+    
+    
 
 }

@@ -3,6 +3,7 @@ package org.consultjr.mvc.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -115,31 +116,35 @@ public class ActivityType extends ApplicationModel implements Serializable {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
-    
-    
+
     @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof ActivityType)) {
-            return false;
-        }
-        ActivityType other = (ActivityType) object;
-        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
-            return false;
-        }
-        return true;
+    public String toString() {
+        return "ActivityType{" + "id=" + id + ", activities=" + activities + ", shortname=" + shortname + ", title=" + title + ", description=" + description + ", created=" + created + ", updated=" + updated + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
+        int hash = 3;
+        hash = 17 * hash + this.id;
         return hash;
     }
 
-
     @Override
-    public String toString() {
-        return this.getClass() + "[ " + id  + " ]";
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ActivityType other = (ActivityType) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.shortname, other.shortname)) {
+            return false;
+        }
+        return true;
     }
 
 }

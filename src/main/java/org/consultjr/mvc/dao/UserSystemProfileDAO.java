@@ -80,7 +80,7 @@ public class UserSystemProfileDAO extends ApplicationDAO {
                 .setParameter("uid", userID)
 //                .setResultTransformer(Transformers.aliasToBean(SystemProfile.class))
                 .list();
-        getLogger().info("Sysprofiles of user: {}", list);
+        getLogger().debug("Sysprofiles of user: {}", list);
         return list;
     }
     

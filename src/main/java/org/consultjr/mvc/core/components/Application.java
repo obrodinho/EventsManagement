@@ -8,12 +8,14 @@ package org.consultjr.mvc.core.components;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Date;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  *
  * @author Rafael
  */
+@Component
 @SessionAttributes("app")
 public class Application implements Serializable {
 
@@ -44,7 +46,7 @@ public class Application implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     public String getProductKey() {
         return productKey;
     }
@@ -100,8 +102,8 @@ public class Application implements Serializable {
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
-    
-    public boolean supports(String capability) {    
+
+    public boolean supports(String capability) {
         return this.productCapabilities.contains(capability);
     }
 
@@ -112,4 +114,10 @@ public class Application implements Serializable {
     public void setContextPath(String contextPath) {
         this.contextPath = contextPath;
     }
+
+    @Override
+    public String toString() {
+        return "Application{" + "title=" + title + ", productKey=" + productKey + ", productType=" + productType + ", productCapabilities=" + productCapabilities + ", installed=" + installed + ", installationDate=" + installationDate + ", upgradeDate=" + upgradeDate + ", expirationDate=" + expirationDate + ", contextPath=" + contextPath + '}';
+    }
+
 }

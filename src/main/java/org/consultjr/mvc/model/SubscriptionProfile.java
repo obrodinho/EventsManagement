@@ -96,26 +96,30 @@ public class SubscriptionProfile extends ApplicationModel implements Serializabl
 
     @Override
     public String toString() {
-        return "SubscriptionProfile{" + "id=" + id + ", description=" + description + ", name=" + shortname + ", created=" + created + ", updated=" + updated + '}';
+        return "SubscriptionProfile{" + "id=" + id + ", description=" + description + ", shortname=" + shortname + ", created=" + created + ", updated=" + updated + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
+        int hash = 5;
+        hash = 71 * hash + this.id;
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SubscriptionProfile)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        SubscriptionProfile other = (SubscriptionProfile) object;
-        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SubscriptionProfile other = (SubscriptionProfile) obj;
+        if (this.id != other.id) {
             return false;
         }
         return true;
     }
+    
+    
 }

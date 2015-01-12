@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.consultjr.mvc.core.security;
+package org.consultjr.mvc.core.config.security;
 
 import javax.sql.DataSource;
 import org.slf4j.Logger;
@@ -47,7 +47,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("UDService")
     private UserDetailsService userDetailsService;
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -90,11 +89,13 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/about/**",
                         "/support/**",
                         "/contact/**",
+                        "/Public/**", // for public content... CMS, Ajax, etc
                         "/System/install/**",
                         "/User/edit/**",
                         "/User/panel/**").permitAll()
+                .antMatchers("/Client/**").hasAuthority("client")
                 .antMatchers(
-                        "/admin/**",
+                        "/Admin/**",
                         "/User/**").hasAuthority("admin")
                 .anyRequest().authenticated();
     }

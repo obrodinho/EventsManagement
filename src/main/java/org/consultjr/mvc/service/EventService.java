@@ -7,7 +7,6 @@ package org.consultjr.mvc.service;
 
 import java.util.Date;
 import java.util.List;
-import org.consultjr.mvc.core.components.ApplicationUtils;
 import org.consultjr.mvc.dao.EventDAO;
 import org.consultjr.mvc.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +31,6 @@ public class EventService {
      */
     @Transactional(readOnly = false)
     public void addEvent(Event event) {
-        
-        if (event.getDateStart() != null) {
-            event.setStart(ApplicationUtils.StringToDate(event.getDateStart()));
-        }
-
-        if (event.getDateEnd() != null) {
-            event.setEnd(ApplicationUtils.StringToDate(event.getDateEnd()));
-        }
-        
         getEventDAO().addEvent(event);
     }
 

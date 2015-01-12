@@ -33,11 +33,8 @@ public class LoginController extends ApplicationController {
     public ModelAndView loginForm(Principal principal) {
         ModelAndView index = new ModelAndView();
 
-        getLogger().info("Principal: {}", principal);
-
         if (principal != null || getLoggedUser() != null) {
             index.setViewName("redirect:/");
-            getLogger().info("User: {}", getLoggedUser().getUsername());
         } else {
             index.setViewName("login-form");
             index.addObject("login", new Login());

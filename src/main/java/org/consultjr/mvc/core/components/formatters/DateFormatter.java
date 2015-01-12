@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.consultjr.mvc.core.formatters;
+package org.consultjr.mvc.core.components.formatters;
 
-import org.consultjr.mvc.core.components.ApplicationUtils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,7 +26,7 @@ public class DateFormatter implements Formatter<Date> {
         try {
             return formatter.format(object).toString();
         } catch (Exception ex) {
-            Logger.getLogger(ApplicationUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DateFormatter.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
@@ -39,7 +38,7 @@ public class DateFormatter implements Formatter<Date> {
         try {
             return formatter.parse(srtDateFormated);
         } catch (ParseException ex) {
-            Logger.getLogger(ApplicationUtils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DateFormatter.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }

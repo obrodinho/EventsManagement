@@ -59,46 +59,6 @@ public class Payment implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date paid_at;
 
-    /**
-     *
-     */
-//    @OneToMany(mappedBy = "payment", targetEntity = ClassesSubscription.class)
-//    private List<ClassesSubscription> classes;
-//
-//    public List<ClassesSubscription> getClasses() {
-//        return classes;
-//    }
-//
-//    public void setClasses(List<ClassesSubscription> classes) {
-//        this.classes = classes;
-//    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Payment)) {
-            return false;
-        }
-        Payment other = (Payment) object;
-        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.rguimaraens.spring.model.User[ id=" + id + " ]";
-    }
-        
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
-        return hash;
-    }
-
-
     public String getStatus() {
         return status;
     }
@@ -131,7 +91,35 @@ public class Payment implements Serializable {
         this();
         this.status = status;
         this.type = type;
-
     }
+
+    @Override
+    public String toString() {
+        return "Payment{" + "id=" + id + ", status=" + status + ", type=" + type + ", paid_at=" + paid_at + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Payment other = (Payment) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.consultjr.mvc.core.converters;
+package org.consultjr.mvc.core.components.converters;
 
 import org.consultjr.mvc.model.SystemProfile;
 import org.consultjr.mvc.service.SystemProfileService;

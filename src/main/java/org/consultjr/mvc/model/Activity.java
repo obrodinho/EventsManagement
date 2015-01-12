@@ -63,15 +63,9 @@ public class Activity extends ApplicationModel implements Serializable {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date start;
 
-    @Transient
-    private String dateStart;
-
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date end;
-
-    @Transient
-    private String dateEnd;
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date created;
@@ -155,22 +149,6 @@ public class Activity extends ApplicationModel implements Serializable {
         return updated;
     }
 
-    public String getDateStart() {
-        return dateStart;
-    }
-
-    public void setDateStart(String dateStart) {
-        this.dateStart = dateStart;
-    }
-
-    public String getDateEnd() {
-        return dateEnd;
-    }
-
-    public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd;
-    }
-
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
@@ -202,8 +180,8 @@ public class Activity extends ApplicationModel implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
+        int hash = 5;
+        hash = 13 * hash + this.id;
         return hash;
     }
 

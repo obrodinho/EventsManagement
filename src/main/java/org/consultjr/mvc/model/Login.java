@@ -6,6 +6,7 @@
 package org.consultjr.mvc.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import org.consultjr.mvc.core.base.ApplicationModel;
 
 /**
@@ -49,24 +50,31 @@ public class Login extends ApplicationModel implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Login{" + "username=" + username + '}';
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (username.hashCode());
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.username);
+        hash = 89 * hash + Objects.hashCode(this.password);
         return hash;
     }
 
     @Override
-    public String toString() {
-        return this.getClass() + "[ " + this.getUsername() + " ]";
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof Login)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Login other = (Login) object;
-        if (this.username == null ? other.username != null : !this.username.equals(other.username)) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Login other = (Login) obj;
+        if (!Objects.equals(this.username, other.username)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
             return false;
         }
         return true;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.consultjr.mvc.core.formatters;
+package org.consultjr.mvc.core.components.formatters;
 
 import java.text.ParseException;
 import java.util.Locale;
@@ -32,10 +32,10 @@ public class UserFormatter implements Formatter<User> {
 
     public User convert(String s) {
         User u = new User();
-        logger.info("Trying to convert String to User");
-        logger.info("GREATEST GAMBIARRA on Earth. Can't reach Service to retrieve info from DB. So, return an empty object with the ID we must Grab from DB and return that object. Shame on you, Spring.");
+        logger.debug("Trying to convert String to User");
+        logger.debug("GREATEST GAMBIARRA on Earth. Can't reach Service to retrieve info from DB. So, return an empty object with the ID we must Grab from DB and return that object. Shame on you, Spring.");
         u.setId(Integer.parseInt(s));
-        logger.info("object: {}", u);
+        logger.debug("object: {}", u);
         return u;
     }
 

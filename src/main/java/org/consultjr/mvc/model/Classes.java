@@ -2,6 +2,7 @@ package org.consultjr.mvc.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -123,24 +124,31 @@ public class Classes extends ApplicationModel implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Classes{" + "id=" + id + ", activity=" + activity + ", title=" + title + ", description=" + description + ", created=" + created + ", updated=" + updated + ", standard=" + standard + '}';
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
+        int hash = 7;
+        hash = 89 * hash + this.id;
+        hash = 89 * hash + Objects.hashCode(this.activity);
         return hash;
     }
 
     @Override
-    public String toString() {
-        return this.getClass() + "[ " + id + " ]";
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof Classes)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Classes other = (Classes) object;
-        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Classes other = (Classes) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.activity, other.activity)) {
             return false;
         }
         return true;

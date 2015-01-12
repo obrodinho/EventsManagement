@@ -72,7 +72,7 @@ public class EventController extends ApplicationController {
     @RequestMapping(value = "/add", method = RequestMethod.POST) // Save Method: POST /PROJECT/Event/add
     public ModelAndView addEvent(@ModelAttribute Event event, BindingResult errors, HttpServletRequest request) {
         if (errors.hasErrors()) {
-            getLogger().info("Binding Error");
+            getLogger().debug("Binding Error");
         }
         ModelAndView modelAndView = new ModelAndView("forward:/Event/all");
         //event.setOwner(userService.getUserById(event.getUserID()));
@@ -148,15 +148,15 @@ public class EventController extends ApplicationController {
         
         SecurityContext sc = SecurityContextHolder.getContext();
         Authentication auth = sc.getAuthentication();
-        getLogger().info(auth.getAuthorities().toString());
+        getLogger().debug(auth.getAuthorities().toString());
         
         if (principal != null) {
             if (uspService.userHasRole(getLoggedUser().getId(), "admin")){
-                getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
+                getLogger().debug(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
                  modelAndView = new ModelAndView("Event/_list-admin");
             }
             if (uspService.userHasRole(getLoggedUser().getId(), "client")){
-                getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
+                getLogger().debug(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
                 modelAndView = new ModelAndView("Event/_list-client");
             }
         }

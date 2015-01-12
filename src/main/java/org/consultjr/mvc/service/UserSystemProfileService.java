@@ -71,13 +71,13 @@ public class UserSystemProfileService extends ApplicationService {
 
     @Transactional
     public boolean userHasRole(int userID, String roleName) {
-        getLogger().info("User: {} | Role: {}", userID, roleName);
+        getLogger().debug("User: {} | Role: {}", userID, roleName);
 
         Iterator<SystemProfile> it = this.getSystemProfilesOfUser(userID).iterator();
 
         while (it.hasNext()) {
             SystemProfile sp = it.next();
-            getLogger().info("User Role: {}", sp.getShortname());
+            getLogger().debug("User Role: {}", sp.getShortname());
             if (sp.getShortname().equals(roleName)) {
                 return true;
             }

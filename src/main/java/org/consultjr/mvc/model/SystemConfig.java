@@ -7,6 +7,7 @@ package org.consultjr.mvc.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -97,27 +98,31 @@ public class SystemConfig extends ApplicationModel implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "SystemConfig{" + "id=" + id + ", key=" + key + ", value=" + value + ", created=" + created + ", updated=" + updated + '}';
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
+        int hash = 3;
+        hash = 43 * hash + Objects.hashCode(this.key);
         return hash;
     }
 
     @Override
-    public String toString() {
-        return this.getClass() + "[ " + id  + " ]";
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SystemConfig)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        SystemConfig other = (SystemConfig) object;
-        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SystemConfig other = (SystemConfig) obj;
+        if (!Objects.equals(this.key, other.key)) {
             return false;
         }
         return true;
     }
+    
+        
 }

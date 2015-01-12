@@ -42,7 +42,7 @@ public class SystemProfile extends ApplicationModel implements Serializable {
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date updated;
-    
+
     @OneToMany(mappedBy = "profile", targetEntity = UserSystemProfile.class)
     private List<UserSystemProfile> users;
 
@@ -94,29 +94,31 @@ public class SystemProfile extends ApplicationModel implements Serializable {
         this.created = new Date();
         this.shortname = shortname;
         this.description = description;
-       
-    }    
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
-        return hash;
     }
 
     @Override
     public String toString() {
-        return this.getClass() + "[ " + id  + " ]";
+        return "SystemProfile{" + "id=" + id + ", shortname=" + shortname + ", description=" + description + ", created=" + created + ", updated=" + updated + ", users=" + users + '}';
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SystemProfile)) {
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        SystemProfile other = (SystemProfile) object;
-        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SystemProfile other = (SystemProfile) obj;
+        if (this.id != other.id) {
             return false;
         }
         return true;

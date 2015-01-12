@@ -89,9 +89,6 @@ public class User extends ApplicationModel implements Serializable {
     @OneToMany(mappedBy = "user", targetEntity = UserSystemProfile.class)
     private List<UserSystemProfile> profiles;
 
-    @Transient
-    private Type type;
-
     public String getFirstname() {
         return firstname;
     }
@@ -132,10 +129,6 @@ public class User extends ApplicationModel implements Serializable {
         this.updated = updated;
     }
 
-    public Type getType() {
-        return type;
-    }
-
     /**
      * @return the password
      */
@@ -148,13 +141,6 @@ public class User extends ApplicationModel implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    /**
-     * @param type the type to set
-     */
-    public void setType(Type type) {
-        this.type = type;
     }
 
     public Boolean getDeleted() {
@@ -194,27 +180,30 @@ public class User extends ApplicationModel implements Serializable {
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+    public String toString() {
+        return "User{" + "id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", username=" + username + ", password=" + password + ", deleted=" + deleted + ", created=" + created + ", updated=" + updated + ", profiles=" + profiles + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        User other = (User) object;
-        if ((this.id == 0 && other.id > 0) || ((this.id > 0) && (this.id != other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (this.id != other.id) {
             return false;
         }
         return true;
     }
 
-    @Override
-    public String toString() {
-        return this.getClass() + "[ " + id + " ]";
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != 0 ? this.hashCode() : 0);
-        return hash;
-    }
 }

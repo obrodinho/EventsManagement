@@ -7,9 +7,9 @@ package org.consultjr.mvc.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -108,23 +108,37 @@ public class ClassesSubscription extends ApplicationModel implements Serializabl
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (classes.getId() + user.getId() * 10 + subscriptionProfile.getId() * 100 != 0 ? this.hashCode() : 0);
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.classes);
+        hash = 73 * hash + Objects.hashCode(this.user);
+        hash = 73 * hash + Objects.hashCode(this.subscriptionProfile);
+        hash = 73 * hash + Objects.hashCode(this.payment);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ClassesSubscription)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        ClassesSubscription other = (ClassesSubscription) object;
-        if ((this.user.getId() != other.user.getId()) || 
-                (this.classes.getId() != other.classes.getId()) || 
-                (this.subscriptionProfile.getId() != other.subscriptionProfile.getId())) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ClassesSubscription other = (ClassesSubscription) obj;
+        if (!Objects.equals(this.classes, other.classes)) {
+            return false;
+        }
+        if (!Objects.equals(this.user, other.user)) {
+            return false;
+        }
+        if (!Objects.equals(this.subscriptionProfile, other.subscriptionProfile)) {
+            return false;
+        }
+        if (!Objects.equals(this.payment, other.payment)) {
             return false;
         }
         return true;
     }
+
+    
 }

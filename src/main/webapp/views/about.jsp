@@ -24,14 +24,19 @@
     </div>
 </div>
 <div class="row">
-    <h2>Staff</h2>
-    <h4>Students</h4>
-    <div>Mário Bortoli</div>
-    <div>Kal Lenon</div>
-    <div>Rafael Guimarães</div>
-    <div>Raylan Souza</div>
-    <h2>Professor</h2>
-    <div>Ana Patrícia Fontes Magalhães</div>
+    <h2>People</h2>
+    <div class="col-md-6">
+        <h4>Students</h4>
+        <div>Mário Bortoli</div>
+        <div>Kal Lenon</div>
+        <div>Rafael Guimarães</div>
+        <div>Raylan Souza</div>
+    </div>
+    <div class="col-md-6">
+        <h4>Professor</h4>
+        <div>Ana Patrícia Fontes Magalhães</div>
+    </div>
 </div>
+
 <%@include file="../templates/footer.jspf" %>
 

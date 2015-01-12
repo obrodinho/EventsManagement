@@ -5,7 +5,8 @@
  */
 package org.consultjr.mvc.core.config;
 
-import org.consultjr.mvc.core.security.ApplicationSecurityConfig;
+import org.consultjr.mvc.core.components.ApplicationSessionListener;
+import org.consultjr.mvc.core.config.security.ApplicationSecurityConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -26,7 +27,7 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
     public void onStartup(ServletContext servletContext) throws ServletException {
         WebApplicationContext context = getContext();
         servletContext.addListener(new ContextLoaderListener(context));
-        servletContext.addListener(new SessionListener());
+        servletContext.addListener(new ApplicationSessionListener());
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("DispatcherServlet", new DispatcherServlet(context));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");

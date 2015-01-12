@@ -3,10 +3,11 @@ package org.consultjr.mvc.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.consultjr.mvc.core.base.ApplicationController;
-import org.consultjr.mvc.core.components.ApplicationUtils;
 import org.consultjr.mvc.model.Activity;
 import org.consultjr.mvc.model.Classes;
 import org.consultjr.mvc.model.ClassesSubscription;
@@ -84,7 +85,7 @@ public class ActivityController extends ApplicationController {
     @RequestMapping(value = "/add", method = RequestMethod.POST) // Save Method: POST /PROJECT/Activity/add
     public ModelAndView addActivity(@ModelAttribute Activity activity, BindingResult errors, HttpServletRequest request) {
         if (errors.hasErrors()) {
-            getLogger().info("Binding Error");
+            getLogger().debug("Binding Error");
         }
         ModelAndView modelAndView = new ModelAndView("forward:/Activity/all");
 
@@ -105,7 +106,7 @@ public class ActivityController extends ApplicationController {
         modelAndView.addObject("message", message);
         return modelAndView;
     }
-    
+
     @RequestMapping(value = "/add/{eventId}", method = RequestMethod.GET) // GET: /PROJECT/Activity/add
     public ModelAndView add(@PathVariable Integer eventId) {
         ModelAndView modelAndView = new ModelAndView("Activity/_form");
@@ -118,16 +119,16 @@ public class ActivityController extends ApplicationController {
     }
 
     @RequestMapping(value = "/add/{eventId}", method = RequestMethod.POST) // Save Method: POST /PROJECT/Activity/add
-    public ModelAndView addActivity(@PathVariable Integer eventId ,@ModelAttribute Activity activity, BindingResult errors, HttpServletRequest request) {
+    public ModelAndView addActivity(@PathVariable Integer eventId, @ModelAttribute Activity activity, BindingResult errors, HttpServletRequest request) {
         if (errors.hasErrors()) {
-            getLogger().info("Binding Error");
+            getLogger().debug("Binding Error");
         }
-        ModelAndView modelAndView = new ModelAndView("forward:/Activity/all/"+eventId);
+        ModelAndView modelAndView = new ModelAndView("forward:/Activity/all/" + eventId);
 
         if (activity.getEvent() == null && eventService.getEvents().size() > 1) {
-           activity.setEvent(eventService.getEventById(eventId));
-        }else{
-           activity.setEvent(eventService.getEvents().get(0)); 
+            activity.setEvent(eventService.getEventById(eventId));
+        } else {
+            activity.setEvent(eventService.getEvents().get(0));
         }
         activityService.addActivity(activity);
 
@@ -149,9 +150,6 @@ public class ActivityController extends ApplicationController {
         ModelAndView modelAndView = new ModelAndView("Activity/_form");
         Activity activity = activityService.getActivityById(id);
 
-        activity.setDateStart(ApplicationUtils.FormatDate(activity.getStart()));
-        activity.setDateEnd(ApplicationUtils.FormatDate(activity.getEnd()));
-
         modelAndView.addObject("activity", activity);
         modelAndView.addObject("action", "edit");
         modelAndView.addObject("activityID", activity.getId());
@@ -165,7 +163,7 @@ public class ActivityController extends ApplicationController {
         activityService.updateActivity(activity, id);
         String message = "Activity was successfully edited.";
         modelAndView.addObject("message", message);
-        
+
         return modelAndView;
     }
 
@@ -185,39 +183,39 @@ public class ActivityController extends ApplicationController {
     public ModelAndView allActivities(Principal principal) {
         ModelAndView modelAndView = new ModelAndView("Activity/_list-client");
         List<Activity> activities = activityService.getActivitiesByEventId(1);
-        
+
         if (principal != null) {
-            if (uspService.userHasRole(getLoggedUser().getId(), "admin")){
-                getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
-                 modelAndView = new ModelAndView("Activity/_list-admin");
+            if (uspService.userHasRole(getLoggedUser().getId(), "admin")) {
+                getLogger().debug(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
+                modelAndView = new ModelAndView("Activity/_list-admin");
             }
-            if (uspService.userHasRole(getLoggedUser().getId(), "client")){
-                getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
+            if (uspService.userHasRole(getLoggedUser().getId(), "client")) {
+                getLogger().debug(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
                 modelAndView = new ModelAndView("Activity/_list-client");
             }
         }
         modelAndView.addObject("activities", activities);
         return modelAndView;
     }
-    
+
     @RequestMapping(value = "/all/{eventId}")
     public ModelAndView allActivities(@PathVariable Integer eventId, Principal principal) {
         ModelAndView modelAndView = new ModelAndView("Activity/_list-client");
         List<Activity> activities = activityService.getActivitiesByEventId(eventId);
         if (principal != null) {
-            if (uspService.userHasRole(getLoggedUser().getId(), "admin")){
-                getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
-                 modelAndView = new ModelAndView("Activity/_list-admin");
+            if (uspService.userHasRole(getLoggedUser().getId(), "admin")) {
+                getLogger().debug(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
+                modelAndView = new ModelAndView("Activity/_list-admin");
             }
-            if (uspService.userHasRole(getLoggedUser().getId(), "client")){
-                getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
+            if (uspService.userHasRole(getLoggedUser().getId(), "client")) {
+                getLogger().debug(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
                 modelAndView = new ModelAndView("Activity/_list-client");
             }
         }
         modelAndView.addObject("activities", activities);
         return modelAndView;
     }
-    
+
     @RequestMapping(value = "/subscription")
     public ModelAndView subscriptionActivityMonoEvent() {
         ModelAndView modelAndView = new ModelAndView("Client/_subscription");
@@ -225,10 +223,15 @@ public class ActivityController extends ApplicationController {
         modelAndView.addObject("activities", activities);
         return modelAndView;
     }
-    
+
     @RequestMapping(value = "/addSubscription", method = RequestMethod.POST)
     public ModelAndView addSubscriptionActivity(HttpServletRequest request, Principal principal) {
-        ModelAndView modelAndView = new ModelAndView("forward:/Activity/paymentSubscription");
+        ModelAndView modelAndView = new ModelAndView("redirect:/Activity/paymentSubscription");
+        if (getApplicationObject().supports("Payments") == false) {
+            modelAndView = new ModelAndView("redirect:/");
+            String message = "Activity registration succesfull.";
+            modelAndView.addObject("message", message);
+        }
         List<ClassesSubscription> classesSubscriptionPaymentPending = new ArrayList<>();
         String activityIDS[] = request.getParameterValues("subscribeActivities");
         User user = userService.getUserByUsername(principal.getName());
@@ -240,62 +243,41 @@ public class ActivityController extends ApplicationController {
             classeSubscriptionService.addClassesSubscription(cs);
             classesSubscriptionPaymentPending.add(cs);
         }
-        if(getApplicationObject().supports("Payments") == false){
-            modelAndView = new ModelAndView("forward:/");
-            String message = "Activity registration succesfull.";
-            modelAndView.addObject("message", message);
-        }
-        modelAndView.addObject("classesSubscriptionPaymentPending", classesSubscriptionPaymentPending);
-        modelAndView.addObject("classesSubscriptionPaymentPaid", null);
+
         return modelAndView;
     }
-    
+
     @RequestMapping(value = "/paymentSubscription")
     public ModelAndView payamentSubscriptionActivity(Principal principal) {
         ModelAndView modelAndView = new ModelAndView("Client/_paymentSubscription");
         User user = userService.getUserByUsername(principal.getName());
-        List<ClassesSubscription> classesSubscriptionPaymentPending = new ArrayList<>();
-        List<ClassesSubscription> classesSubscriptionPaymentPaid = new ArrayList<>();
-        List<ClassesSubscription> classesSubscription = classeSubscriptionService.getClassesSubscriptionByUser(user.getId());
-        for (int i=0; i<classesSubscription.size(); i++){
-            if (classesSubscription.get(i).getPayment() != null){
-                if(classesSubscription.get(i).getPayment().getStatus().equals("paid")){
-                    classesSubscriptionPaymentPaid.add(classesSubscription.get(i));
-                } else if(classesSubscription.get(i).getPayment().getStatus().equals("pending")){
-                    classesSubscriptionPaymentPending.add(classesSubscription.get(i));
-                }
-            }
-        }
-        String message = "Activity registration succesfull.";
-        modelAndView.addObject("classesSubscriptionPaymentPending", classesSubscriptionPaymentPending);
-        modelAndView.addObject("classesSubscriptionPaymentPaid", classesSubscriptionPaymentPaid);
-        modelAndView.addObject("message", message);
+        List<Activity> nonPaidActivities = classeSubscriptionService.getNonPaidActivitiesOfUser(user.getId());
+        List<Activity> paidActivities = classeSubscriptionService.getPaidActivitiesOfUser(user.getId());
+
+        Map<Activity, Payment> activitiesPaymentMap = classeSubscriptionService.getNonPaidActivitiesAndPaymentInfoOfUser(user.getId());
+
+        modelAndView.addObject("nonPaidActivities", nonPaidActivities);
+        modelAndView.addObject("paidActivities", paidActivities);
+        modelAndView.addObject("activitiesPaymentMap", activitiesPaymentMap);
         return modelAndView;
     }
-    
-    @RequestMapping(value = "/confirmPayamentSubscription/{id}", method = RequestMethod.GET)
-    public ModelAndView confirmPayamentSubscriptionActivity(@PathVariable Integer id, HttpServletRequest request, Principal principal) {
+
+    @RequestMapping(value = "/confirmPaymentSubscription/{id}", method = RequestMethod.GET)
+    public ModelAndView confirmPaymentSubscriptionActivity(@PathVariable Integer id, HttpServletRequest request, Principal principal) {
         ModelAndView modelAndView = new ModelAndView("Client/_paymentSubscription");
-        
+
         Payment payment = paymentService.getPaymentById(id);
         payment.setStatus("paid");
         payment.setPaid(new Date());
         paymentService.updatePayment(payment, id);
-        
+
         User user = userService.getUserByUsername(principal.getName());
-        List<ClassesSubscription> classesSubscriptionPaymentPending = new ArrayList<>();
-        List<ClassesSubscription> classesSubscriptionPaymentPaid = new ArrayList<>();
-        List<ClassesSubscription> classesSubscription = classeSubscriptionService.getClassesSubscriptionByUser(user.getId());
-        for (int i=0; i<classesSubscription.size(); i++){
-            if(classesSubscription.get(i).getPayment().getStatus().equals("paid")){
-                classesSubscriptionPaymentPaid.add(classesSubscription.get(i));
-            } else if(classesSubscription.get(i).getPayment().getStatus().equals("pending")){
-                classesSubscriptionPaymentPending.add(classesSubscription.get(i));
-            }
-        }
-        String message = "Subscription paid succesfull.";
-        modelAndView.addObject("classesSubscriptionPaymentPending", classesSubscriptionPaymentPending);
-        modelAndView.addObject("classesSubscriptionPaymentPaid", classesSubscriptionPaymentPaid);
+        List<Activity> nonPaidActivities = classeSubscriptionService.getNonPaidActivitiesOfUser(user.getId());
+        List<Activity> paidActivities = classeSubscriptionService.getPaidActivitiesOfUser(user.getId());
+
+        modelAndView.addObject("nonPaidActivities", nonPaidActivities);
+        modelAndView.addObject("paidActivities", paidActivities);
+        String message = "Subscription paid succesfully.";
         modelAndView.addObject("message", message);
         return modelAndView;
     }

@@ -34,11 +34,11 @@ public class ActivityTypeDAO extends ApplicationDAO {
 
     @Transactional
     public ActivityType getActivityTypeById(int id) {
-        this.getLogger().info("Into getActivityTypeById.");
+        this.getLogger().debug("Into getActivityTypeById.");
         ActivityType a = (ActivityType) getSessionFactory().getCurrentSession()
                 .createQuery("from ActivityType where id=:id")
                 .setParameter("id", id).uniqueResult();
-        this.getLogger().info("Grabbed From DB: {}", a.getShortname());
+        this.getLogger().debug("Grabbed From DB: {}", a.getShortname());
         return a;
     }
 

@@ -5,12 +5,12 @@
  */
 package org.consultjr.mvc.core.config;
 
-import org.consultjr.mvc.core.security.ApplicationSecurityConfig;
+import org.consultjr.mvc.core.config.security.ApplicationSecurityConfig;
 import java.util.Properties;
 import org.consultjr.mvc.core.components.ApplicationInterceptor;
-import org.consultjr.mvc.core.formatters.ActivityTypeFormatter;
-import org.consultjr.mvc.core.formatters.DateFormatter;
-import org.consultjr.mvc.core.formatters.UserFormatter;
+import org.consultjr.mvc.core.components.formatters.ActivityTypeFormatter;
+import org.consultjr.mvc.core.components.formatters.DateFormatter;
+import org.consultjr.mvc.core.components.formatters.UserFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -61,7 +61,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //registry.addInterceptor(new ApplicationInterceptor());
+       registry.addInterceptor(new ApplicationInterceptor());
     }
 
     @Override

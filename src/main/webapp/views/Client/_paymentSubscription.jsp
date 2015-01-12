@@ -16,7 +16,7 @@
 </div>
 <form:form method="POST" action="${pageContext.request.contextPath}/Activity/payamentSubscription">
     <table class="table table-bordered table-condensed table-hover">
-        <c:if test="${not empty classesSubscriptionPaymentPending}">
+        <c:if test="${not empty nonPaidActivities}">
         <thead>
             <tr>
                 <th colspan="7">Pending Subscriptions</th>
@@ -34,28 +34,28 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="classesSubscriptionPaymentPending" items="${classesSubscriptionPaymentPending}">
+            <c:forEach var="activity" items="${nonPaidActivities}">
                 <tr>
-                    <td>${classesSubscriptionPaymentPending.classes.activity.title}</td>
-                    <td>${classesSubscriptionPaymentPending.classes.activity.description}</td>
-                    <td>${classesSubscriptionPaymentPending.classes.activity.type.title}</td>
-                    <td>${classesSubscriptionPaymentPending.classes.activity.workload}</td>
-                    <td>${classesSubscriptionPaymentPending.classes.activity.start}</td>
-                    <td>${classesSubscriptionPaymentPending.classes.activity.end}</td>
-                    <td><a href="<c:url value="/Activity/confirmPayamentSubscription/${classesSubscriptionPaymentPending.payment.id}"/>">Pay</a></td>
+                    <td>${activity.title}</td>
+                    <td>${activity.description}</td>
+                    <td>${activity.type.title}</td>
+                    <td>${activity.workload}</td>
+                    <td>${activity.start}</td>
+                    <td>${activity.end}</td>
+                    <td><a class="btn btn-primary btn-embossed" href="<c:url value="/Activity/confirmPaymentSubscription/${activitiesPaymentMap.get(activity).id}"/>">Pay</a></td>
                 </tr>
             </c:forEach>
         </tbody>
         </c:if>
-        <c:if test="${empty classesSubscriptionPaymentPending or classesSubscriptionPaymentPending == null}">
+        <c:if test="${empty nonPaidActivities or nonPaidActivities == null}">
             <tr>
                 <th width="">Pending Subscriptions</th>
             </tr>
-            <td align="center"><b>Not exists pending payments!</b></td>
+            <td align="center"><b>There is no pending payment! Did you made any subscription?</b></td>
         </c:if>
     </table>
     <table class="table table-bordered table-condensed table-hover">
-        <c:if test="${not empty classesSubscriptionPaymentPaid}">
+        <c:if test="${not empty paidActivities}">
         <thead>
             <tr>
                 <th colspan="7">Paid Subscriptions</th>
@@ -73,24 +73,24 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="classesSubscriptionPaymentPaid" items="${classesSubscriptionPaymentPaid}">
+            <c:forEach var="activity" items="${paidActivities}">
                 <tr>
-                    <td>${classesSubscriptionPaymentPaid.classes.activity.title}</td>
-                    <td>${classesSubscriptionPaymentPaid.classes.activity.description}</td>
-                    <td>${classesSubscriptionPaymentPaid.classes.activity.type.title}</td>
-                    <td>${classesSubscriptionPaymentPaid.classes.activity.workload}</td>
-                    <td>${classesSubscriptionPaymentPaid.classes.activity.start}</td>
-                    <td>${classesSubscriptionPaymentPaid.classes.activity.end}</td>
+                    <td>${activity.title}</td>
+                    <td>${activity.description}</td>
+                    <td>${activity.type.title}</td>
+                    <td>${activity.workload}</td>
+                    <td>${activity.start}</td>
+                    <td>${activity.end}</td>
                     <td>Paid</td>
                 </tr>
             </c:forEach>
         </tbody>
         </c:if>
-        <c:if test="${empty classesSubscriptionPaymentPaid or classesSubscriptionPaymentPaid == null}">
+        <c:if test="${empty paidActivities or paidActivities == null}">
             <tr>
                 <th width="">Paid Subscriptions</th>
             </tr>
-            <td align="center"><b>Not exists paid subscriptions!</b></td>
+            <td align="center"><b>No payment was made, or you don't have any subscription!</b></td>
         </c:if>
     </table>
 </form:form>

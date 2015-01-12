@@ -8,12 +8,15 @@ package org.consultjr.mvc.core.components;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map.Entry;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  *
  * @author Rafael
  */
+@Component
+@SessionAttributes("nav")
 public class ApplicationNav {
 
     private List<ApplicationMenu> menus;
@@ -121,4 +124,8 @@ public class ApplicationNav {
         return menuHTML;
     }
 
+    @Override
+    public String toString() {
+        return "ApplicationNav{" + "menus=" + menus + ", html=" + html + '}';
+    }
 }

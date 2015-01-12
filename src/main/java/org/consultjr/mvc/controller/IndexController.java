@@ -41,7 +41,7 @@ public class IndexController extends ApplicationController {
     public ModelAndView index(Principal principal) {
         ModelAndView indexView = new ModelAndView("index");
 
-        getLogger().info("The system is Installed? {}", getApplicationObject().isInstalled());
+        getLogger().debug("The system is Installed? {}", getApplicationObject().isInstalled());
         /* It should be done by an Interceptor or an Aspect*/
         if (!getApplicationObject().isInstalled() /*&& null == principal*/) {
             indexView.setViewName("redirect:/System/install");
@@ -56,24 +56,24 @@ public class IndexController extends ApplicationController {
         if (null != getLoggedUser()) {
             if (!getApplicationObject().supports("Events")) {
                 if (uspService.userHasRole(getLoggedUser().getId(), "admin")) {
-                    getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
+                    getLogger().debug(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
                     ModelAndView modelAndView = new ModelAndView("index-admin-mono");
                     return modelAndView;
                 }
                 if (uspService.userHasRole(getLoggedUser().getId(), "client")) {
-                    getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
+                    getLogger().debug(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
                     ModelAndView modelAndView = new ModelAndView("index-client-mono");
                     return modelAndView;
                 }
 
             } else {
                 if (uspService.userHasRole(getLoggedUser().getId(), "admin")) {
-                    getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
+                    getLogger().debug(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "admin")));
                     ModelAndView modelAndView = new ModelAndView("index-admin-multi");
                     return modelAndView;
                 }
                 if (uspService.userHasRole(getLoggedUser().getId(), "client")) {
-                    getLogger().info(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
+                    getLogger().debug(String.valueOf(uspService.userHasRole(getLoggedUser().getId(), "client")));
                     ModelAndView modelAndView = new ModelAndView("index-client-multi");
                     return modelAndView;
                 }

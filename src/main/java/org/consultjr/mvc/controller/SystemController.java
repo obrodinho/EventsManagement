@@ -84,7 +84,7 @@ public class SystemController extends ApplicationController {
         sysView.addObject("hideFooter", (true));
 
         //sysView.addObject("hideAll", (true)); // hide header is useless.
-        getLogger().info("The system is Installed? {}", getApplicationObject().isInstalled());
+        getLogger().debug("The system is Installed? {}", getApplicationObject().isInstalled());
         if (getApplicationObject().isInstalled()) {
             sysView = new ModelAndView("redirect:/login?alreadyInstalled");
             //sysView.addObject("message", "The system already was installed.");
@@ -137,11 +137,11 @@ public class SystemController extends ApplicationController {
          Our limits is only ours.
          */
         String productType = null;
-        getLogger().info(installKey);
-        getLogger().info(String.valueOf(installKey.length()));
+        getLogger().debug(installKey);
+        getLogger().debug(String.valueOf(installKey.length()));
 
         if (19 == installKey.length()) {
-            List<String> productCapabilities = new ArrayList<String>();
+            List<String> productCapabilities = new ArrayList<>();
             
             String[] keyParts = installKey.split("-");
             

@@ -38,7 +38,7 @@
             <tr>
                 <c:if test="${not empty classesSubscriptionPaymentPending}">
                     <c:forEach var="classesSubscriptionPaymentPending" items="${classesSubscriptionPaymentPending}">
-                        <td width="25%" align="center"><b>${classesSubscriptionPaymentPending.classes.title}</b><br>${classesSubscriptionPaymentPending.classes.activity.description}<br><a href="${pageContext.request.contextPath}/Activity/confirmPayamentSubscription/${classesSubscriptionPaymentPending.payment.id}">Pay</a></td>
+                        <td width="25%" align="center"><b>${classesSubscriptionPaymentPending.classes.title}</b><br>${classesSubscriptionPaymentPending.classes.activity.description}<br><a href="${pageContext.request.contextPath}/Activity/confirmPaymentSubscription/${classesSubscriptionPaymentPending.payment.id}">Pay</a></td>
                     </c:forEach>
                 </c:if>
                 <c:if test="${empty classesSubscriptionPaymentPending}">

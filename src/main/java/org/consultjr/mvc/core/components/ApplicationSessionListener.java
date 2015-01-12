@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.consultjr.mvc.core.config;
+package org.consultjr.mvc.core.components;
 
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSessionListener;
  *
  * @author Rafael
  */
-public class SessionListener implements HttpSessionListener {
+public class ApplicationSessionListener implements HttpSessionListener {
 
     @Override
     public void sessionCreated(HttpSessionEvent event) {
